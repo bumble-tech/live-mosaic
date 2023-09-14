@@ -42,6 +42,7 @@ androidx-test-core = "androidx.test:core:1.5.0"
 androidx-test-utils = "androidx.test.services:test-services:1.4.2"
 appyx-mutable-ui-processor = { module = "com.bumble.appyx:mutable-ui-processor", version.ref = "appyx" }
 appyx-navigation = { module = "com.bumble.appyx:appyx-navigation", version.ref = "appyx" }
+appyx-components-backstack = { module = "com.bumble.appyx:backstack", version.ref = "appyx" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 # compose versions are resolved by BOM

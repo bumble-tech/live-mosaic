@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
 }
 
 kotlin {
@@ -23,9 +24,10 @@ kotlin {
             dependencies {
                 api(compose.runtime)
                 api(compose.foundation)
-                api(compose.material)
+                api(compose.material3)
                 implementation(kotlin("test"))
                 implementation(libs.appyx.navigation)
+                api(libs.appyx.components.backstack)
             }
         }
         val commonTest by getting {
