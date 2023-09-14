@@ -7,7 +7,7 @@ import com.bumble.appyx.interactions.core.model.transition.BaseTransitionModel
 import com.bumble.appyx.navigation.state.SavedStateMap
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 
 class GridPuzzleModel(
@@ -20,16 +20,19 @@ class GridPuzzleModel(
 ) {
 
     enum class PuzzleMode {
-        SCATTERED, ASSEMBLED, FLIPPED
+        SCATTERED, ASSEMBLED, FLIPPED, CAROUSEL
     }
 
     @Parcelize
     data class State(
         val gridRows: Int,
         val gridCols: Int,
-        val puzzleMode: PuzzleMode = ASSEMBLED,
+        val puzzleMode: PuzzleMode = SCATTERED,
         val pieces: Elements<PuzzlePiece> = listOf()
-    ) : Parcelable
+    ) : Parcelable {
+
+        val maxNbElements: Int = gridRows * gridCols
+    }
 
     override val initialState: State by lazy {
         require(pieces.all {

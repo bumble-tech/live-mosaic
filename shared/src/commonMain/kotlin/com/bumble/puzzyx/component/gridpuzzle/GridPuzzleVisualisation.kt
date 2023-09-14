@@ -6,17 +6,22 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.times
 import com.bumble.appyx.interactions.core.ui.context.UiContext
 import com.bumble.appyx.interactions.core.ui.math.smoothstep
+import com.bumble.appyx.interactions.core.ui.property.impl.AngularPosition
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationY
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationZ
+import com.bumble.appyx.interactions.core.ui.property.impl.RoundedCorners
+import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.Center
 import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.fractionAlignment
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside.Target
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseMotionController
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.CAROUSEL
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.FLIPPED
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.State
 import com.bumble.puzzyx.puzzle.PuzzlePiece
+import kotlin.math.min
 import kotlin.random.Random
 
 class GridPuzzleVisualisation(
@@ -33,14 +38,15 @@ class GridPuzzleVisualisation(
         targetUiState.toMutableState(uiContext)
 
     override fun State.toUiTargets(): List<MatchedTargetUiState<PuzzlePiece, TargetUiState>> =
-        pieces.map {
-            val (i, j) = it.interactionTarget
+        pieces.mapIndexed { idx, piece ->
+            val (i, j) = piece.interactionTarget
             MatchedTargetUiState(
-                element = it,
+                element = piece,
                 targetUiState = when (puzzleMode) {
                     SCATTERED -> scattered(i, j)
-                    ASSEMBLED -> assembled(i, j)
-                    FLIPPED -> flipped(i, j)
+                    ASSEMBLED -> assembled(i, j, idx)
+                    FLIPPED -> flipped(i, j, idx)
+                    CAROUSEL -> carousel(i, j, idx)
                 }
             )
         }
@@ -58,27 +64,53 @@ class GridPuzzleVisualisation(
         )
     )
 
-    private fun State.assembled(i: Int, j: Int) = TargetUiState(
-        position = Target(
-            alignment = alignment(i, j)
-        ),
-    )
-
-    private fun State.flipped(i: Int, j: Int) = TargetUiState(
+    private fun State.assembled(i: Int, j: Int, idx: Int) = TargetUiState(
         position = Target(
             alignment = alignment(i, j),
         ),
-        rotationY = RotationY.Target(180f, easing = gridEasing(i, j))
+        angularPosition = AngularPosition.Target(
+            AngularPosition.Value(
+                // Prepares angle as we only want to animate radius later
+                angleDegrees = angle(idx),
+                // Since radius is zero, angle won't just just yet
+                radius = 0f,
+            )
+        )
     )
 
-    private fun State.gridEasing(i: Int, j: Int): Easing = Easing { fraction ->
-        val overlap = 5
-        val unit = 1f / (gridCols + overlap + gridRows)
-        val length = overlap * unit
-        val idx = (i + j * 0.5f)
+    private fun State.flipped(i: Int, j: Int, idx: Int) =
+        assembled(i, j, idx).copy(
+            rotationY = RotationY.Target(180f, easing = gridEasing(i, j)),
+        )
 
-        smoothstep(idx * unit, idx * unit + length, fraction)
+    private fun State.carousel(i: Int, j: Int, idx: Int): TargetUiState {
+        val flipped = flipped(i, j, idx)
+        val maxRings = pieces.size / 30 + 1
+        val targetRing = idx % maxRings + 2
+
+        return flipped.copy(
+            position = Target(Center),
+            rotationZ = RotationZ.Target(
+                (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 3) * 360f
+            ),
+            angularPosition =  AngularPosition.Target(
+                AngularPosition.Value(
+                    // This should be the same as the prepared angle in the assembled state
+                    // as it's not supposed to be animated
+                    angleDegrees = angle(idx),
+                    // This will animate radius from 0 to a new value
+                    radius = targetRing * 0.15f * min(
+                        transitionBounds.widthDp.value,
+                        transitionBounds.heightDp.value
+                    )
+                )
+            ),
+            roundedCorners = RoundedCorners.Target(4),
+        )
     }
+
+    private fun State.angle(idx: Int) =
+        360f * (idx / pieces.size.toFloat())
 
     /**
      * Calculates easing for a single element in the grid such that:

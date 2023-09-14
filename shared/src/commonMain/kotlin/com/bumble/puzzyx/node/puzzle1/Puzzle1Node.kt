@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -30,8 +30,9 @@ import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.navigation.node.node
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzle
 import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
-import com.bumble.puzzyx.component.gridpuzzle.operation.scatter
+import com.bumble.puzzyx.component.gridpuzzle.operation.carousel
 import com.bumble.puzzyx.component.gridpuzzle.operation.flip
+import com.bumble.puzzyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.composable.EntryCard
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.entries.Entry
@@ -98,35 +99,33 @@ class Puzzle1Node(
     @Composable
     override fun View(modifier: Modifier) {
         LaunchedEffect(Unit) {
-//            delay(2500)
-//            gridPuzzle.assemble(
-//                animationSpec = spring(
-//                    stiffness = Spring.StiffnessVeryLow / 30,
-//                    dampingRatio = Spring.DampingRatioNoBouncy
-//                )
-//            )
+            // We can add the scripted state changes here
+            // delay(2500)
+            // gridPuzzle.assemble()
+            // etc.
         }
-        Column(
+        Box(
             modifier = modifier
                 .fillMaxSize()
                 .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AppyxComponent(
                 appyxComponent = gridPuzzle,
                 modifier = Modifier
+                    .align(Alignment.Center)
                     .aspectRatio(1f * gridCols / gridRows)
-                    .fillMaxSize()
                     .background(Color.DarkGray)
             )
-            Controls()
+            Controls(
+                modifier = Modifier.align(BottomCenter)
+            )
         }
     }
 
     @Composable
-    private fun Controls() {
+    private fun Controls(modifier: Modifier) {
         Row(
+            modifier = modifier,
             horizontalArrangement = Arrangement.Center
         ) {
             Button(onClick = { gridPuzzle.scatter() }) {
@@ -137,6 +136,9 @@ class Puzzle1Node(
             }
             Button(onClick = { gridPuzzle.flip(KEYFRAME, tween(10000)) }) {
                 Text("Flip")
+            }
+            Button(onClick = { gridPuzzle.carousel() }) {
+                Text("Carousel")
             }
         }
     }
