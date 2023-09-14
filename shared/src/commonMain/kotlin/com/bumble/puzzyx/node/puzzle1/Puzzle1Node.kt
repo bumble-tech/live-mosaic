@@ -29,6 +29,7 @@ import com.bumble.appyx.navigation.node.node
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzle
 import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
 import com.bumble.puzzyx.component.gridpuzzle.operation.disassemble
+import com.bumble.puzzyx.component.gridpuzzle.operation.flip
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import com.bumble.puzzyx.ui.colors
 import kotlin.random.Random
@@ -116,7 +117,7 @@ class Puzzle1Node(
             Button(onClick = { gridPuzzle.assemble() }) {
                 Text("Assembled")
             }
-            Button(onClick = { gridPuzzle.assemble() }) {
+            Button(onClick = { gridPuzzle.flip() }) {
                 Text("Flipped")
             }
         }

@@ -4,6 +4,7 @@ import androidx.compose.animation.core.SpringSpec
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.times
 import com.bumble.appyx.interactions.core.ui.context.UiContext
+import com.bumble.appyx.interactions.core.ui.property.impl.RotationY
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationZ
 import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.fractionAlignment
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside.Target
@@ -37,7 +38,7 @@ class GridPuzzleVisualisation(
                 targetUiState = when (puzzleMode) {
                     INITIAL -> initial(i, j)
                     ASSEMBLED -> assembled(i, j)
-                    FLIPPED -> assembled(i, j)
+                    FLIPPED -> flipped(i, j)
                 }
             )
         }
@@ -51,13 +52,20 @@ class GridPuzzleVisualisation(
             ),
         ),
         rotationZ = RotationZ.Target(
-            (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 4) * 360f)
+            (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 4) * 360f
+        )
     )
 
     private fun State.assembled(i: Int, j: Int) = TargetUiState(
         position = Target(
             alignment = alignment(i, j)
         ),
+    )
+    private fun State.flipped(i: Int, j: Int) = TargetUiState(
+        position = Target(
+            alignment = alignment(i, j),
+        ),
+        rotationY = RotationY.Target(180f)
     )
 
     private fun State.alignment(
