@@ -15,6 +15,8 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.bumble.appyx.navigation.integration.DesktopNodeHost
 import com.bumble.puzzyx.node.app.PuzzyxAppNode
+import com.bumble.puzzyx.ui.PuzzyxTheme
+import com.bumble.puzzyx.ui.appyx_dark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -36,10 +38,10 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         onKeyEvent = { onKeyEvent(it, events, eventScope) },
     ) {
-        MaterialTheme {
+        PuzzyxTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colors.background
+                color = appyx_dark
             ) {
                 DesktopNodeHost(
                     windowState = windowState,
