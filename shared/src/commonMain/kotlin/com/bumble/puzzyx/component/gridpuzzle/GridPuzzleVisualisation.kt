@@ -1,7 +1,6 @@
 package com.bumble.puzzyx.component.gridpuzzle
 
 import androidx.compose.animation.core.Easing
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.SpringSpec
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.times
@@ -15,7 +14,7 @@ import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseMotionController
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.FLIPPED
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.INITIAL
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.State
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import kotlin.random.Random
@@ -39,14 +38,14 @@ class GridPuzzleVisualisation(
             MatchedTargetUiState(
                 element = it,
                 targetUiState = when (puzzleMode) {
-                    INITIAL -> initial(i, j)
+                    SCATTERED -> scattered(i, j)
                     ASSEMBLED -> assembled(i, j)
                     FLIPPED -> flipped(i, j)
                 }
             )
         }
 
-    private fun State.initial(i: Int, j: Int) = TargetUiState(
+    private fun State.scattered(i: Int, j: Int) = TargetUiState(
         position = Target(
             alignment = alignment(i, j),
             offset = DpOffset(

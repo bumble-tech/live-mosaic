@@ -8,7 +8,6 @@ import com.bumble.appyx.navigation.state.SavedStateMap
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.INITIAL
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 
 class GridPuzzleModel(
@@ -21,7 +20,7 @@ class GridPuzzleModel(
 ) {
 
     enum class PuzzleMode {
-        INITIAL, ASSEMBLED, FLIPPED
+        SCATTERED, ASSEMBLED, FLIPPED
     }
 
     @Parcelize

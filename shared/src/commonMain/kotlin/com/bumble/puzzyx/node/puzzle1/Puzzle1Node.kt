@@ -21,7 +21,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.interactions.core.model.transition.Operation.Mode.KEYFRAME
 import com.bumble.appyx.navigation.composable.AppyxComponent
@@ -31,7 +30,7 @@ import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.navigation.node.node
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzle
 import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
-import com.bumble.puzzyx.component.gridpuzzle.operation.disassemble
+import com.bumble.puzzyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.component.gridpuzzle.operation.flip
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.puzzle.PuzzlePiece
@@ -132,14 +131,14 @@ class Puzzle1Node(
         Row(
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { gridPuzzle.disassemble() }) {
-                Text("Initial")
+            Button(onClick = { gridPuzzle.scatter() }) {
+                Text("Scatter")
             }
             Button(onClick = { gridPuzzle.assemble() }) {
-                Text("Assembled")
+                Text("Assemble")
             }
             Button(onClick = { gridPuzzle.flip(KEYFRAME, tween(10000)) }) {
-                Text("Flipped")
+                Text("Flip")
             }
         }
     }
