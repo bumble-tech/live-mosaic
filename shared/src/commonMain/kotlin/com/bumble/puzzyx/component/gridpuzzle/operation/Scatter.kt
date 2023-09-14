@@ -9,7 +9,7 @@ import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.State
 
 @Parcelize
-class Disassemble(
+class Scatter(
     override var mode: Operation.Mode
 ) : BaseOperation<State>() {
 
@@ -29,5 +29,5 @@ fun GridPuzzle.scatter(
     mode: Operation.Mode = Operation.Mode.IMMEDIATE,
     animationSpec: AnimationSpec<Float>? = null
 ) {
-    operation(operation = Disassemble(mode), animationSpec = animationSpec)
+    operation(operation = Scatter(mode), animationSpec = animationSpec)
 }
