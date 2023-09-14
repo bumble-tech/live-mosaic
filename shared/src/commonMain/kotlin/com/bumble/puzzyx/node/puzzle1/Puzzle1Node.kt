@@ -40,7 +40,7 @@ private val gridCols = 16 // TODO get rid of this, move width into TargetUiState
 private val gridRows = 9 // TODO get rid of this, move width into TargetUiState
 
 private val animationSpec = spring<Float>(
-    stiffness = Spring.StiffnessVeryLow / 5,
+    stiffness = Spring.StiffnessVeryLow / 15,
     dampingRatio = Spring.DampingRatioNoBouncy
 )
 
@@ -75,16 +75,17 @@ class Puzzle1Node(
                     .fillMaxHeight(1f / gridRows)
             ) {
                 FlashCard(
-                    front = {
-                        Box(modifier = Modifier
+                    flash = Color.White,
+                    front = { modifier ->
+                        Box(modifier = modifier
                             .fillMaxSize()
                             .background(color)
                         ) {
                             Text("${interactionTarget.i},${interactionTarget.j}")
                         }
                     },
-                    back = {
-                        Box(modifier = Modifier
+                    back = { modifier ->
+                        Box(modifier = modifier
                             .fillMaxSize()
                             .background(Color.Gray)
                         ) {

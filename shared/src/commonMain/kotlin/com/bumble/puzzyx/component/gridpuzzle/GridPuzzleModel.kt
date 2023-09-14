@@ -7,6 +7,7 @@ import com.bumble.appyx.interactions.core.model.transition.BaseTransitionModel
 import com.bumble.appyx.navigation.state.SavedStateMap
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.INITIAL
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 
@@ -27,7 +28,7 @@ class GridPuzzleModel(
     data class State(
         val gridRows: Int,
         val gridCols: Int,
-        val puzzleMode: PuzzleMode = INITIAL,
+        val puzzleMode: PuzzleMode = ASSEMBLED,
         val pieces: Elements<PuzzlePiece> = listOf()
     ) : Parcelable
 
