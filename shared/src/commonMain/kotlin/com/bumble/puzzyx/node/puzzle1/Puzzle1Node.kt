@@ -28,6 +28,7 @@ import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.navigation.node.node
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzle
 import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
+import com.bumble.puzzyx.component.gridpuzzle.operation.disassemble
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import com.bumble.puzzyx.ui.colors
 import kotlinx.coroutines.delay
@@ -104,7 +105,7 @@ class Puzzle1Node(
         Row(
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { gridPuzzle.assemble() }) {
+            Button(onClick = { gridPuzzle.disassemble() }) {
                 Text("Initial")
             }
             Button(onClick = { gridPuzzle.assemble() }) {
