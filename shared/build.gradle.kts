@@ -24,7 +24,7 @@ kotlin {
             dependencies {
                 api(compose.runtime)
                 api(compose.foundation)
-                api(compose.material)
+                api(compose.material3)
                 implementation(kotlin("test"))
                 implementation(libs.appyx.navigation)
             }
