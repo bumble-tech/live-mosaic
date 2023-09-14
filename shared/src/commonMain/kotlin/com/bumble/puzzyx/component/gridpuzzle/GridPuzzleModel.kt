@@ -31,12 +31,17 @@ class GridPuzzleModel(
         val pieces: Elements<PuzzlePiece> = listOf()
     ) : Parcelable
 
-    override val initialState: State =
+    override val initialState: State by lazy {
+        require(pieces.all {
+            it.i in 0 until gridCols && it.j in 0 until gridRows
+        })
+
         State(
             gridRows = gridRows,
             gridCols = gridCols,
             pieces = pieces.asElements()
         )
+    }
 
     override fun State.availableElements(): Set<Element<PuzzlePiece>> =
         pieces.toSet()
