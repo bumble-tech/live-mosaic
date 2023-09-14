@@ -20,6 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.composable.AppyxComponent
 import com.bumble.appyx.navigation.modality.BuildContext
@@ -30,6 +31,7 @@ import com.bumble.puzzyx.component.gridpuzzle.GridPuzzle
 import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
 import com.bumble.puzzyx.component.gridpuzzle.operation.disassemble
 import com.bumble.puzzyx.component.gridpuzzle.operation.flip
+import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import com.bumble.puzzyx.ui.colors
 import kotlin.random.Random
@@ -71,9 +73,25 @@ class Puzzle1Node(
                 modifier = modifier
                     .fillMaxWidth(1f / gridCols)
                     .fillMaxHeight(1f / gridRows)
-                    .background(color)
             ) {
-                Text("${interactionTarget.i},${interactionTarget.j}")
+                FlashCard(
+                    front = {
+                        Box(modifier = Modifier
+                            .fillMaxSize()
+                            .background(color)
+                        ) {
+                            Text("${interactionTarget.i},${interactionTarget.j}")
+                        }
+                    },
+                    back = {
+                        Box(modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Gray)
+                        ) {
+                            Text("Yay!")
+                        }
+                    }
+                )
             }
         }
 
