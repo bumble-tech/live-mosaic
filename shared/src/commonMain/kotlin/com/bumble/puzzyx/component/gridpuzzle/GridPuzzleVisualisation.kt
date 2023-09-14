@@ -1,5 +1,6 @@
 package com.bumble.puzzyx.component.gridpuzzle
 
+import androidx.compose.animation.core.SpringSpec
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.times
 import com.bumble.appyx.interactions.core.ui.context.UiContext
@@ -14,12 +15,13 @@ import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.INITIAL
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.State
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import kotlin.random.Random
-import kotlin.random.Random.Default
 
 class GridPuzzleVisualisation(
-    private val uiContext: UiContext
+    private val uiContext: UiContext,
+    defaultAnimationSpec: SpringSpec<Float>
 ) : BaseMotionController<PuzzlePiece, State, MutableUiState, TargetUiState>(
-    uiContext = uiContext
+    uiContext = uiContext,
+    defaultAnimationSpec = defaultAnimationSpec
 ) {
     override fun mutableUiStateFor(
         uiContext: UiContext,

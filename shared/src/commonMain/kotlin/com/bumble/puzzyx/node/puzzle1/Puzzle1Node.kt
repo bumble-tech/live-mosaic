@@ -31,11 +31,15 @@ import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
 import com.bumble.puzzyx.component.gridpuzzle.operation.disassemble
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import com.bumble.puzzyx.ui.colors
-import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 private val gridCols = 16 // TODO get rid of this, move width into TargetUiState
 private val gridRows = 9 // TODO get rid of this, move width into TargetUiState
+
+private val animationSpec = spring<Float>(
+    stiffness = Spring.StiffnessVeryLow / 5,
+    dampingRatio = Spring.DampingRatioNoBouncy
+)
 
 class Puzzle1Node(
     buildContext: BuildContext,
@@ -50,6 +54,7 @@ class Puzzle1Node(
 //            PuzzlePiece(0, 1, "Puzzle piece 0, 1"),
 //        ),
         savedStateMap = buildContext.savedStateMap,
+        defaultAnimationSpec = animationSpec
     )
 ) : ParentNode<PuzzlePiece>(
     buildContext = buildContext,
@@ -74,13 +79,13 @@ class Puzzle1Node(
     @Composable
     override fun View(modifier: Modifier) {
         LaunchedEffect(Unit) {
-            delay(2500)
-            gridPuzzle.assemble(
-                animationSpec = spring(
-                    stiffness = Spring.StiffnessVeryLow / 30,
-                    dampingRatio = Spring.DampingRatioNoBouncy
-                )
-            )
+//            delay(2500)
+//            gridPuzzle.assemble(
+//                animationSpec = spring(
+//                    stiffness = Spring.StiffnessVeryLow / 30,
+//                    dampingRatio = Spring.DampingRatioNoBouncy
+//                )
+//            )
         }
         Column(
             modifier = modifier
