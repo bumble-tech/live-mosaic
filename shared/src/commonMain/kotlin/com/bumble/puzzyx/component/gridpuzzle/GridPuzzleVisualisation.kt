@@ -80,13 +80,56 @@ class GridPuzzleVisualisation(
         smoothstep(idx * unit, idx * unit + length, fraction)
     }
 
-    private fun State.sequentialEasing(i: Int, j: Int): Easing = Easing { fraction ->
+    /**
+     * Calculates easing for a single element in the grid such that:
+     * - The [Easing] maps inputs of 0..1f to another range of 0..1f,
+     * - Transitioning 0 -> 1 in our case is achieved with [smoothstep]:
+     *      - https://en.wikipedia.org/wiki/Smoothstep
+     * - Initially the easing stays on 0f for a delayed time.
+     *      - This is the first parameter passed to the [smoothstep] function
+     *      - This is calculated based on the element's position in the grid (i, j).
+     * - After reaching 1, it stays there.
+     *      - When the easing reaches 1f is determined by the second parameter
+     *        passed to [smoothstep].
+     *
+     * The entire range is always 0..1f (the total time is determined by the tween itself,
+     * not this number);
+     * The more elements we have the smaller proportion of this range will be allocated to each.
+     * We need to slice up the range to units proportional to the total number of columns:
+     *
+     * val unit = 1f / gridCols
+     *
+     * Additionally we want some amount of overlap in animations:
+     * x x x x x
+     *   x x x x x
+     *     x x x x x
+     *       x x x x x
+     *         x x x x x
+     *
+     * Where x = 1 unit, and the counts of x is the overlap value.
+     * This gives us an animation length = overlap * unit for one element.
+     *
+     * Lastly, we calculate a startIdx to determine the element's starting point by:
+     * - The more it is to the right (value of i) the more it is delayed
+     * - The ore it is to the bottom (value of j) the more it is delayed
+     *
+     * And because we have some delay for finishing the animation of a individual element (both
+     * coming from overlap size and their rows), this is accounted for in the unit size too.
+     */
+    private fun State.gridEasing(i: Int, j: Int): Easing = Easing { fraction ->
         val overlap = 5
-        val unit = 1f / (gridRows * gridCols + overlap)
+        val unit = 1f / (gridCols + overlap + gridRows)
         val length = overlap * unit
-        val idx = (j * gridRows + i).toFloat()
+        val startIdx = (i + j * 0.5f)
 
-        smoothstep(idx * unit, idx * unit + length, fraction)
+        smoothstep(
+            // When to begin transitioning towards 1f
+            startIdx * unit,
+            // When to reach 1f
+            startIdx * unit + length,
+            // The received input of 0..1 of the overall transition progress
+            fraction
+        )
     }
 
     private fun State.alignment(
