@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
 }
 
 kotlin {
