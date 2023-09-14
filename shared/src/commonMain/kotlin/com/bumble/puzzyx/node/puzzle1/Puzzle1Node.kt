@@ -3,12 +3,16 @@ package com.bumble.puzzyx.node.puzzle1
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -69,6 +73,7 @@ class Puzzle1Node(
     @Composable
     override fun View(modifier: Modifier) {
         LaunchedEffect(Unit) {
+            delay(2500)
             gridPuzzle.assemble(
                 animationSpec = spring(
                     stiffness = Spring.StiffnessVeryLow / 30,
@@ -76,19 +81,38 @@ class Puzzle1Node(
                 )
             )
         }
-        Box(
+        Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(24.dp)
+                .padding(24.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AppyxComponent(
                 appyxComponent = gridPuzzle,
                 modifier = Modifier
-                    .align(Alignment.Center)
                     .aspectRatio(1f * gridCols / gridRows)
                     .fillMaxSize()
                     .background(Color.DarkGray)
             )
+            Controls()
+        }
+    }
+
+    @Composable
+    private fun Controls() {
+        Row(
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(onClick = { gridPuzzle.assemble() }) {
+                Text("Initial")
+            }
+            Button(onClick = { gridPuzzle.assemble() }) {
+                Text("Assembled")
+            }
+            Button(onClick = { gridPuzzle.assemble() }) {
+                Text("Flipped")
+            }
         }
     }
 }
