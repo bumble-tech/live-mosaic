@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
+    id("com.google.devtools.ksp")
 }
 
 kotlin {
@@ -45,4 +46,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", libs.appyx.mutable.ui.processor)
+    add("kspAndroid", libs.appyx.mutable.ui.processor)
+    add("kspDesktop", libs.appyx.mutable.ui.processor)
 }

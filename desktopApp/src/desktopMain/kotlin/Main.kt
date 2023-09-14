@@ -9,9 +9,8 @@ import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.bumble.appyx.navigation.integration.DesktopNodeHost
@@ -30,7 +29,7 @@ sealed class Events {
 
 fun main() = application {
     val events: Channel<Events> = Channel()
-    val windowState = rememberWindowState(size = DpSize(640.dp, 480.dp))
+    val windowState = rememberWindowState(placement = WindowPlacement.Fullscreen)
     val eventScope = remember { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
     Window(
         state = windowState,
