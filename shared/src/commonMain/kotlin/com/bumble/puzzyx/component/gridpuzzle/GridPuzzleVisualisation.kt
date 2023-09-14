@@ -1,10 +1,7 @@
 package com.bumble.puzzyx.component.gridpuzzle
 
 import com.bumble.appyx.interactions.core.ui.context.UiContext
-import com.bumble.appyx.interactions.core.ui.property.impl.Height
-import com.bumble.appyx.interactions.core.ui.property.impl.Width
-import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment
-import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion
+import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.fractionAlignment
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseMotionController
@@ -22,14 +19,18 @@ class GridPuzzleVisualisation(
     ): MutableUiState =
         targetUiState.toMutableState(uiContext)
 
-    override fun GridPuzzleModel.State.toUiTargets(): List<MatchedTargetUiState<PuzzlePiece, TargetUiState>> =
+    override fun State.toUiTargets(): List<MatchedTargetUiState<PuzzlePiece, TargetUiState>> =
         pieces.map {
+            val (i, j) = it.interactionTarget
             MatchedTargetUiState(
                 element = it,
                 targetUiState = TargetUiState(
-                    position = PositionInside.Target(InsideAlignment.Center),
-                    width = Width.Target(0.1f),
-                    height = Height.Target(0.1f),
+                    position = PositionInside.Target(fractionAlignment(
+                        horizontalBiasFraction = i * (1f / (gridRows - 1)),
+                        verticalBiasFraction = j * (1f / (gridCols - 1))
+                    )),
+//                    width = Width.Target(1f / gridRows),
+//                    height = Height.Target(1f / gridRows),
                 )
             )
         }

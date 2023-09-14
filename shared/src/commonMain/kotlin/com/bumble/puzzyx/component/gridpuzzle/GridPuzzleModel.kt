@@ -10,15 +10,14 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.INITIAL
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 
-class GridPuzzleModel : BaseTransitionModel<PuzzlePiece, GridPuzzleModel.State> {
-
-    constructor(savedStateMap: SavedStateMap? = null, pieces: List<PuzzlePiece>) : super(
-        savedStateMap = savedStateMap
-    ) {
-        this.initialState = State(
-            pieces = pieces.asElements()
-        )
-    }
+class GridPuzzleModel(
+    savedStateMap: SavedStateMap? = null,
+    gridRows: Int,
+    gridCols: Int,
+    pieces: List<PuzzlePiece>
+) : BaseTransitionModel<PuzzlePiece, GridPuzzleModel.State>(
+    savedStateMap = savedStateMap
+) {
 
     enum class PuzzleMode {
         INITIAL, ASSEMBLED, FLIPPED
@@ -26,11 +25,18 @@ class GridPuzzleModel : BaseTransitionModel<PuzzlePiece, GridPuzzleModel.State> 
 
     @Parcelize
     data class State(
+        val gridRows: Int,
+        val gridCols: Int,
         val puzzleMode: PuzzleMode = INITIAL,
         val pieces: Elements<PuzzlePiece> = listOf()
     ) : Parcelable
 
-    override val initialState: State
+    override val initialState: State =
+        State(
+            gridRows = gridRows,
+            gridCols = gridCols,
+            pieces = pieces.asElements()
+        )
 
     override fun State.availableElements(): Set<Element<PuzzlePiece>> =
         pieces.toSet()
