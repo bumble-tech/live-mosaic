@@ -1,7 +1,6 @@
 package com.bumble.appyx.puzzyx.android
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,7 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import com.bumble.appyx.navigation.integration.NodeActivity
 import com.bumble.appyx.navigation.integration.NodeHost
 import com.bumble.appyx.navigation.platform.AndroidLifecycle
-import com.bumble.appyx.puzzyx.PuzzyxNode
+import com.bumble.puzzyx.node.app.PuzzyxAppNode
 
 @ExperimentalUnitApi
 @ExperimentalAnimationApi
@@ -32,7 +31,7 @@ class MainActivity : NodeActivity() {
                         lifecycle = AndroidLifecycle(LocalLifecycleOwner.current.lifecycle),
                         integrationPoint = appyxV2IntegrationPoint,
                     ) {
-                        PuzzyxNode(
+                        PuzzyxAppNode(
                             buildContext = it,
                         )
                     }

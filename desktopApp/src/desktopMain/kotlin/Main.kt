@@ -14,7 +14,7 @@ import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.bumble.appyx.navigation.integration.DesktopNodeHost
-import com.bumble.appyx.puzzyx.PuzzyxNode
+import com.bumble.puzzyx.node.app.PuzzyxAppNode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -47,7 +47,7 @@ fun main() = application {
                         if (it is Events.OnBackPressed) Unit else null
                     }
                 ) { buildContext ->
-                    PuzzyxNode(
+                    PuzzyxAppNode(
                         buildContext = buildContext,
                     )
                 }
