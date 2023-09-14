@@ -32,7 +32,9 @@ import com.bumble.puzzyx.component.gridpuzzle.GridPuzzle
 import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
 import com.bumble.puzzyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.component.gridpuzzle.operation.flip
+import com.bumble.puzzyx.composable.EntryCard
 import com.bumble.puzzyx.composable.FlashCard
+import com.bumble.puzzyx.entries.Entry
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import com.bumble.puzzyx.ui.colors
 import kotlin.random.Random
@@ -51,12 +53,8 @@ class Puzzle1Node(
         gridRows = gridRows,
         gridCols = gridCols,
         pieces = IntRange(0, gridRows * gridCols - 1).map {
-            PuzzlePiece(it % gridCols, it / gridCols, "Puzzle piece 0, 0")
-        },
-//            listOf(
-//            PuzzlePiece(0, 0, "Puzzle piece 0, 0"),
-//            PuzzlePiece(0, 1, "Puzzle piece 0, 1"),
-//        ),
+            PuzzlePiece(it % gridCols, it / gridCols, Entry())
+        }.shuffled(),//.take(37), // TODO To test only a subset of elements, uncomment .take
         savedStateMap = buildContext.savedStateMap,
         defaultAnimationSpec = animationSpec
     )
@@ -65,9 +63,9 @@ class Puzzle1Node(
     appyxComponent = gridPuzzle
 ) {
 
-    override fun resolve(interactionTarget: PuzzlePiece, buildContext: BuildContext): Node =
+    override fun resolve(puzzlePiece: PuzzlePiece, buildContext: BuildContext): Node =
         node(buildContext) { modifier ->
-            val colorIdx = rememberSaveable(interactionTarget) { Random.nextInt(colors.size) }
+            val colorIdx = rememberSaveable(puzzlePiece) { Random.nextInt(colors.size) }
             val color = colors[colorIdx]
 
             Box(
@@ -82,16 +80,16 @@ class Puzzle1Node(
                             .fillMaxSize()
                             .background(color)
                         ) {
-                            Text("${interactionTarget.i},${interactionTarget.j}")
+                            Text("${puzzlePiece.i},${puzzlePiece.j}")
                         }
                     },
                     back = { modifier ->
-                        Box(modifier = modifier
-                            .fillMaxSize()
-                            .background(Color.Cyan)
-                        ) {
-                            Text("Yay!")
-                        }
+                        EntryCard(
+                            modifier = modifier
+                                .fillMaxSize()
+                                .background(color) ,
+                            puzzlePiece.entry
+                        )
                     }
                 )
             }
