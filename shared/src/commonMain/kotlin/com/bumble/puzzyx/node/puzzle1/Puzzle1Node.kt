@@ -2,6 +2,7 @@ package com.bumble.puzzyx.node.puzzle1
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion
 import androidx.compose.ui.unit.dp
+import com.bumble.appyx.interactions.core.model.transition.Operation.Mode.KEYFRAME
 import com.bumble.appyx.navigation.composable.AppyxComponent
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
@@ -87,7 +89,7 @@ class Puzzle1Node(
                     back = { modifier ->
                         Box(modifier = modifier
                             .fillMaxSize()
-                            .background(Color.Gray)
+                            .background(Color.Cyan)
                         ) {
                             Text("Yay!")
                         }
@@ -136,7 +138,7 @@ class Puzzle1Node(
             Button(onClick = { gridPuzzle.assemble() }) {
                 Text("Assembled")
             }
-            Button(onClick = { gridPuzzle.flip() }) {
+            Button(onClick = { gridPuzzle.flip(KEYFRAME, tween(10000)) }) {
                 Text("Flipped")
             }
         }
