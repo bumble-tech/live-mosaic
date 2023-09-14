@@ -27,6 +27,7 @@ kotlin {
                 api(compose.material3)
                 implementation(kotlin("test"))
                 implementation(libs.appyx.navigation)
+                api(libs.appyx.components.backstack)
             }
         }
         val commonTest by getting {
