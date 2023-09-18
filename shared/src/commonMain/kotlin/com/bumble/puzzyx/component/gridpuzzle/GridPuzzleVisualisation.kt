@@ -1,0 +1,174 @@
+package com.bumble.puzzyx.component.gridpuzzle
+
+import androidx.compose.animation.core.Easing
+import androidx.compose.animation.core.SpringSpec
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.times
+import com.bumble.appyx.interactions.core.ui.context.UiContext
+import com.bumble.appyx.interactions.core.ui.math.smoothstep
+import com.bumble.appyx.interactions.core.ui.property.impl.AngularPosition
+import com.bumble.appyx.interactions.core.ui.property.impl.RotationY
+import com.bumble.appyx.interactions.core.ui.property.impl.RotationZ
+import com.bumble.appyx.interactions.core.ui.property.impl.RoundedCorners
+import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.Center
+import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.fractionAlignment
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside.Target
+import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
+import com.bumble.appyx.transitionmodel.BaseMotionController
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.CAROUSEL
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.FLIPPED
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
+import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.State
+import com.bumble.puzzyx.puzzle.PuzzlePiece
+import kotlin.math.min
+import kotlin.random.Random
+
+class GridPuzzleVisualisation(
+    private val uiContext: UiContext,
+    defaultAnimationSpec: SpringSpec<Float>
+) : BaseMotionController<PuzzlePiece, State, MutableUiState, TargetUiState>(
+    uiContext = uiContext,
+    defaultAnimationSpec = defaultAnimationSpec
+) {
+    override fun mutableUiStateFor(
+        uiContext: UiContext,
+        targetUiState: TargetUiState
+    ): MutableUiState =
+        targetUiState.toMutableState(uiContext)
+
+    override fun State.toUiTargets(): List<MatchedTargetUiState<PuzzlePiece, TargetUiState>> =
+        pieces.mapIndexed { idx, piece ->
+            val (i, j) = piece.interactionTarget
+            MatchedTargetUiState(
+                element = piece,
+                targetUiState = when (puzzleMode) {
+                    SCATTERED -> scattered(i, j)
+                    ASSEMBLED -> assembled(i, j, idx)
+                    FLIPPED -> flipped(i, j, idx)
+                    CAROUSEL -> carousel(i, j, idx)
+                }
+            )
+        }
+
+    private fun State.scattered(i: Int, j: Int) = TargetUiState(
+        position = Target(
+            alignment = alignment(i, j),
+            offset = DpOffset(
+                x = (i - (gridCols - 1) / 2f) * Random.nextInt(3,9) * 0.5f * transitionBounds.widthDp,
+                y = (j - (gridRows - 1) / 2f) * Random.nextInt(3,9) * 0.5f * transitionBounds.heightDp,
+            ),
+        ),
+        rotationZ = RotationZ.Target(
+            (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 4) * 360f
+        )
+    )
+
+    private fun State.assembled(i: Int, j: Int, idx: Int) = TargetUiState(
+        position = Target(
+            alignment = alignment(i, j),
+        ),
+        angularPosition = AngularPosition.Target(
+            AngularPosition.Value(
+                // Prepares angle as we only want to animate radius later
+                angleDegrees = angle(idx),
+                // Since radius is zero, angle won't just just yet
+                radius = 0f,
+            )
+        )
+    )
+
+    private fun State.flipped(i: Int, j: Int, idx: Int) =
+        assembled(i, j, idx).copy(
+            rotationY = RotationY.Target(180f, easing = gridEasing(i, j)),
+        )
+
+    private fun State.carousel(i: Int, j: Int, idx: Int): TargetUiState {
+        val flipped = flipped(i, j, idx)
+        val maxRings = pieces.size / 30 + 1
+        val targetRing = idx % maxRings + 2
+
+        return flipped.copy(
+            position = Target(Center),
+            rotationZ = RotationZ.Target(
+                (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 3) * 360f
+            ),
+            angularPosition =  AngularPosition.Target(
+                AngularPosition.Value(
+                    // This should be the same as the prepared angle in the assembled state
+                    // as it's not supposed to be animated
+                    angleDegrees = angle(idx),
+                    // This will animate radius from 0 to a new value
+                    radius = targetRing * 0.15f * min(
+                        transitionBounds.widthDp.value,
+                        transitionBounds.heightDp.value
+                    )
+                )
+            ),
+            roundedCorners = RoundedCorners.Target(4),
+        )
+    }
+
+    private fun State.angle(idx: Int) =
+        360f * (idx / pieces.size.toFloat())
+
+    /**
+     * Calculates easing for a single element in the grid such that:
+     * - The [Easing] maps inputs of 0..1f to another range of 0..1f,
+     * - Transitioning 0 -> 1 in our case is achieved with [smoothstep]:
+     *      - https://en.wikipedia.org/wiki/Smoothstep
+     * - Initially the easing stays on 0f for a delayed time.
+     *      - This is the first parameter passed to the [smoothstep] function
+     *      - This is calculated based on the element's position in the grid (i, j).
+     * - After reaching 1, it stays there.
+     *      - When the easing reaches 1f is determined by the second parameter
+     *        passed to [smoothstep].
+     *
+     * The entire range is always 0..1f (the total time is determined by the tween itself,
+     * not this number);
+     * The more elements we have the smaller proportion of this range will be allocated to each.
+     * We need to slice up the range to units proportional to the total number of columns:
+     *
+     * val unit = 1f / gridCols
+     *
+     * Additionally we want some amount of overlap in animations:
+     * x x x x x
+     *   x x x x x
+     *     x x x x x
+     *       x x x x x
+     *         x x x x x
+     *
+     * Where x = 1 unit, and the counts of x is the overlap value.
+     * This gives us an animation length = overlap * unit for one element.
+     *
+     * Lastly, we calculate a startIdx to determine the element's starting point by:
+     * - The more it is to the right (value of i) the more it is delayed
+     * - The ore it is to the bottom (value of j) the more it is delayed
+     *
+     * And because we have some delay for finishing the animation of a individual element (both
+     * coming from overlap size and their rows), this is accounted for in the unit size too.
+     */
+    private fun State.gridEasing(i: Int, j: Int): Easing = Easing { fraction ->
+        val overlap = 5
+        val unit = 1f / (gridCols + overlap + gridRows)
+        val length = overlap * unit
+        val startIdx = (i + j * 0.5f)
+
+        smoothstep(
+            // When to begin transitioning towards 1f
+            startIdx * unit,
+            // When to reach 1f
+            startIdx * unit + length,
+            // The received input of 0..1 of the overall transition progress
+            fraction
+        )
+    }
+
+    private fun State.alignment(
+        i: Int,
+        j: Int
+    ) = fractionAlignment(
+        horizontalBiasFraction = i * (1f / (gridCols - 1)),
+        verticalBiasFraction = j * (1f / (gridRows - 1))
+    )
+}
