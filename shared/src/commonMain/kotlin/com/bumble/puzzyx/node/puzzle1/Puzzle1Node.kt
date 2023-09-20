@@ -37,6 +37,7 @@ import com.bumble.puzzyx.composable.EntryCard
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.entries.Entry
 import com.bumble.puzzyx.puzzle.PuzzlePiece
+import com.bumble.puzzyx.ui.appyx_dark
 import com.bumble.puzzyx.ui.colors
 import kotlin.random.Random
 
@@ -107,6 +108,7 @@ class Puzzle1Node(
         Box(
             modifier = modifier
                 .fillMaxSize()
+                .background(appyx_dark)
                 .padding(24.dp),
         ) {
             AppyxComponent(
