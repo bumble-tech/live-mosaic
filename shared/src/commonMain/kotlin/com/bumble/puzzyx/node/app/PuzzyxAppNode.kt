@@ -32,7 +32,7 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.component.canvasfader.BackStackCanvasFader
-import com.bumble.puzzyx.component.canvasfader.CanvasProgress
+import com.bumble.puzzyx.component.canvasfader.ClientTransitionProgress
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
 import com.bumble.puzzyx.ui.DottedMeshShape
@@ -89,13 +89,13 @@ class PuzzyxAppNode(
             modifier = Modifier.fillMaxSize()
         ) {
             children { child, elementUiModel ->
-                val canvasProgress = motionPropertyRenderValue<Float, CanvasProgress>() ?: 0f
+                val clientTransitionProgress = motionPropertyRenderValue<Float, ClientTransitionProgress>() ?: 0f
 
                 child(
                     modifier = Modifier
                         .then(
-                            if (canvasProgress == 0f) Modifier else Modifier.clip(
-                                ClipShape(canvasProgress)
+                            if (clientTransitionProgress == 0f) Modifier else Modifier.clip(
+                                ClipShape(clientTransitionProgress)
                             )
                         )
                 )

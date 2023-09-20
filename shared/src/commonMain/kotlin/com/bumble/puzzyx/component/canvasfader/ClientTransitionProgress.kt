@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class CanvasProgress(
+class ClientTransitionProgress(
     coroutineScope: CoroutineScope,
     target: Target,
     displacement: StateFlow<Float> = MutableStateFlow(0f),
@@ -19,7 +19,7 @@ class CanvasProgress(
     coroutineScope = coroutineScope,
     animatable = Animatable(target.value),
     displacement = displacement
-), Interpolatable<CanvasProgress.Target> {
+), Interpolatable<ClientTransitionProgress.Target> {
 
     class Target(
         val value: Float,

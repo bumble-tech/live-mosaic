@@ -20,17 +20,17 @@ class BackStackCanvasFader<InteractionTarget : Any>(
     @Suppress("unused")
     @MutableUiStateSpecs
     class TargetUiState(
-        val canvasProgress: CanvasProgress.Target,
+        val clientTransitionProgress: ClientTransitionProgress.Target,
         val zIndex: ZIndex.Target,
     )
 
     private val incoming = TargetUiState(
-        canvasProgress = CanvasProgress.Target(0f),
+        clientTransitionProgress = ClientTransitionProgress.Target(0f),
         zIndex = ZIndex.Target(0f),
     )
 
     private val outgoing = TargetUiState(
-        canvasProgress = CanvasProgress.Target(1f),
+        clientTransitionProgress = ClientTransitionProgress.Target(1f),
         zIndex = ZIndex.Target(1f),
     )
 
