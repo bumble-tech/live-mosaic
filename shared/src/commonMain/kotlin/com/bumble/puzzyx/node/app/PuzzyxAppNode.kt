@@ -31,7 +31,7 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.puzzyx.component.canvasfader.BackStackCanvasFader
+import com.bumble.puzzyx.component.canvasfader.BackStackClientTransition
 import com.bumble.puzzyx.component.canvasfader.ClientTransitionProgress
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
@@ -47,7 +47,7 @@ class PuzzyxAppNode(
             initialTargets = listOf(Puzzle1),
             savedStateMap = buildContext.savedStateMap,
         ),
-        motionController = { BackStackCanvasFader(it) }
+        motionController = { BackStackClientTransition(it) }
     )
 ) : ParentNode<NavTarget>(
     buildContext = buildContext,

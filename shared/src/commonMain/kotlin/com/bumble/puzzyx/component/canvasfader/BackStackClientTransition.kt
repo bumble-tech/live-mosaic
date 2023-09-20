@@ -8,9 +8,10 @@ import com.bumble.appyx.interactions.core.ui.property.impl.ZIndex
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.interactions.core.ui.state.MutableUiStateSpecs
 import com.bumble.appyx.transitionmodel.BaseMotionController
-import com.bumble.puzzyx.component.canvasfader.BackStackCanvasFader.TargetUiState
+import com.bumble.puzzyx.component.canvasfader.BackStackClientTransition.TargetUiState
 
-class BackStackCanvasFader<InteractionTarget : Any>(
+
+class BackStackClientTransition<InteractionTarget : Any>(
     uiContext: UiContext,
     defaultAnimationSpec: SpringSpec<Float> = DefaultAnimationSpec
 ) : BaseMotionController<InteractionTarget, BackStackModel.State<InteractionTarget>, MutableUiState, TargetUiState>(
