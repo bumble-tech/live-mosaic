@@ -37,7 +37,12 @@ class PuzzyxAppNode(
 
     override fun resolve(interactionTarget: InteractionTarget, buildContext: BuildContext): Node =
         when (interactionTarget) {
-            is Puzzle1 -> Puzzle1Node(buildContext)
+            is Puzzle1 -> Puzzle1Node(
+                imageDirectory = "bumble_logo/",
+                columns = 19,
+                rows = 9,
+                buildContext = buildContext
+            )
         }
 
     @Composable

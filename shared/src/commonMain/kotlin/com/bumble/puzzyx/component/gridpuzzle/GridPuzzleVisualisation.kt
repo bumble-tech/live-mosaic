@@ -2,6 +2,7 @@ package com.bumble.puzzyx.component.gridpuzzle
 
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.SpringSpec
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.times
 import com.bumble.appyx.interactions.core.ui.context.UiContext
@@ -55,14 +56,33 @@ class GridPuzzleVisualisation(
         position = Target(
             alignment = alignment(i, j),
             offset = DpOffset(
-                x = (i - (gridCols - 1) / 2f) * Random.nextInt(3,9) * 0.5f * transitionBounds.widthDp,
-                y = (j - (gridRows - 1) / 2f) * Random.nextInt(3,9) * 0.5f * transitionBounds.heightDp,
+                x = offsetX(i, gridCols),
+                y = offsetY(j, gridRows)
             ),
         ),
         rotationZ = RotationZ.Target(
             (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 4) * 360f
         )
     )
+
+    private fun offsetX(i: Int, columns: Int): Dp {
+        var multiplier = (i - (columns - 1) / 2f)
+        // if columns count is odd the middle one will always have 0 x offset without this check
+        if (multiplier == 0f) {
+            multiplier = 1f
+        }
+        return multiplier * Random.nextInt(3, 9) * 0.5f * transitionBounds.widthDp
+    }
+
+
+    private fun offsetY(j: Int, rows: Int): Dp {
+        var multiplier = (j - (rows - 1) / 2f)
+        // if rows count is odd the middle one will always have 0 y offset without this check
+        if (multiplier == 0f) {
+            multiplier = 1f
+        }
+        return multiplier * Random.nextInt(3, 9) * 0.5f * transitionBounds.widthDp
+    }
 
     private fun State.assembled(i: Int, j: Int, idx: Int) = TargetUiState(
         position = Target(
@@ -93,7 +113,7 @@ class GridPuzzleVisualisation(
             rotationZ = RotationZ.Target(
                 (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 3) * 360f
             ),
-            angularPosition =  AngularPosition.Target(
+            angularPosition = AngularPosition.Target(
                 AngularPosition.Value(
                     // This should be the same as the prepared angle in the assembled state
                     // as it's not supposed to be animated

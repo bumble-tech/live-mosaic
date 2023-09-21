@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.bumble.appyx.puzzyx.android"
-    compileSdk = 33
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
         applicationId = "com.bumble.appyx.puzzyx.android"
         minSdk = 30
