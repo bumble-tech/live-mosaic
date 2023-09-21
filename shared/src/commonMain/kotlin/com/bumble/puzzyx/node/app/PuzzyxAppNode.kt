@@ -13,32 +13,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.max
 import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.components.backstack.operation.replace
-import com.bumble.appyx.interactions.core.ui.property.motionPropertyRenderValue
 import com.bumble.appyx.navigation.composable.AppyxComponent
 import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.navigation.node.node
-import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
-import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.puzzyx.component.canvasfader.BackStackClientTransition
-import com.bumble.puzzyx.component.canvasfader.ClientTransitionProgress
+import com.bumble.puzzyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
-import com.bumble.puzzyx.ui.DottedMeshShape
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
+import com.bumble.puzzyx.ui.DottedMeshShape
 
 class PuzzyxAppNode(
     buildContext: BuildContext,
@@ -47,7 +45,7 @@ class PuzzyxAppNode(
             initialTargets = listOf(Puzzle1),
             savedStateMap = buildContext.savedStateMap,
         ),
-        motionController = { BackStackClientTransition(it) }
+        motionController = { BackStackClipper(it, shape = { progress -> ClipShape(progress) }) }
     )
 ) : ParentNode<NavTarget>(
     buildContext = buildContext,
@@ -87,47 +85,7 @@ class PuzzyxAppNode(
         AppyxComponent(
             appyxComponent = backStack,
             modifier = Modifier.fillMaxSize()
-        ) {
-            children { child, elementUiModel ->
-                val clientTransitionProgress = motionPropertyRenderValue<Float, ClientTransitionProgress>() ?: 0f
-
-                child(
-                    modifier = Modifier
-                        .then(
-                            if (clientTransitionProgress == 0f) Modifier else Modifier.clip(
-                                ClipShape(clientTransitionProgress)
-                            )
-                        )
-                )
-            }
-        }
-    }
-
-    @Composable
-    private fun ClipShape(progress: Float): DottedMeshShape {
-        val screenSize = LocalScreenSize.current
-        val density = LocalDensity.current
-        val (meshMin, meshMax) = 15 to 25
-        val meshSizeX = if (screenSize.widthDp > screenSize.heightDp) meshMax else meshMin
-        val meshSizeY = if (screenSize.widthDp > screenSize.heightDp) meshMin else meshMax
-        val maxRadius = remember(screenSize) {
-            with(density) {
-                max(screenSize.widthDp, screenSize.heightDp).toPx() / meshMin * 1.5f
-            }
-        }
-
-        val shape by remember(progress) {
-            mutableStateOf(
-                DottedMeshShape(
-                    meshSizeX,
-                    meshSizeY,
-                    maxRadius,
-                    progress
-                )
-            )
-        }
-
-        return shape
+        )
     }
 
     @Composable
@@ -150,4 +108,31 @@ class PuzzyxAppNode(
             Text("Next")
         }
     }
+}
+
+@Composable
+private fun ClipShape(progress: Float): Shape {
+    val screenSize = LocalScreenSize.current
+    val density = LocalDensity.current
+    val (meshMin, meshMax) = 15 to 25
+    val meshSizeX = if (screenSize.widthDp > screenSize.heightDp) meshMax else meshMin
+    val meshSizeY = if (screenSize.widthDp > screenSize.heightDp) meshMin else meshMax
+    val maxRadius = remember(screenSize) {
+        with(density) {
+            max(screenSize.widthDp, screenSize.heightDp).toPx() / meshMin * 1.5f
+        }
+    }
+
+    val shape by remember(progress) {
+        mutableStateOf(
+            DottedMeshShape(
+                meshSizeX,
+                meshSizeY,
+                maxRadius,
+                progress
+            )
+        )
+    }
+
+    return shape
 }

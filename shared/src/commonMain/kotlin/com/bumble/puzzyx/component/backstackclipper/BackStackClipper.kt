@@ -1,45 +1,48 @@
-package com.bumble.puzzyx.component.canvasfader
+package com.bumble.puzzyx.component.backstackclipper
 
 import androidx.compose.animation.core.SpringSpec
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Shape
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.interactions.core.ui.context.UiContext
 import com.bumble.appyx.interactions.core.ui.helper.DefaultAnimationSpec
 import com.bumble.appyx.interactions.core.ui.property.impl.ZIndex
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
-import com.bumble.appyx.interactions.core.ui.state.MutableUiStateSpecs
 import com.bumble.appyx.transitionmodel.BaseMotionController
-import com.bumble.puzzyx.component.canvasfader.BackStackClientTransition.TargetUiState
 
 
 /**
  * With Appyx, we usually map model states (like a back stack element's state) to visual end
  * states.
  *
- * To achieve the canvas clipping effect, we're not doing that here in individual properties.
- * Instead, it maps the back stack state to [ClientTransitionProgress] values so that client code
- * can define its custom animation.
+ * To achieve the canvas clipping effect, instead of usual Alpha, Scale, Rotation etc. properties
+ * we'll animate the progress value related to a shape, and apply it as a clip mask on the outgoing
+ * element.
+ *
+ * @param shape Should return a Shape given a progress value in the range of 0..1f. The shape will
+ *              be applied as a clip mask on the outgoing back stack element.
  */
-class BackStackClientTransition<InteractionTarget : Any>(
+class BackStackClipper<InteractionTarget : Any>(
     uiContext: UiContext,
+    private val shape: @Composable (progress: Float) -> Shape,
     defaultAnimationSpec: SpringSpec<Float> = DefaultAnimationSpec
 ) : BaseMotionController<InteractionTarget, BackStackModel.State<InteractionTarget>, MutableUiState, TargetUiState>(
     uiContext = uiContext,
     defaultAnimationSpec = defaultAnimationSpec,
 ) {
-    @Suppress("unused")
-    @MutableUiStateSpecs
-    class TargetUiState(
-        val clientTransitionProgress: ClientTransitionProgress.Target,
-        val zIndex: ZIndex.Target,
-    )
 
     private val incoming = TargetUiState(
-        clientTransitionProgress = ClientTransitionProgress.Target(0f),
+        clipShapeProgress = ClipShapeProgress.Target(0f),
         zIndex = ZIndex.Target(0f),
     )
 
+    /**
+     * The Shape is animated towards 100% progress.
+     * zIndex ensures the outgoing element stays on top. As the clipping is applied to it,
+     * any elements behind it should start showing through.
+     */
     private val outgoing = TargetUiState(
-        clientTransitionProgress = ClientTransitionProgress.Target(1f),
+        clipShapeProgress = ClipShapeProgress.Target(1f),
         zIndex = ZIndex.Target(1f),
     )
 
@@ -52,5 +55,5 @@ class BackStackClientTransition<InteractionTarget : Any>(
         }
 
     override fun mutableUiStateFor(uiContext: UiContext, targetUiState: TargetUiState): MutableUiState =
-        targetUiState.toMutableState(uiContext)
+        targetUiState.toMutableUiState(uiContext, shape)
 }
