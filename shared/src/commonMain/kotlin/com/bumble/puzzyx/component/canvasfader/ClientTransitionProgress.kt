@@ -11,6 +11,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * With Appyx, we usually animate actual UI-related properties like Alpha, Rotation, etc.
+ *
+ * This class represents an animatable Float that holds no immediate ui effect.
+ * Instead, client code can read its value and decide what it wants to do
+ * with it.
+ */
 class ClientTransitionProgress(
     coroutineScope: CoroutineScope,
     target: Target,

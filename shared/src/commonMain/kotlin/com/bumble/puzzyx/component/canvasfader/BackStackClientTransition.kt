@@ -11,6 +11,14 @@ import com.bumble.appyx.transitionmodel.BaseMotionController
 import com.bumble.puzzyx.component.canvasfader.BackStackClientTransition.TargetUiState
 
 
+/**
+ * With Appyx, we usually map model states (like a back stack element's state) to visual end
+ * states.
+ *
+ * To achieve the canvas clipping effect, we're not doing that here in individual properties.
+ * Instead, it maps the back stack state to [ClientTransitionProgress] values so that client code
+ * can define its custom animation.
+ */
 class BackStackClientTransition<InteractionTarget : Any>(
     uiContext: UiContext,
     defaultAnimationSpec: SpringSpec<Float> = DefaultAnimationSpec
