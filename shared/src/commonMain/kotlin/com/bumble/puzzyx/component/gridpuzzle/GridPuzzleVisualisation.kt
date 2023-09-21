@@ -56,8 +56,8 @@ class GridPuzzleVisualisation(
         position = Target(
             alignment = alignment(i, j),
             offset = DpOffset(
-                x = offsetX(i, gridCols),
-                y = offsetY(j, gridRows)
+                x = offset(i, gridCols, transitionBounds.widthDp),
+                y = offset(j, gridRows, transitionBounds.heightDp),
             ),
         ),
         rotationZ = RotationZ.Target(
@@ -65,23 +65,13 @@ class GridPuzzleVisualisation(
         )
     )
 
-    private fun offsetX(i: Int, columns: Int): Dp {
-        var multiplier = (i - (columns - 1) / 2f)
-        // if columns count is odd the middle one will always have 0 x offset without this check
+    private fun offset(index: Int, maxIndex: Int, step: Dp): Dp {
+        var multiplier = (index - (maxIndex - 1) / 2f)
+        // if maxIndex is odd the middle one will always have 0 offsetX without this check
         if (multiplier == 0f) {
             multiplier = 1f
         }
-        return multiplier * Random.nextInt(3, 9) * 0.5f * transitionBounds.widthDp
-    }
-
-
-    private fun offsetY(j: Int, rows: Int): Dp {
-        var multiplier = (j - (rows - 1) / 2f)
-        // if rows count is odd the middle one will always have 0 y offset without this check
-        if (multiplier == 0f) {
-            multiplier = 1f
-        }
-        return multiplier * Random.nextInt(3, 9) * 0.5f * transitionBounds.widthDp
+        return multiplier * Random.nextInt(3, 9) * 0.5f * step
     }
 
     private fun State.assembled(i: Int, j: Int, idx: Int) = TargetUiState(

@@ -3,7 +3,6 @@ package com.bumble.puzzyx.node.puzzle1
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,16 +17,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.interactions.core.model.transition.Operation.Mode.KEYFRAME
@@ -44,11 +38,10 @@ import com.bumble.puzzyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.composable.EntryCard
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.entries.Entry
-import com.bumble.puzzyx.imageloader.toImageBitmap
+import com.bumble.puzzyx.imageloader.ResourceImage
 import com.bumble.puzzyx.puzzle.PuzzlePiece
 import com.bumble.puzzyx.ui.colors
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.resource
 import kotlin.random.Random
 
 private val animationSpec = spring<Float>(
@@ -89,21 +82,12 @@ class Puzzle1Node(
                 FlashCard(
                     flash = Color.White,
                     front = { modifier ->
-                        var image: ImageBitmap? by remember { mutableStateOf(null) }
-                        LaunchedEffect(Unit) {
-                            image =
-                                resource("${imageDirectory}slice_${puzzlePiece.j}_${puzzlePiece.i}.png")
-                                    .readBytes()
-                                    .toImageBitmap()
-                        }
-                        image?.let {
-                            Image(
-                                bitmap = it,
-                                contentDescription = null,
-                                modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.FillBounds
-                            )
-                        }
+                        ResourceImage(
+                            path = "${imageDirectory}slice_${puzzlePiece.j}_${puzzlePiece.i}.png",
+                            contentScale = ContentScale.FillBounds,
+                            modifier = modifier
+                                .fillMaxSize()
+                        )
                     },
                     back = { modifier ->
                         EntryCard(
@@ -153,7 +137,7 @@ class Puzzle1Node(
             Button(onClick = { gridPuzzle.scatter() }) {
                 Text("Scatter")
             }
-            Button(onClick = { gridPuzzle.assemble(animationSpec = spring(stiffness = 10f)) }) {
+            Button(onClick = { gridPuzzle.assemble() }) {
                 Text("Assemble")
             }
             Button(onClick = { gridPuzzle.flip(KEYFRAME, tween(10000)) }) {
