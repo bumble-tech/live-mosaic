@@ -65,7 +65,12 @@ class PuzzyxAppNode(
 
     override fun resolve(navTarget: NavTarget, buildContext: BuildContext): Node =
         when (navTarget) {
-            is Puzzle1 -> Puzzle1Node(buildContext)
+            is Puzzle1 -> Puzzle1Node(
+                imageDirectory = "bumble_logo/",
+                columns = 19,
+                rows = 9,
+                buildContext = buildContext
+            )
             is CallToAction -> node(buildContext) { modifier -> CallToActionScreen(modifier) }
             is MessageBoard -> node(buildContext) { modifier -> MessageBoard(modifier) }
         }

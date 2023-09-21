@@ -28,6 +28,9 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.appyx.navigation)
                 api(libs.appyx.components.backstack)
+                api(libs.compose.image.loader)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
             }
         }
         val commonTest by getting {
@@ -40,7 +43,8 @@ kotlin {
 
 android {
     namespace = "com.bumble.appyx.puzzyx"
-    compileSdk = 33
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
         minSdk = 30
     }
