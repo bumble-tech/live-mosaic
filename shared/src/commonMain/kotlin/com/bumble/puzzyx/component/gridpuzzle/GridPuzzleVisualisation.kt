@@ -2,6 +2,7 @@ package com.bumble.puzzyx.component.gridpuzzle
 
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.SpringSpec
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.times
 import com.bumble.appyx.interactions.core.ui.context.UiContext
@@ -55,14 +56,23 @@ class GridPuzzleVisualisation(
         position = Target(
             alignment = alignment(i, j),
             offset = DpOffset(
-                x = (i - (gridCols - 1) / 2f) * Random.nextInt(3,9) * 0.5f * transitionBounds.widthDp,
-                y = (j - (gridRows - 1) / 2f) * Random.nextInt(3,9) * 0.5f * transitionBounds.heightDp,
+                x = offset(i, gridCols, transitionBounds.widthDp),
+                y = offset(j, gridRows, transitionBounds.heightDp),
             ),
         ),
         rotationZ = RotationZ.Target(
             (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 4) * 360f
         )
     )
+
+    private fun offset(index: Int, maxIndex: Int, step: Dp): Dp {
+        var multiplier = (index - (maxIndex - 1) / 2f)
+        // if maxIndex is odd the middle one will always have 0 offsetX without this check
+        if (multiplier == 0f) {
+            multiplier = 1f
+        }
+        return multiplier * Random.nextInt(3, 9) * 0.5f * step
+    }
 
     private fun State.assembled(i: Int, j: Int, idx: Int) = TargetUiState(
         position = Target(
@@ -93,7 +103,7 @@ class GridPuzzleVisualisation(
             rotationZ = RotationZ.Target(
                 (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 3) * 360f
             ),
-            angularPosition =  AngularPosition.Target(
+            angularPosition = AngularPosition.Target(
                 AngularPosition.Value(
                     // This should be the same as the prepared angle in the assembled state
                     // as it's not supposed to be animated
