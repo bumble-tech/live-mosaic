@@ -45,9 +45,9 @@ class ClipShapeProgress(
 
     override val modifier: Modifier
         get() = Modifier.composed {
-            val progress = renderValueFlow.collectAsState()
-            if (progress.value == 0f) this
-            else this.clip(shape.invoke(progress.value))
+            val progress = renderValueFlow.collectAsState().value
+            if (progress == 0f) this
+            else this.clip(shape.invoke(progress))
         }
 
 
