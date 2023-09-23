@@ -18,7 +18,7 @@ jobs:
       - uses: gradle/wrapper-validation-action@v1
       - uses: gradle/gradle-build-action@v2
       - name: Build
-        run: ./gradlew :desktopApp:packageReleaseUberJarForCurrentOS
+        run: ./gradlew :desktopApp:packageReleaseUberStripArchitecture
       - name: Upload distributable
         uses: actions/upload-artifact@v3
         with:
