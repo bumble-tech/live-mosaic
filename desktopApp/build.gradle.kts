@@ -15,7 +15,7 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 implementation(project(":shared"))
-                implementation(compose.desktop.currentOs)
+                implementation(compose.desktop.macos_arm64)
                 implementation(libs.appyx.navigation)
                 implementation(libs.kotlin.coroutines.core)
                 implementation(libs.kotlin.coroutines.swing)
