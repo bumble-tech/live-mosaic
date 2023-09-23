@@ -14,8 +14,12 @@ kotlin {
     sourceSets {
         val desktopMain by getting {
             dependencies {
+                // Tricky way to ensure CI builds ARM64 artifacts
+                val isCIPresent = providers.environmentVariable("CI").isPresent
+                val composeDependency = if (isCIPresent) compose.desktop.macos_arm64 else compose.desktop.currentOs
+
                 implementation(project(":shared"))
-                implementation(compose.desktop.macos_arm64)
+                implementation(composeDependency)
                 implementation(libs.appyx.navigation)
                 implementation(libs.kotlin.coroutines.core)
                 implementation(libs.kotlin.coroutines.swing)

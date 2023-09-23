@@ -2,6 +2,9 @@ name: Build
 
 on: [push]
 
+env:
+  CI:
+
 jobs:
   build:
     name: Build
@@ -21,4 +24,4 @@ jobs:
         with:
           name: Distributable
           path: |
-            desktopApp/build/compose/jars/
+            desktopApp/build/distributable/
