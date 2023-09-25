@@ -38,11 +38,17 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
 
+private val screens = listOf(
+    Puzzle1,
+    CallToAction,
+    MessageBoard
+)
+
 class PuzzyxAppNode(
     buildContext: BuildContext,
     private val backStack: BackStack<NavTarget> = BackStack(
         model = BackStackModel(
-            initialTargets = listOf(Puzzle1),
+            initialTargets = listOf(screens.first()),
             savedStateMap = buildContext.savedStateMap,
         ),
         motionController = { BackStackClipper(it, shape = { progress -> ClipShape(progress) }) }
@@ -95,7 +101,6 @@ class PuzzyxAppNode(
 
     @Composable
     private fun NextButton() {
-        val screens = remember { listOf(Puzzle1, CallToAction, MessageBoard) }
         var screenIdx by remember { mutableStateOf(0) }
 
         Button(
