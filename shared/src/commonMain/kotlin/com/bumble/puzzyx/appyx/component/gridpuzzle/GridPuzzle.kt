@@ -1,10 +1,10 @@
-package com.bumble.puzzyx.component.gridpuzzle
+package com.bumble.puzzyx.appyx.component.gridpuzzle
 
 import androidx.compose.animation.core.SpringSpec
 import com.bumble.appyx.interactions.core.model.BaseAppyxComponent
 import com.bumble.appyx.interactions.core.ui.helper.DefaultAnimationSpec
 import com.bumble.appyx.navigation.state.SavedStateMap
-import com.bumble.puzzyx.puzzle.PuzzlePiece
+import com.bumble.puzzyx.model.PuzzlePiece
 
 class GridPuzzle(
     savedStateMap: SavedStateMap? = null,

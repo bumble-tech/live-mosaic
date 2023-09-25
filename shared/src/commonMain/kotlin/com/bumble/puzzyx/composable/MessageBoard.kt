@@ -22,7 +22,7 @@ import androidx.compose.ui.BiasAbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.bumble.puzzyx.entries.Entry
+import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.ui.colors
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive

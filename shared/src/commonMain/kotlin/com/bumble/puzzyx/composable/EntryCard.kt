@@ -14,7 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bumble.puzzyx.entries.Entry
+import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.imageloader.ResourceImage
 
 @Composable

@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.component.backstackclipper
+package com.bumble.puzzyx.appyx.component.backstackclipper
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Shape

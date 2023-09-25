@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.component.gridpuzzle
+package com.bumble.puzzyx.appyx.component.gridpuzzle
 
 import com.bumble.appyx.interactions.core.ui.property.impl.AngularPosition
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationY

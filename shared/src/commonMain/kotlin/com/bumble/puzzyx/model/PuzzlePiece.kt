@@ -1,6 +1,4 @@
-package com.bumble.puzzyx.puzzle
-
-import com.bumble.puzzyx.entries.Entry
+package com.bumble.puzzyx.model
 
 data class PuzzlePiece(
     val i: Int,
