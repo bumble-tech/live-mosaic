@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.bumble.puzzyx.model.Entry
+import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.ui.colors
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -51,6 +52,7 @@ private fun MessageBoardContent(time: Float, modifier: Modifier) {
         val maxY = 3
         val xList = remember { (0..maxX).shuffled() }
         val yList = remember { (0..maxY).shuffled() }
+        val entriesShuffled = remember { entries.shuffled() }
 
         for (x in 0..maxX) {
             for (y in 0..maxY) {
@@ -67,12 +69,11 @@ private fun MessageBoardContent(time: Float, modifier: Modifier) {
                         .align(BiasAbsoluteAlignment((u * 2 - 1).toFloat(), (v * 2 - 1).toFloat()))
                         .padding(12.dp)
                 ) {
-                    val random = remember { Random.nextInt(4) }
                     AnimatedVisibility(
                         modifier = Modifier.fillMaxSize().align(Alignment.Center),
                         visible = noise > 0.02f,
                     ) {
-                        val entry = remember { Entry() }
+                        val entry = entriesShuffled[(y * maxY + x) % entriesShuffled.size]
                         val colorIdx = remember { colors.indices.random() }
                         EntryCard(
                             modifier = Modifier

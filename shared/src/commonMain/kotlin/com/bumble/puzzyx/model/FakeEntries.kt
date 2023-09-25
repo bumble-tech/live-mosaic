@@ -15,7 +15,7 @@ val fakeGitHubUserNames = listOf(
     "gitGuru",
     "byteBlaze",
     "bugHuntingHero",
-    "techSculptor",
+    "bugHuntingHero",
     "algoExplorer",
     "codeWhizKid",
     "pixelPirate",

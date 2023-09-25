@@ -37,9 +37,9 @@ import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.flip
 import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.composable.EntryCardSmall
 import com.bumble.puzzyx.composable.FlashCard
-import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.imageloader.ResourceImage
 import com.bumble.puzzyx.model.PuzzlePiece
+import com.bumble.puzzyx.model.puzzle1Entries
 import com.bumble.puzzyx.ui.appyx_dark
 import com.bumble.puzzyx.ui.colors
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -58,9 +58,16 @@ class Puzzle1Node(
     private val gridPuzzle: GridPuzzle = GridPuzzle(
         gridRows = rows,
         gridCols = columns,
-        pieces = IntRange(0, rows * columns - 1).map {
-            PuzzlePiece(it % columns, it / columns, Entry())
-        }.shuffled(),//.take(37), // TODO To test only a subset of elements, uncomment .take
+        pieces = IntRange(0, rows * columns - 1)
+            .shuffled(Random(123))
+            .take(puzzle1Entries.size)
+            .mapIndexed { sequentialIdx, shuffledIdx ->
+                PuzzlePiece(
+                    i = shuffledIdx % columns,
+                    j = shuffledIdx / columns,
+                    entry = puzzle1Entries[sequentialIdx]
+                )
+            },
         savedStateMap = buildContext.savedStateMap,
         defaultAnimationSpec = animationSpec
     )
