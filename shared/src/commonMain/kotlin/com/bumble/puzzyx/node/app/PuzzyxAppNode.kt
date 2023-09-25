@@ -28,7 +28,7 @@ import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.navigation.node.node
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.puzzyx.component.backstackclipper.BackStackClipper
+import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget

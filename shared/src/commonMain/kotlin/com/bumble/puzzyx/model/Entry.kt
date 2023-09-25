@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.entries
+package com.bumble.puzzyx.model
 
 data class Entry(
     val githubUserName: String = fakeGitHubUserNames.random(),

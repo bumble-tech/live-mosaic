@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.component.gridpuzzle
+package com.bumble.puzzyx.appyx.component.gridpuzzle
 
 import com.bumble.appyx.interactions.core.Element
 import com.bumble.appyx.interactions.core.Elements
@@ -7,8 +7,8 @@ import com.bumble.appyx.interactions.core.model.transition.BaseTransitionModel
 import com.bumble.appyx.navigation.state.SavedStateMap
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
-import com.bumble.puzzyx.puzzle.PuzzlePiece
+import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
+import com.bumble.puzzyx.model.PuzzlePiece
 
 class GridPuzzleModel(
     savedStateMap: SavedStateMap? = null,

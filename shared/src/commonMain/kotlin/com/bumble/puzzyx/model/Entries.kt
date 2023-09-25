@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.entries
+package com.bumble.puzzyx.model
 
 val fakeTwitterHandles = listOf(
     "@tweetNinja",

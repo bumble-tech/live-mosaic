@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.component.gridpuzzle
+package com.bumble.puzzyx.appyx.component.gridpuzzle
 
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.SpringSpec
@@ -16,12 +16,12 @@ import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignmen
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside.Target
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseMotionController
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.CAROUSEL
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.FLIPPED
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
-import com.bumble.puzzyx.component.gridpuzzle.GridPuzzleModel.State
-import com.bumble.puzzyx.puzzle.PuzzlePiece
+import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
+import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.CAROUSEL
+import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.FLIPPED
+import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
+import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.State
+import com.bumble.puzzyx.model.PuzzlePiece
 import kotlin.math.min
 import kotlin.random.Random
 
