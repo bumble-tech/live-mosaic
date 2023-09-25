@@ -74,7 +74,6 @@ fun EntryCardSmall(
                 .fillMaxSize()
         ) {
             Text(entry.githubUserName)
-            Text(entry.twitterHandle)
             Text(entry.message)
         }
     }

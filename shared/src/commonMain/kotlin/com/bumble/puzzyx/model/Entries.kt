@@ -1,33 +1,5 @@
 package com.bumble.puzzyx.model
 
-val fakeTwitterHandles = listOf(
-    "@tweetNinja",
-    "@socialWanderer",
-    "@codeGeek",
-    "@pixelPioneer",
-    "@techCraftsman",
-    "@byteBender",
-    "@stellarTweeter",
-    "@waveSurfer",
-    "@dreamyDev",
-    "@cyberPioneer",
-    "@maverickCoder",
-    "@gitGuru",
-    "@byteBlaze",
-    "@bugHuntingHero",
-    "@artSculptor",
-    "@algoExplorer",
-    "@whizKidCoder",
-    "@pixelPirate",
-    "@juggleTheCode",
-    "@scribeData",
-    "@cyberNomad",
-    "@alchemyCoder",
-    "@safariByte",
-    "@trailblazingTech",
-    "@voyagingDev"
-)
-
 val fakeGitHubUserNames = listOf(
     "codeNinja",
     "pixelPusher",
