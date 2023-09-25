@@ -35,7 +35,7 @@ import com.bumble.puzzyx.component.gridpuzzle.operation.assemble
 import com.bumble.puzzyx.component.gridpuzzle.operation.carousel
 import com.bumble.puzzyx.component.gridpuzzle.operation.flip
 import com.bumble.puzzyx.component.gridpuzzle.operation.scatter
-import com.bumble.puzzyx.composable.EntryCard
+import com.bumble.puzzyx.composable.EntryCardSmall
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.entries.Entry
 import com.bumble.puzzyx.imageloader.ResourceImage
@@ -91,7 +91,7 @@ class Puzzle1Node(
                         )
                     },
                     back = { modifier ->
-                        EntryCard(
+                        EntryCardSmall(
                             modifier = modifier
                                 .fillMaxSize()
                                 .background(color),

@@ -31,6 +31,7 @@ kotlin {
                 api(libs.compose.image.loader)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation(libs.k5.compose)
             }
         }
         val commonTest by getting {
