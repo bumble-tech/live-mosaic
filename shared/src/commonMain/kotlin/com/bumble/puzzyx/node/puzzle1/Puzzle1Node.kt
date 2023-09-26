@@ -38,6 +38,8 @@ import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.composable.EntryCardSmall
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.imageloader.ResourceImage
+import com.bumble.puzzyx.model.Entry
+import com.bumble.puzzyx.model.Puzzle
 import com.bumble.puzzyx.model.PuzzlePiece
 import com.bumble.puzzyx.model.puzzle1Entries
 import com.bumble.puzzyx.ui.appyx_dark
@@ -102,7 +104,8 @@ class Puzzle1Node(
                             modifier = modifier
                                 .fillMaxSize()
                                 .background(color),
-                            puzzlePiece.entry
+                            // TODO decide on the fate of this
+                            puzzlePiece.entry as? Entry.Text ?: Entry.Text(Puzzle.PUZZLE1, "n/a")
                         )
                     }
                 )

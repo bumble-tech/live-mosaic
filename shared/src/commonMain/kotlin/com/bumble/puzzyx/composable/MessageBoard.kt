@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,14 +21,11 @@ import androidx.compose.ui.BiasAbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.entries
-import com.bumble.puzzyx.ui.colors
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import math.noise3D
 import kotlin.math.cos
-import kotlin.random.Random
 
 @Composable
 fun MessageBoard(modifier: Modifier) {
@@ -74,14 +70,9 @@ private fun MessageBoardContent(time: Float, modifier: Modifier) {
                         visible = noise > 0.02f,
                     ) {
                         val entry = entriesShuffled[(y * maxY + x) % entriesShuffled.size]
-                        val colorIdx = remember { colors.indices.random() }
+
                         EntryCard(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(
-                                    colors[colorIdx],
-                                    RoundedCornerShape(16.dp)
-                                ),
+                            modifier = Modifier.fillMaxSize(),
                             entry
                         )
                     }
