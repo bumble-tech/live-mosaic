@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -22,13 +21,11 @@ import androidx.compose.ui.BiasAbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.bumble.puzzyx.model.Entry
-import com.bumble.puzzyx.ui.colors
+import com.bumble.puzzyx.model.entries
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import math.noise3D
 import kotlin.math.cos
-import kotlin.random.Random
 
 @Composable
 fun MessageBoard(modifier: Modifier) {
@@ -51,6 +48,7 @@ private fun MessageBoardContent(time: Float, modifier: Modifier) {
         val maxY = 3
         val xList = remember { (0..maxX).shuffled() }
         val yList = remember { (0..maxY).shuffled() }
+        val entriesShuffled = remember { entries.shuffled() }
 
         for (x in 0..maxX) {
             for (y in 0..maxY) {
@@ -67,20 +65,14 @@ private fun MessageBoardContent(time: Float, modifier: Modifier) {
                         .align(BiasAbsoluteAlignment((u * 2 - 1).toFloat(), (v * 2 - 1).toFloat()))
                         .padding(12.dp)
                 ) {
-                    val random = remember { Random.nextInt(4) }
                     AnimatedVisibility(
                         modifier = Modifier.fillMaxSize().align(Alignment.Center),
                         visible = noise > 0.02f,
                     ) {
-                        val entry = remember { Entry() }
-                        val colorIdx = remember { colors.indices.random() }
+                        val entry = entriesShuffled[(y * maxY + x) % entriesShuffled.size]
+
                         EntryCard(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(
-                                    colors[colorIdx],
-                                    RoundedCornerShape(16.dp)
-                                ),
+                            modifier = Modifier.fillMaxSize(),
                             entry
                         )
                     }

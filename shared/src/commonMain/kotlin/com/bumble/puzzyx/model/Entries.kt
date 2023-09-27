@@ -1,84 +1,118 @@
 package com.bumble.puzzyx.model
 
-val fakeTwitterHandles = listOf(
-    "@tweetNinja",
-    "@socialWanderer",
-    "@codeGeek",
-    "@pixelPioneer",
-    "@techCraftsman",
-    "@byteBender",
-    "@stellarTweeter",
-    "@waveSurfer",
-    "@dreamyDev",
-    "@cyberPioneer",
-    "@maverickCoder",
-    "@gitGuru",
-    "@byteBlaze",
-    "@bugHuntingHero",
-    "@artSculptor",
-    "@algoExplorer",
-    "@whizKidCoder",
-    "@pixelPirate",
-    "@juggleTheCode",
-    "@scribeData",
-    "@cyberNomad",
-    "@alchemyCoder",
-    "@safariByte",
-    "@trailblazingTech",
-    "@voyagingDev"
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import com.bumble.puzzyx.ui.md_indigo_500
+import com.bumble.puzzyx.ui.md_lime_500
+
+val entries = listOf(
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "codeNinja",
+        message = "Having a blast at the conference!"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "techWanderlust",
+        message = "Keynote was inspiring"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "dataGeek",
+        message = "Shoutout to the organizers for an amazing lineup!"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "codeCraftsman",
+        message = "Learning, networking, and free coffee – conference life is good!"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "byteBender",
+        message = "Let's connect! Find me at the networking session!"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "stellarCoder",
+        message = "L77tc0der was here"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "codeWaveSurfer",
+        message = "Mind blown by the innovative ideas shared today."
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "devDreamer",
+        message = "Great to see old friends and make new ones!"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "cyberPioneer",
+        message = "Who's up for a post-conference karaoke session tonight?"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "codeMaverick",
+        message = "Kudos to the speakers for keeping us engaged all day."
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "gitGuru",
+        message = "Highlight of the day: the interactive workshop on Appyx."
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "byteBlaze",
+        message = "Impressed by the cool tech showcased in the exhibition hall!"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "bugHuntingHero",
+        message = "Taking copious notes – my brain might explode!"
+    ),
+    Entry.Text(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "algoExplorer",
+        message = "Attending from NYC – making my hometown proud!"
+    ),
+    Entry.Image(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "codeWhizKid",
+        path = "cake.png",
+        contentScale = ContentScale.Crop
+    ),
+    Entry.ComposableContent(
+        puzzle = Puzzle.PUZZLE1,
+        githubUserName = "codeWhizKid",
+        content = {
+            val infiniteTransition = rememberInfiniteTransition()
+            val color by infiniteTransition.animateColor(
+                initialValue = md_indigo_500,
+                targetValue = md_lime_500,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(500, easing = LinearEasing),
+                    repeatMode = RepeatMode.Reverse
+                )
+            )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color)
+            )
+        }
+    )
 )
 
-val fakeGitHubUserNames = listOf(
-    "codeNinja",
-    "pixelPusher",
-    "techWanderlust",
-    "dataGeek",
-    "codeCraftsman",
-    "byteBender",
-    "stellarCoder",
-    "codeWaveSurfer",
-    "devDreamer",
-    "cyberPioneer",
-    "codeMaverick",
-    "gitGuru",
-    "byteBlaze",
-    "bugHuntingHero",
-    "techSculptor",
-    "algoExplorer",
-    "codeWhizKid",
-    "pixelPirate",
-    "codeJuggler",
-    "dataScribe",
-    "cyberNomad",
-    "codeAlchemy",
-    "byteSafari",
-    "techTrailblazer",
-    "devVoyager"
-)
-
-val fakeMessages = listOf(
-    "Having a blast at the conference!",
-    "Keynote was inspiring",
-    "Shoutout to the organizers for an amazing lineup!",
-    "Learning, networking, and free coffee – conference life is good!",
-    "Let's connect! Find me at the networking session!",
-    "L77tc0der was here",
-    "Mind blown by the innovative ideas shared today.",
-    "Great to see old friends and make new ones!",
-    "Who's up for a post-conference karaoke session tonight?",
-    "Loving the energy and enthusiasm of this crowd!",
-    "Kudos to the speakers for keeping us engaged all day.",
-    "Highlight of the day: the interactive workshop on Appyx.",
-    "Impressed by the cool tech showcased in the exhibition hall!",
-    "Taking copious notes – my brain might explode!",
-    "Attending from NYC – making my hometown proud!",
-    "Let's trend this conference on social media – use #AwesomeConf!",
-    "First-time attendee and already hooked on these insights.",
-    "Who's in for the spontaneous breakout discussion in the lobby?",
-    "Can't believe how fast the day flew by – time flies when you're learning!",
-    "Bravo to the panelists for the thought-provoking debate.",
-    "Coffee break saved my brain from information overload!",
-    "Feeling grateful for the opportunity to be here among industry giants.",
-    "Eager to implement these strategies as soon as I'm back!",
-    "Don't be shy – share your most mind-blowing takeaway!"
-)
+val puzzle1Entries = entries.filter { it.puzzle == Puzzle.PUZZLE1 }
