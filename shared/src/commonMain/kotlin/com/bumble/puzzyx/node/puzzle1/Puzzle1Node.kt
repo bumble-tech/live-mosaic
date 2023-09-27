@@ -67,7 +67,7 @@ class Puzzle1Node(
                 PuzzlePiece(
                     i = shuffledIdx % columns,
                     j = shuffledIdx / columns,
-                    entry = puzzle1Entries[sequentialIdx]
+                    entryId = sequentialIdx
                 )
             },
         savedStateMap = buildContext.savedStateMap,
@@ -105,7 +105,7 @@ class Puzzle1Node(
                                 .fillMaxSize()
                                 .background(color),
                             // TODO decide on the fate of this
-                            puzzlePiece.entry as? Entry.Text ?: Entry.Text(Puzzle.PUZZLE1, "n/a")
+                            entry = puzzle1Entries[puzzlePiece.entryId] as? Entry.Text ?: Entry.Text(Puzzle.PUZZLE1, "n/a")
                         )
                     }
                 )
