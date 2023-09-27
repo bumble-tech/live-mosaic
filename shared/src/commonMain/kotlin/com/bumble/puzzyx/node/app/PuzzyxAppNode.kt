@@ -31,6 +31,7 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
+import com.bumble.puzzyx.model.Puzzle
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
@@ -73,8 +74,8 @@ class PuzzyxAppNode(
         when (navTarget) {
             is Puzzle1 -> Puzzle1Node(
                 imageDirectory = "bumble_logo/",
-                columns = 19,
-                rows = 9,
+                columns = Puzzle.PUZZLE1.columns,
+                rows = Puzzle.PUZZLE1.rows,
                 buildContext = buildContext
             )
             is CallToAction -> node(buildContext) { modifier -> CallToActionScreen(modifier) }

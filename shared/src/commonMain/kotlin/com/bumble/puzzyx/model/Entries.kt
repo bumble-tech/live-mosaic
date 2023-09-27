@@ -115,4 +115,8 @@ val entries = listOf(
     )
 )
 
-val puzzle1Entries = entries.filter { it.puzzle == Puzzle.PUZZLE1 }
+val puzzle1Entries = entries
+    .filter { it.puzzle == Puzzle.PUZZLE1 }
+    .also { if (it.size > Puzzle.PUZZLE1.maxEntryCount)
+        error("This puzzle is already filled up. Add your entry to another one!")
+    }
