@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +45,7 @@ import com.bumble.appyx.navigation.node.node
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
+import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
@@ -54,6 +56,7 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -77,6 +80,8 @@ class PuzzyxAppNode(
     buildContext = buildContext,
     appyxComponent = backStack
 ) {
+    private var screenIdx = 0
+
     sealed class NavTarget : Parcelable {
         @Parcelize
         object Puzzle1 : NavTarget()
@@ -95,9 +100,19 @@ class PuzzyxAppNode(
                 puzzle = PUZZLE1,
                 buildContext = buildContext
             )
-            is CallToAction -> node(buildContext) { modifier -> CallToActionScreen(modifier) }
-            is MessageBoard -> node(buildContext) { modifier -> MessageBoard(modifier) }
+            is CallToAction -> node(buildContext) { modifier ->
+                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                CallToActionScreen(modifier)
+            }
+            is MessageBoard -> node(buildContext) { modifier ->
+                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                MessageBoard(modifier)
+            }
         }
+
+    override fun onChildFinished(child: Node) {
+        nextScreen()
+    }
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -148,23 +163,23 @@ class PuzzyxAppNode(
     @Composable
     private fun NextButton() {
         if (!LocalAutoPlayFlow.current.collectAsState().value) {
-            var screenIdx by remember { mutableStateOf(0) }
-
             Button(
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                onClick = {
-                    backStack.replace(
-                        target = screens[++screenIdx % screens.size],
-                        animationSpec = tween(
-                            durationMillis = 3000,
-                            easing = FastOutLinearInEasing
-                        )
-                    )
-                }
+                onClick = { nextScreen() }
             ) {
                 Text("Next")
             }
         }
+    }
+
+    private fun nextScreen() {
+        backStack.replace(
+            target = screens[++screenIdx % screens.size],
+            animationSpec = tween(
+                durationMillis = 3000,
+                easing = FastOutLinearInEasing
+            )
+        )
     }
 }
 

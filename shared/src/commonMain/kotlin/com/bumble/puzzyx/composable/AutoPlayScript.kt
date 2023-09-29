@@ -7,19 +7,23 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun AutoPlayScript(
+    steps: List<Pair<() -> Unit, Long>> = emptyList(),
     initialDelayMs: Long = 1,
     retryDelayMs: Long = 3000,
-    steps: List<Pair<() -> Unit, Long>>
+    repeatSteps: Int = 1,
+    onFinish: () -> Unit = {}
 ) {
     val autoPlay = LocalAutoPlayFlow.current
     LaunchedEffect(Unit) {
         delay(initialDelayMs)
-        while (true) {
+        for (i in 1..repeatSteps) {
             steps.forEach { (action, delayMs) ->
                 if (autoPlay.value) action()
                 if (autoPlay.value) delay(delayMs)
                 while (!autoPlay.value) { delay(retryDelayMs) }
             }
         }
+        while (!autoPlay.value) { delay(retryDelayMs) }
+        onFinish()
     }
 }

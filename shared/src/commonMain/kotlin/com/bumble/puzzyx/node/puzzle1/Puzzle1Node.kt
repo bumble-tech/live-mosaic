@@ -120,7 +120,11 @@ class Puzzle1Node(
                 { gridPuzzle.assemble() } to 9000,
                 { gridPuzzle.flip(KEYFRAME, tween(10000)) } to 8000,
                 { gridPuzzle.scatter() } to 500,
-            )
+            ),
+            initialDelayMs = 2000,
+            onFinish = {
+                finish()
+            }
         )
 
         Box(
