@@ -54,19 +54,17 @@ private val animationSpec = spring<Float>(
 
 class Puzzle1Node(
     buildContext: BuildContext,
-    private val imageDirectory: String,
-    private val columns: Int,
-    private val rows: Int,
+    private val puzzle: Puzzle,
     private val gridPuzzle: GridPuzzle = GridPuzzle(
-        gridRows = rows,
-        gridCols = columns,
-        pieces = IntRange(0, rows * columns - 1)
+        gridRows = puzzle.rows,
+        gridCols = puzzle.columns,
+        pieces = IntRange(0, puzzle.rows * puzzle.columns - 1)
             .shuffled(Random(123))
             .take(puzzle1Entries.size)
             .mapIndexed { sequentialIdx, shuffledIdx ->
                 PuzzlePiece(
-                    i = shuffledIdx % columns,
-                    j = shuffledIdx / columns,
+                    i = shuffledIdx % puzzle.columns,
+                    j = shuffledIdx / puzzle.columns,
                     entryId = sequentialIdx
                 )
             },
@@ -86,14 +84,14 @@ class Puzzle1Node(
 
             Box(
                 modifier = modifier
-                    .fillMaxWidth(1f / columns)
-                    .fillMaxHeight(1f / rows)
+                    .fillMaxWidth(1f / puzzle.columns)
+                    .fillMaxHeight(1f / puzzle.rows)
             ) {
                 FlashCard(
                     flash = Color.White,
                     front = { modifier ->
                         ResourceImage(
-                            path = "${imageDirectory}slice_${puzzlePiece.j}_${puzzlePiece.i}.png",
+                            path = "${puzzle.imagesDir}/slice_${puzzlePiece.j}_${puzzlePiece.i}.png",
                             contentScale = ContentScale.FillBounds,
                             modifier = modifier
                                 .fillMaxSize()
@@ -130,7 +128,7 @@ class Puzzle1Node(
                 appyxComponent = gridPuzzle,
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .aspectRatio(1f * columns / rows)
+                    .aspectRatio(1f * puzzle.columns / puzzle.rows)
                     .background(Color.DarkGray)
             )
             Controls(
