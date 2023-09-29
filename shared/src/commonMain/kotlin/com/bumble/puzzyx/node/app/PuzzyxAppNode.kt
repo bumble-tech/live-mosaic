@@ -6,25 +6,22 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -56,9 +53,7 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
@@ -126,9 +121,7 @@ class PuzzyxAppNode(
             ) {
                 CurrentScreen()
                 Row {
-                    ControlsToggle {
-                        autoPlayFlow.update { !it }
-                    }
+                    ControlsToggle(autoPlayFlow)
                     NextButton()
                 }
             }
@@ -144,18 +137,18 @@ class PuzzyxAppNode(
     }
 
     @Composable
-    private fun ControlsToggle(onClick: () -> Unit) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .clickable { onClick() }
-                .alpha(0.05f),
-            contentAlignment = Alignment.Center
+    private fun ControlsToggle(autoPlayFlow: MutableStateFlow<Boolean>) {
+        val isAutoPlayOn = autoPlayFlow.collectAsState().value
+
+        Button(
+            onClick = { autoPlayFlow.update { !it } },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         ) {
             Icon(
-                imageVector = Icons.Filled.Settings,
+                imageVector = if (isAutoPlayOn) Icons.Filled.Pause else Icons.Filled.PlayArrow,
                 contentDescription = "Toggle manual controls",
-                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                modifier = Modifier.alpha(if (isAutoPlayOn) 0.035f else 1f),
             )
         }
     }
@@ -167,7 +160,11 @@ class PuzzyxAppNode(
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 onClick = { nextScreen() }
             ) {
-                Text("Next")
+                Icon(
+                    imageVector = Icons.Filled.SkipNext,
+                    contentDescription = "Next screen",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                )
             }
         }
     }
