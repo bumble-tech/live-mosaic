@@ -42,6 +42,7 @@ import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.Puzzle
 import com.bumble.puzzyx.model.PuzzlePiece
 import com.bumble.puzzyx.model.puzzle1Entries
+import com.bumble.puzzyx.ui.LocalManualControlsEnabled
 import com.bumble.puzzyx.ui.appyx_dark
 import com.bumble.puzzyx.ui.colors
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -140,21 +141,23 @@ class Puzzle1Node(
     @OptIn(ExperimentalLayoutApi::class)
     @Composable
     private fun Controls(modifier: Modifier) {
-        FlowRow(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Button(onClick = { gridPuzzle.scatter() }) {
-                Text("Scatter")
-            }
-            Button(onClick = { gridPuzzle.assemble() }) {
-                Text("Assemble")
-            }
-            Button(onClick = { gridPuzzle.flip(KEYFRAME, tween(10000)) }) {
-                Text("Flip")
-            }
-            Button(onClick = { gridPuzzle.carousel() }) {
-                Text("Carousel")
+        if (LocalManualControlsEnabled.current) {
+            FlowRow(
+                modifier = modifier,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(onClick = { gridPuzzle.scatter() }) {
+                    Text("Scatter")
+                }
+                Button(onClick = { gridPuzzle.assemble() }) {
+                    Text("Assemble")
+                }
+                Button(onClick = { gridPuzzle.flip(KEYFRAME, tween(10000)) }) {
+                    Text("Flip")
+                }
+                Button(onClick = { gridPuzzle.carousel() }) {
+                    Text("Carousel")
+                }
             }
         }
     }

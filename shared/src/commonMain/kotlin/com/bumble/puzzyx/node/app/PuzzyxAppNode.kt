@@ -2,20 +2,33 @@ package com.bumble.puzzyx.node.app
 
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
@@ -38,6 +51,7 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
+import com.bumble.puzzyx.ui.LocalManualControlsEnabled
 
 private val screens = listOf(
     Puzzle1,
@@ -85,8 +99,14 @@ class PuzzyxAppNode(
         Box(
             modifier = modifier.fillMaxSize()
         ) {
-            CurrentScreen()
-            NextButton()
+            var manualControls by remember { mutableStateOf(false) }
+            CompositionLocalProvider(LocalManualControlsEnabled provides manualControls) {
+                CurrentScreen()
+                Row {
+                    ControlsToggle { manualControls = !manualControls }
+                    NextButton()
+                }
+            }
         }
     }
 
@@ -99,22 +119,41 @@ class PuzzyxAppNode(
     }
 
     @Composable
-    private fun NextButton() {
-        var screenIdx by remember { mutableStateOf(0) }
-
-        Button(
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            onClick = {
-                backStack.replace(
-                    target = screens[++screenIdx % screens.size],
-                    animationSpec = tween(
-                        durationMillis = 3000,
-                        easing = FastOutLinearInEasing
-                    )
-                )
-            }
+    private fun ControlsToggle(onClick: () -> Unit) {
+        Box(
+            modifier = Modifier
+                .size(48.dp)
+                .clickable { onClick() }
+                .alpha(0.05f),
+            contentAlignment = Alignment.Center
         ) {
-            Text("Next")
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = "Toggle manual controls",
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+        }
+    }
+
+    @Composable
+    private fun NextButton() {
+        if (LocalManualControlsEnabled.current) {
+            var screenIdx by remember { mutableStateOf(0) }
+
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                onClick = {
+                    backStack.replace(
+                        target = screens[++screenIdx % screens.size],
+                        animationSpec = tween(
+                            durationMillis = 3000,
+                            easing = FastOutLinearInEasing
+                        )
+                    )
+                }
+            ) {
+                Text("Next")
+            }
         }
     }
 }
