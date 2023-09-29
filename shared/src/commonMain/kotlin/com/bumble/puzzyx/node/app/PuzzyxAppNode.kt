@@ -18,10 +18,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -51,7 +53,10 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
-import com.bumble.puzzyx.ui.LocalManualControlsEnabled
+import com.bumble.puzzyx.ui.LocalAutoPlayFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
     Puzzle1,
@@ -99,11 +104,16 @@ class PuzzyxAppNode(
         Box(
             modifier = modifier.fillMaxSize()
         ) {
-            var manualControls by remember { mutableStateOf(false) }
-            CompositionLocalProvider(LocalManualControlsEnabled provides manualControls) {
+            var autoPlayFlow = remember { MutableStateFlow(true) }
+
+            CompositionLocalProvider(
+                LocalAutoPlayFlow provides autoPlayFlow
+            ) {
                 CurrentScreen()
                 Row {
-                    ControlsToggle { manualControls = !manualControls }
+                    ControlsToggle {
+                        autoPlayFlow.update { !it }
+                    }
                     NextButton()
                 }
             }
@@ -137,7 +147,7 @@ class PuzzyxAppNode(
 
     @Composable
     private fun NextButton() {
-        if (LocalManualControlsEnabled.current) {
+        if (!LocalAutoPlayFlow.current.collectAsState().value) {
             var screenIdx by remember { mutableStateOf(0) }
 
             Button(

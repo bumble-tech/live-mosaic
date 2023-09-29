@@ -17,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
@@ -35,6 +36,7 @@ import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.assemble
 import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.carousel
 import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.flip
 import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.scatter
+import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.EntryCardSmall
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.imageloader.ResourceImage
@@ -42,7 +44,7 @@ import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.Puzzle
 import com.bumble.puzzyx.model.PuzzlePiece
 import com.bumble.puzzyx.model.puzzle1Entries
-import com.bumble.puzzyx.ui.LocalManualControlsEnabled
+import com.bumble.puzzyx.ui.LocalAutoPlayFlow
 import com.bumble.puzzyx.ui.appyx_dark
 import com.bumble.puzzyx.ui.colors
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -113,12 +115,14 @@ class Puzzle1Node(
 
     @Composable
     override fun View(modifier: Modifier) {
-        LaunchedEffect(Unit) {
-            // We can add the scripted state changes here
-            // delay(2500)
-            // gridPuzzle.assemble()
-            // etc.
-        }
+        AutoPlayScript(
+            steps = listOf(
+                { gridPuzzle.assemble() } to 9000,
+                { gridPuzzle.flip(KEYFRAME, tween(10000)) } to 8000,
+                { gridPuzzle.scatter() } to 500,
+            )
+        )
+
         Box(
             modifier = modifier
                 .fillMaxSize()
@@ -141,7 +145,7 @@ class Puzzle1Node(
     @OptIn(ExperimentalLayoutApi::class)
     @Composable
     private fun Controls(modifier: Modifier) {
-        if (LocalManualControlsEnabled.current) {
+        if (!LocalAutoPlayFlow.current.collectAsState().value) {
             FlowRow(
                 modifier = modifier,
                 horizontalArrangement = Arrangement.Center
