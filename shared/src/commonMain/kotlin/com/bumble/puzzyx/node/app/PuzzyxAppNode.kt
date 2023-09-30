@@ -31,18 +31,21 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
+import com.bumble.puzzyx.composable.StarFieldMessageBoard
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
 
 private val screens = listOf(
     Puzzle1,
     CallToAction,
-    MessageBoard
+    MessageBoard,
+    StarFieldMessageBoard,
 )
 
 class PuzzyxAppNode(
@@ -67,6 +70,9 @@ class PuzzyxAppNode(
 
         @Parcelize
         object MessageBoard : NavTarget()
+
+        @Parcelize
+        object StarFieldMessageBoard : NavTarget()
     }
 
 
@@ -78,6 +84,7 @@ class PuzzyxAppNode(
             )
             is CallToAction -> node(buildContext) { modifier -> CallToActionScreen(modifier) }
             is MessageBoard -> node(buildContext) { modifier -> MessageBoard(modifier) }
+            is StarFieldMessageBoard -> node(buildContext) { modifier -> StarFieldMessageBoard(modifier) }
         }
 
     @Composable
