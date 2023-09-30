@@ -151,7 +151,7 @@ class PuzzyxAppNode(
         ) {
             Icon(
                 imageVector = if (isAutoPlayOn) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                contentDescription = "Toggle manual controls",
+                contentDescription = "Toggle auto-play",
                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.alpha(if (isAutoPlayOn) 0.035f else 1f),
             )
