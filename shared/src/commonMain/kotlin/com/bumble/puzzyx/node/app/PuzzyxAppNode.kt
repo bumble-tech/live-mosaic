@@ -3,16 +3,24 @@ package com.bumble.puzzyx.node.app
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
@@ -29,20 +37,27 @@ import com.bumble.appyx.navigation.node.node
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
+import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
+import com.bumble.puzzyx.composable.StarFieldMessageBoard
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
+import com.bumble.puzzyx.ui.LocalAutoPlayFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
     Puzzle1,
     CallToAction,
-    MessageBoard
+    MessageBoard,
+    StarFieldMessageBoard,
 )
 
 class PuzzyxAppNode(
@@ -58,6 +73,8 @@ class PuzzyxAppNode(
     buildContext = buildContext,
     appyxComponent = backStack
 ) {
+    private var screenIdx = 0
+
     sealed class NavTarget : Parcelable {
         @Parcelize
         object Puzzle1 : NavTarget()
@@ -67,6 +84,9 @@ class PuzzyxAppNode(
 
         @Parcelize
         object MessageBoard : NavTarget()
+
+        @Parcelize
+        object StarFieldMessageBoard : NavTarget()
     }
 
 
@@ -76,17 +96,40 @@ class PuzzyxAppNode(
                 puzzle = PUZZLE1,
                 buildContext = buildContext
             )
-            is CallToAction -> node(buildContext) { modifier -> CallToActionScreen(modifier) }
-            is MessageBoard -> node(buildContext) { modifier -> MessageBoard(modifier) }
+            is CallToAction -> node(buildContext) { modifier ->
+                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                CallToActionScreen(modifier)
+            }
+            is MessageBoard -> node(buildContext) { modifier ->
+                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                MessageBoard(modifier)
+            }
+            is StarFieldMessageBoard -> node(buildContext) { modifier ->
+                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                StarFieldMessageBoard(modifier)
+            }
         }
+
+    override fun onChildFinished(child: Node) {
+        nextScreen()
+    }
 
     @Composable
     override fun View(modifier: Modifier) {
         Box(
             modifier = modifier.fillMaxSize()
         ) {
-            CurrentScreen()
-            NextButton()
+            var autoPlayFlow = remember { MutableStateFlow(true) }
+
+            CompositionLocalProvider(
+                LocalAutoPlayFlow provides autoPlayFlow
+            ) {
+                CurrentScreen()
+                Row {
+                    AutoPlayToggle(autoPlayFlow)
+                    NextButton()
+                }
+            }
         }
     }
 
@@ -99,23 +142,46 @@ class PuzzyxAppNode(
     }
 
     @Composable
-    private fun NextButton() {
-        var screenIdx by remember { mutableStateOf(0) }
+    private fun AutoPlayToggle(autoPlayFlow: MutableStateFlow<Boolean>) {
+        val isAutoPlayOn = autoPlayFlow.collectAsState().value
 
         Button(
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-            onClick = {
-                backStack.replace(
-                    target = screens[++screenIdx % screens.size],
-                    animationSpec = tween(
-                        durationMillis = 3000,
-                        easing = FastOutLinearInEasing
-                    )
+            onClick = { autoPlayFlow.update { !it } },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+        ) {
+            Icon(
+                imageVector = if (isAutoPlayOn) Icons.Filled.Pause else Icons.Filled.PlayArrow,
+                contentDescription = "Toggle manual controls",
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                modifier = Modifier.alpha(if (isAutoPlayOn) 0.035f else 1f),
+            )
+        }
+    }
+
+    @Composable
+    private fun NextButton() {
+        if (!LocalAutoPlayFlow.current.collectAsState().value) {
+            Button(
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                onClick = { nextScreen() }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.SkipNext,
+                    contentDescription = "Next screen",
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
-        ) {
-            Text("Next")
         }
+    }
+
+    private fun nextScreen() {
+        backStack.replace(
+            target = screens[++screenIdx % screens.size],
+            animationSpec = tween(
+                durationMillis = 3000,
+                easing = FastOutLinearInEasing
+            )
+        )
     }
 }
 

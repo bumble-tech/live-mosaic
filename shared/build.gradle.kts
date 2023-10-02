@@ -28,7 +28,6 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(libs.appyx.navigation)
                 api(libs.appyx.components.backstack)
-                api(libs.compose.image.loader)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 implementation(libs.k5.compose)
