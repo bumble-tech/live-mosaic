@@ -10,9 +10,11 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import com.bumble.appyx.interactions.core.annotations.FloatRange
+import com.bumble.appyx.interactions.core.ui.math.clamp
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
 import com.bumble.puzzyx.math.mapValueRange
 import kotlin.math.abs
+import kotlin.math.sqrt
 
 /**
  * Creates a shape that contains [meshSizeX] * [meshSizeY] evenly spaced individual
@@ -32,7 +34,7 @@ class DottedMeshShape(
     private val meshSizeX: Int,
     private val meshSizeY: Int,
     private val maxRadius: Float,
-    @FloatRange(from=0.0, to=1.0)
+    @FloatRange(from = 0.0, to = 1.0)
     private val progress: Float = 0f
 ) : Shape {
     override fun createOutline(
@@ -46,35 +48,58 @@ class DottedMeshShape(
         val sheet = Path().apply {
             addRect(Rect(0f, 0f, width, height))
         }
+        val appliedMeshSizeX = meshSizeX - 1f
+        val appliedMeshSizeY = meshSizeY - 1f
+        val halfMeshWidth = 0.5f * (width / appliedMeshSizeX)
+        val halfMeshHeight = 0.5f * (height / appliedMeshSizeY)
+        val clampRadius = sqrt(halfMeshWidth * halfMeshWidth + halfMeshHeight * halfMeshHeight)
         val dots = Path().apply {
             for (y in 0 until meshSizeY) {
                 for (x in 0 until meshSizeX) {
-                    val u = x / (meshSizeX - 1f)
-                    val v = y / (meshSizeY - 1f)
+                    val u = x / appliedMeshSizeX
+                    val v = y / appliedMeshSizeY
 
                     val center = Offset(
                         x = lerpFloat(0f, width, u),
                         y = lerpFloat(0f, height, v)
                     )
 
-                    val radius = mapValueRange(
-                        value = progressDelayed
-                                + (0.5f - abs(u - 0.5f))
-                                + (0.5f - abs(v - 0.5f)),
-                        fromRangeMin = 0f,
-                        fromRangeMax = 2f,
-                        destRangeMin = 0f,
-                        destRangeMax = maxRadius
+                    val radius = clamp(
+                        x = mapValueRange(
+                            value = progressDelayed
+                                    + (0.5f - abs(u - 0.5f))
+                                    + (0.5f - abs(v - 0.5f)),
+                            fromRangeMin = 0f,
+                            fromRangeMax = 2f,
+                            destRangeMin = 0f,
+                            destRangeMax = maxRadius
+                        ),
+                        min = 0f,
+                        max = clampRadius,
                     )
 
-                    addOval(
-                        Rect(
-                            left = center.x - radius,
-                            top = center.y - radius,
-                            right = center.x + radius,
-                            bottom = center.y + radius
-                        ),
-                    )
+                    // Clip with ovals when you see them, but stick with rectangles otherwise. This
+                    // helps make clipping faster and prevents dropping frames.
+                    if (radius < clampRadius) {
+                        addOval(
+                            Rect(
+                                left = center.x - radius,
+                                top = center.y - radius,
+                                right = center.x + radius,
+                                bottom = center.y + radius,
+                            ),
+                        )
+                    } else {
+                        addRect(
+                            Rect(
+                                left = center.x - halfMeshWidth,
+                                top = center.y - halfMeshHeight,
+                                right = center.x + halfMeshWidth,
+                                bottom = center.y + halfMeshHeight,
+                            ),
+                        )
+                    }
+
                 }
             }
         }
