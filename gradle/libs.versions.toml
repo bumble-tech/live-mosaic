@@ -13,7 +13,6 @@ coil = "2.2.1"
 composePlugin = "1.4.3"
 composeBom = "2023.05.01"
 composeCompiler = "1.4.4"
-image-loader-version = "1.6.4"
 coroutines = "1.7.1"
 dependencyAnalysis = "1.13.1"
 detekt = "1.21.0"
@@ -62,7 +61,6 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 google-accompanist-systemui = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 google-accompanist-flow = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 google-material = "com.google.android.material:material:1.4.0"
-compose-image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "image-loader-version"}
 junit = "junit:junit:4.13.2"
 k5-compose = "me.nikhilchaudhari:k5-compose:1.0.1"
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
