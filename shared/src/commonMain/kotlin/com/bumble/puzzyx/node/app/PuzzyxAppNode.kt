@@ -54,10 +54,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
+    StarFieldMessageBoard,
     Puzzle1,
     CallToAction,
     MessageBoard,
-    StarFieldMessageBoard,
 )
 
 class PuzzyxAppNode(
@@ -105,7 +105,7 @@ class PuzzyxAppNode(
                 MessageBoard(modifier)
             }
             is StarFieldMessageBoard -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                AutoPlayScript(initialDelayMs = 50000) { nextScreen() }
                 StarFieldMessageBoard(modifier)
             }
         }

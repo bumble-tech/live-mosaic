@@ -5,11 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.bumble.appyx.interactions.core.ui.math.smoothstep
 import com.bumble.appyx.navigation.collections.ImmutableList
@@ -34,6 +33,7 @@ import kotlin.random.Random
 @Immutable
 private data class StarFieldSpecs(
     val regularStarCounter: Int = 200,
+    val maxEntries: Int = 16,
     val speed: Float = 0.1f,
     val zNewCoord: Float = 0f,
     val zFadeInStart: Float = 0.3f,
@@ -66,25 +66,22 @@ private sealed class Star {
 @Immutable
 private data class StarField(
     val specs: StarFieldSpecs,
-    val stars: ImmutableList<Star>
+    val stars: ImmutableList<Star>,
 ) {
     companion object {
         fun generateStars(starFieldSpecs: StarFieldSpecs): StarField =
             StarField(
                 specs = starFieldSpecs,
-                stars = (entryStars(starFieldSpecs) + regularStars(starFieldSpecs))
-                    .shuffled()
-                    .toImmutableList()
+                stars = (entryStars(starFieldSpecs) + regularStars(starFieldSpecs)).toImmutableList()
             )
 
         private fun entryStars(starFieldSpecs: StarFieldSpecs) =
-            entries.map {
+            entries.reversed().mapIndexed { index, entry ->
+                val zChunkLength = starFieldSpecs.zFadeInStart - -1.0f
+                val zOffset = zChunkLength / starFieldSpecs.maxEntries
                 Star.EntryStar(
-                    zCoord = Random.nextDouble(
-                        from = starFieldSpecs.zNewCoord.toDouble(),
-                        until = starFieldSpecs.zFadeOutEnd.toDouble(),
-                    ).toFloat(),
-                    entry = it,
+                    zCoord = starFieldSpecs.zFadeInStart - index * zOffset,
+                    entry = entry,
                 )
             }
 
@@ -156,23 +153,32 @@ private fun StarFieldContent(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
-        starField.stars.forEach { star ->
-            val zPos = star.zCoord
-            val xPos = star.xCoord * zPos
-            val yPos = star.yCoord * zPos
-            val alpha = smoothstep(starField.specs.zFadeInStart, starField.specs.zFadeInEnd, zPos) -
-                    smoothstep(starField.specs.zFadeOutStart, starField.specs.zFadeOutEnd, zPos)
+        starField.stars.forEachIndexed { index, star ->
+            key(index) {
+                val zPos = star.zCoord
+                val xPos = star.xCoord * zPos
+                val yPos = star.yCoord * zPos
+                val alpha =
+                    smoothstep(starField.specs.zFadeInStart, starField.specs.zFadeInEnd, zPos) -
+                            smoothstep(
+                                starField.specs.zFadeOutStart,
+                                starField.specs.zFadeOutEnd,
+                                zPos
+                            )
 
-            StarContent(
-                star,
-                modifier = Modifier
-                    .scale(zPos)
-                    .size(290.dp)
-                    .aspectRatio(1.5f)
-                    .align(BiasAlignment(xPos, yPos))
-                    .alpha(alpha)
-                    .zIndex(zPos)
-            )
+                if (alpha > 0f) {
+                    StarContent(
+                        star,
+                        modifier = Modifier
+                            .scale(zPos)
+                            .fillMaxSize(0.13f)
+                            .aspectRatio(1.5f)
+                            .align(BiasAlignment(xPos, yPos))
+                            .alpha(alpha)
+                            .zIndex(zPos)
+                    )
+                }
+            }
         }
     }
 }
