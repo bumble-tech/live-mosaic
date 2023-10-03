@@ -186,8 +186,7 @@ class PuzzyxAppNode(
 @Composable
 private fun ClipShape(progress: Float): Shape {
     val screenSize = LocalScreenSize.current
-    val density = LocalDensity.current
-    val (meshMin, meshMax) = 15 to 25
+    val (meshMin, meshMax) = 14 to 25
     val meshSizeX = if (screenSize.widthDp > screenSize.heightDp) meshMax else meshMin
     val meshSizeY = if (screenSize.widthDp > screenSize.heightDp) meshMin else meshMax
 
