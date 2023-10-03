@@ -66,13 +66,15 @@ class DottedMeshShape(
                         y = lerpFloat(0f, height, v)
                     )
 
+                    val value = (progressDelayed
+                            + (0.5f - abs(u - 0.5f))
+                            + (0.5f - abs(v - 0.5f)))
+
                     val radius = clamp(
                         x = mapValueRange(
-                            value = progressDelayed
-                                    + (0.5f - abs(u - 0.5f))
-                                    + (0.5f - abs(v - 0.5f)),
+                            value.coerceAtMost(1f),
                             fromRangeMin = 0f,
-                            fromRangeMax = 2f,
+                            fromRangeMax = 1f,
                             destRangeMin = 0f,
                             destRangeMax = targetRadius
                         ),
