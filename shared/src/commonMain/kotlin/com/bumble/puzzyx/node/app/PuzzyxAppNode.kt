@@ -23,8 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.max
 import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.components.backstack.operation.replace
@@ -192,18 +190,12 @@ private fun ClipShape(progress: Float): Shape {
     val (meshMin, meshMax) = 15 to 25
     val meshSizeX = if (screenSize.widthDp > screenSize.heightDp) meshMax else meshMin
     val meshSizeY = if (screenSize.widthDp > screenSize.heightDp) meshMin else meshMax
-    val maxRadius = remember(screenSize) {
-        with(density) {
-            max(screenSize.widthDp, screenSize.heightDp).toPx() / meshMin * 1.5f
-        }
-    }
 
     val shape by remember(progress) {
         mutableStateOf(
             DottedMeshShape(
                 meshSizeX,
                 meshSizeY,
-                maxRadius,
                 progress
             )
         )
