@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import com.bumble.appyx.interactions.core.annotations.FloatRange
-import com.bumble.appyx.interactions.core.ui.math.clamp
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
 import com.bumble.puzzyx.math.mapValueRange
 import kotlin.math.abs
@@ -52,7 +51,7 @@ class DottedMeshShape(
         val appliedMeshSizeY = meshSizeY - 1f
         val halfMeshWidth = 0.5f * (width / appliedMeshSizeX)
         val halfMeshHeight = 0.5f * (height / appliedMeshSizeY)
-        val clampRadius = sqrt(halfMeshWidth * halfMeshWidth + halfMeshHeight * halfMeshHeight)
+        val maxOvalRadius = sqrt(halfMeshWidth * halfMeshWidth + halfMeshHeight * halfMeshHeight)
         val dots = Path().apply {
             for (y in 0 until meshSizeY) {
                 for (x in 0 until meshSizeX) {
@@ -64,23 +63,19 @@ class DottedMeshShape(
                         y = lerpFloat(0f, height, v)
                     )
 
-                    val radius = clamp(
-                        x = mapValueRange(
-                            value = progressDelayed
-                                    + (0.5f - abs(u - 0.5f))
-                                    + (0.5f - abs(v - 0.5f)),
-                            fromRangeMin = 0f,
-                            fromRangeMax = 2f,
-                            destRangeMin = 0f,
-                            destRangeMax = maxRadius
-                        ),
-                        min = 0f,
-                        max = clampRadius,
+                    val radius = mapValueRange(
+                        value = progressDelayed
+                                + (0.5f - abs(u - 0.5f))
+                                + (0.5f - abs(v - 0.5f)),
+                        fromRangeMin = 0f,
+                        fromRangeMax = 2f,
+                        destRangeMin = 0f,
+                        destRangeMax = maxRadius
                     )
 
                     // Clip with ovals when you see them, but stick with rectangles otherwise. This
                     // helps make clipping faster and prevents dropping frames.
-                    if (radius < clampRadius) {
+                    if (radius < maxOvalRadius) {
                         addOval(
                             Rect(
                                 left = center.x - radius,
