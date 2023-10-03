@@ -94,7 +94,7 @@ val entries = listOf(
     ),
     Entry.ComposableContent(
         puzzle = Puzzle.PUZZLE1,
-        githubUserName = "codeWhizKid",
+        githubUserName = "pixelPirate",
         content = {
             val infiniteTransition = rememberInfiniteTransition()
             val color by infiniteTransition.animateColor(
@@ -117,6 +117,11 @@ val entries = listOf(
 
 val puzzle1Entries = entries
     .filter { it.puzzle == Puzzle.PUZZLE1 }
-    .also { if (it.size > Puzzle.PUZZLE1.maxEntryCount)
-        error("This puzzle is already filled up. Add your entry to another one!")
+    .also {
+        if (it.size > Puzzle.PUZZLE1.maxEntryCount)
+            error("This puzzle is already filled up. Add your entry to another one!")
+
+        if (it.map { it.githubUserName }.distinct().size < it.size) {
+            error("One entry per puzzle is the limit, but you can try again in the next one!")
+        }
     }
