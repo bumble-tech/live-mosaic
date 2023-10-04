@@ -43,7 +43,7 @@ import kotlin.random.Random
 @Immutable
 private data class StarFieldSpecs(
     val regularStarCounter: Int = 200,
-    val maxEntries: Int = 16,
+    val maxEntries: Int = 12,
     val speed: Float = 0.1f,
     val zNewCoord: Float = -1f,
     val zFadeInStart: Float = 0.3f,
@@ -55,8 +55,8 @@ private data class StarFieldSpecs(
 }
 
 private data class Star(
-    val xCoord: Float = Random.nextDouble(-1.0, 1.0).toFloat(),
-    val yCoord: Float = Random.nextDouble(-1.0, 1.0).toFloat(),
+    val xCoord: Float = Random.nextDouble(-0.5, 0.5).toFloat(),
+    val yCoord: Float = Random.nextDouble(-0.5, 0.5).toFloat(),
     val zCoord: Float,
     val size: Modifier,
     val type: StarType,
@@ -173,8 +173,8 @@ private fun StarField.update(
                 star.copy(zCoord = zUpdatedCoord)
             } else {
                 star.copy(
-                    xCoord = Random.nextDouble(-1.0, 1.0).toFloat(),
-                    yCoord = Random.nextDouble(-1.0, 1.0).toFloat(),
+                    xCoord = Random.nextDouble(-0.5, 0.5).toFloat(),
+                    yCoord = Random.nextDouble(-0.5, 0.5).toFloat(),
                     zCoord = star.type.calcZNewCoord(
                         specs.zFadeInStart,
                         specs.zOffset,
