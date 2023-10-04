@@ -66,7 +66,7 @@ private data class Star(
 private sealed class StarType {
     data class RegularType(val color: Color) : StarType() {
         companion object {
-            val size: Modifier = Modifier.size(2.dp)
+            val size: Modifier = Modifier.size(4.dp)
         }
     }
 
@@ -99,9 +99,10 @@ private data class StarField(
         fun generateStars(starFieldSpecs: StarFieldSpecs): StarField =
             StarField(
                 specs = starFieldSpecs,
-                stars = (regularStars(starFieldSpecs) + entryStars(starFieldSpecs) + logoStars(
-                    starFieldSpecs
-                )).toImmutableList()
+                stars = (regularStars(starFieldSpecs)
+                        + entryStars(starFieldSpecs)
+                        + logoStars(starFieldSpecs)
+                        ).toImmutableList()
             )
 
         private fun regularStars(starFieldSpecs: StarFieldSpecs) =
