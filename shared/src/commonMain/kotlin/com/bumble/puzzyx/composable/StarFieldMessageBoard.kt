@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
@@ -31,7 +30,6 @@ import com.bumble.appyx.interactions.core.ui.math.smoothstep
 import com.bumble.appyx.navigation.collections.ImmutableList
 import com.bumble.appyx.navigation.collections.toImmutableList
 import com.bumble.puzzyx.composable.StarField.Companion.generateStars
-import com.bumble.puzzyx.imageloader.ResourceImage
 import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.ui.appyx_dark
@@ -76,17 +74,10 @@ private sealed class StarType {
         }
     }
 
-    data class LogoType(val imagePath: String) : StarType() {
-        companion object {
-            val size: Modifier = Modifier.fillMaxSize(0.05f).aspectRatio(1f)
-        }
-    }
-
     fun calcZNewCoord(zFadeInStart: Float, zOffset: Float, maxEntries: Int): Float =
         when (this) {
-            is EntryType -> zFadeInStart - zOffset * max(0, entries.size - maxEntries)
-            is LogoType -> zFadeInStart
             is RegularType -> zFadeInStart
+            is EntryType -> zFadeInStart - zOffset * max(0, entries.size - maxEntries)
         }
 }
 
@@ -101,7 +92,6 @@ private data class StarField(
                 specs = starFieldSpecs,
                 stars = (regularStars(starFieldSpecs)
                         + entryStars(starFieldSpecs)
-                        + logoStars(starFieldSpecs)
                         ).toImmutableList()
             )
 
@@ -131,34 +121,6 @@ private data class StarField(
                     type = StarType.EntryType(entry = entry),
                 )
             }
-
-        private fun logoStars(starFieldSpecs: StarFieldSpecs) =
-            listOf(
-                Star(
-                    zCoord = Random.nextDouble(
-                        from = starFieldSpecs.zNewCoord.toDouble(),
-                        until = starFieldSpecs.zFadeInStart.toDouble(),
-                    ).toFloat(),
-                    size = StarType.LogoType.size,
-                    type = StarType.LogoType(imagePath = "logos/appyx.png"),
-                ),
-                Star(
-                    zCoord = Random.nextDouble(
-                        from = starFieldSpecs.zNewCoord.toDouble(),
-                        until = starFieldSpecs.zFadeInStart.toDouble(),
-                    ).toFloat(),
-                    size = StarType.LogoType.size,
-                    type = StarType.LogoType(imagePath = "logos/bumble.png"),
-                ),
-                Star(
-                    zCoord = Random.nextDouble(
-                        from = starFieldSpecs.zNewCoord.toDouble(),
-                        until = starFieldSpecs.zFadeInStart.toDouble(),
-                    ).toFloat(),
-                    size = StarType.LogoType.size,
-                    type = StarType.LogoType(imagePath = "logos/droidcon.png"),
-                ),
-            )
     }
 }
 
@@ -263,9 +225,8 @@ private fun StarContent(
     modifier: Modifier = Modifier,
 ) {
     when (type) {
-        is StarType.EntryType -> EntryStarContent(type.entry, modifier)
         is StarType.RegularType -> RegularStarContent(type.color, modifier)
-        is StarType.LogoType -> LogoStarContent(type.imagePath, modifier)
+        is StarType.EntryType -> EntryStarContent(type.entry, modifier)
     }
 }
 
@@ -290,16 +251,4 @@ private fun RegularStarContent(
     ) {
         drawCircle(color = color, radius = density * 2f)
     }
-}
-
-@Composable
-private fun LogoStarContent(
-    imagePath: String,
-    modifier: Modifier = Modifier,
-) {
-    ResourceImage(
-        path = imagePath,
-        contentScale = ContentScale.Inside,
-        modifier = modifier
-    )
 }
