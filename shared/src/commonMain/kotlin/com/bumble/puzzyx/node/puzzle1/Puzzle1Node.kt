@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -47,7 +46,6 @@ import com.bumble.puzzyx.model.puzzle1Entries
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
 import com.bumble.puzzyx.ui.appyx_dark
 import com.bumble.puzzyx.ui.colors
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import kotlin.random.Random
 
 private val animationSpec = spring<Float>(
@@ -79,7 +77,6 @@ class Puzzle1Node(
     appyxComponent = gridPuzzle
 ) {
 
-    @OptIn(ExperimentalResourceApi::class)
     override fun resolve(puzzlePiece: PuzzlePiece, buildContext: BuildContext): Node =
         node(buildContext) { modifier ->
             val colorIdx = rememberSaveable(puzzlePiece) { Random.nextInt(colors.size) }
@@ -106,7 +103,8 @@ class Puzzle1Node(
                                 .fillMaxSize()
                                 .background(color),
                             // TODO decide on the fate of this
-                            entry = puzzle1Entries[puzzlePiece.entryId] as? Entry.Text ?: Entry.Text(Puzzle.PUZZLE1, "n/a")
+                            entry = puzzle1Entries[puzzlePiece.entryId] as? Entry.Text
+                                ?: Entry.Text(Puzzle.PUZZLE1, "n/a")
                         )
                     }
                 )
@@ -148,7 +146,9 @@ class Puzzle1Node(
 
     @OptIn(ExperimentalLayoutApi::class)
     @Composable
-    private fun Controls(modifier: Modifier) {
+    private fun Controls(
+        modifier: Modifier = Modifier,
+    ) {
         if (!LocalAutoPlayFlow.current.collectAsState().value) {
             FlowRow(
                 modifier = modifier,

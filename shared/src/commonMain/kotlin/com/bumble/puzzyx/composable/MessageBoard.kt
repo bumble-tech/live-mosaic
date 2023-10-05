@@ -28,7 +28,9 @@ import math.noise3D
 import kotlin.math.cos
 
 @Composable
-fun MessageBoard(modifier: Modifier) {
+fun MessageBoard(
+    modifier: Modifier = Modifier,
+) {
     ProgressBasedContent(
         millisPerFrame = 50000,
     ) { time ->
@@ -37,7 +39,10 @@ fun MessageBoard(modifier: Modifier) {
 }
 
 @Composable
-private fun MessageBoardContent(time: Float, modifier: Modifier) {
+private fun MessageBoardContent(
+    time: Float,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -72,8 +77,8 @@ private fun MessageBoardContent(time: Float, modifier: Modifier) {
                         val entry = entriesShuffled[(y * maxY + x) % entriesShuffled.size]
 
                         EntryCard(
-                            modifier = Modifier.fillMaxSize(),
-                            entry
+                            entry = entry,
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
                 }
