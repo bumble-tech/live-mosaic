@@ -13,13 +13,13 @@ class Assemble(
     override var mode: Operation.Mode
 ) : BaseOperation<State>() {
 
-    override fun isApplicable(state: GridPuzzleModel.State): Boolean =
+    override fun isApplicable(state: State): Boolean =
         true
 
-    override fun createFromState(baseLineState: GridPuzzleModel.State): GridPuzzleModel.State =
+    override fun createFromState(baseLineState: State): State =
         baseLineState
 
-    override fun createTargetState(fromState: GridPuzzleModel.State): GridPuzzleModel.State =
+    override fun createTargetState(fromState: State): State =
         fromState.copy(
             puzzleMode = GridPuzzleModel.PuzzleMode.ASSEMBLED
         )

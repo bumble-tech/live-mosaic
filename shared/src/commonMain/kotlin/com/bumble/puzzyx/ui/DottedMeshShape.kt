@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.bumble.appyx.interactions.core.annotations.FloatRange
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
 import com.bumble.puzzyx.math.mapValueRange
+import java.lang.Integer.max
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -22,7 +23,7 @@ import kotlin.math.sqrt
  * Expecting a [progress] value that represents the state of the animation in the [0f..1f] range,
  * each circle's radius will be calculated for the current frame such that:
  * - the starting value for radius is 0
- * - the maximum radius is [maxRadius]
+ * - the maximum radius is determined automatically based on mesh size
  * - the radius animation for a given circle is delayed based on its position in the mesh,
  *   center ones starting first, gradually followed by ones closer to the edges
  *
@@ -32,7 +33,6 @@ import kotlin.math.sqrt
 class DottedMeshShape(
     private val meshSizeX: Int,
     private val meshSizeY: Int,
-    private val maxRadius: Float,
     @FloatRange(from = 0.0, to = 1.0)
     private val progress: Float = 0f
 ) : Shape {
@@ -43,6 +43,7 @@ class DottedMeshShape(
     ): Outline {
         val (width, height) = size
         val progressDelayed = lerpFloat(-1.0f, 1f, progress)
+        val targetRadius = size.maxDimension / max(meshSizeX, meshSizeY)
 
         val sheet = Path().apply {
             addRect(Rect(0f, 0f, width, height))
@@ -51,7 +52,8 @@ class DottedMeshShape(
         val appliedMeshSizeY = meshSizeY - 1f
         val halfMeshWidth = 0.5f * (width / appliedMeshSizeX)
         val halfMeshHeight = 0.5f * (height / appliedMeshSizeY)
-        val maxOvalRadius = sqrt(halfMeshWidth * halfMeshWidth + halfMeshHeight * halfMeshHeight)
+        val clampRadius = sqrt(halfMeshWidth * halfMeshWidth + halfMeshHeight * halfMeshHeight)
+
         val dots = Path().apply {
             for (y in 0 until meshSizeY) {
                 for (x in 0 until meshSizeX) {
@@ -63,19 +65,21 @@ class DottedMeshShape(
                         y = lerpFloat(0f, height, v)
                     )
 
+                    val value = (progressDelayed
+                            + (0.5f - abs(u - 0.5f))
+                            + (0.5f - abs(v - 0.5f)))
+
                     val radius = mapValueRange(
-                        value = progressDelayed
-                                + (0.5f - abs(u - 0.5f))
-                                + (0.5f - abs(v - 0.5f)),
+                        value = value.coerceAtMost(1f),
                         fromRangeMin = 0f,
-                        fromRangeMax = 2f,
+                        fromRangeMax = 1f,
                         destRangeMin = 0f,
-                        destRangeMax = maxRadius
+                        destRangeMax = targetRadius
                     )
 
                     // Clip with ovals when you see them, but stick with rectangles otherwise. This
                     // helps make clipping faster and prevents dropping frames.
-                    if (radius < maxOvalRadius) {
+                    if (radius < clampRadius) {
                         addOval(
                             Rect(
                                 left = center.x - radius,

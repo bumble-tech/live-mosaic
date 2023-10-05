@@ -23,8 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.max
 import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.components.backstack.operation.replace
@@ -105,7 +103,7 @@ class PuzzyxAppNode(
                 MessageBoard(modifier)
             }
             is StarFieldMessageBoard -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                AutoPlayScript(initialDelayMs = 15000) { nextScreen() }
                 StarFieldMessageBoard(modifier)
             }
         }
@@ -151,7 +149,7 @@ class PuzzyxAppNode(
         ) {
             Icon(
                 imageVector = if (isAutoPlayOn) Icons.Filled.Pause else Icons.Filled.PlayArrow,
-                contentDescription = "Toggle manual controls",
+                contentDescription = "Toggle auto-play",
                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier.alpha(if (isAutoPlayOn) 0.035f else 1f),
             )
@@ -188,22 +186,15 @@ class PuzzyxAppNode(
 @Composable
 private fun clipShape(progress: Float): Shape {
     val screenSize = LocalScreenSize.current
-    val density = LocalDensity.current
-    val (meshMin, meshMax) = 15 to 25
+    val (meshMin, meshMax) = 14 to 25
     val meshSizeX = if (screenSize.widthDp > screenSize.heightDp) meshMax else meshMin
     val meshSizeY = if (screenSize.widthDp > screenSize.heightDp) meshMin else meshMax
-    val maxRadius = remember(screenSize) {
-        with(density) {
-            max(screenSize.widthDp, screenSize.heightDp).toPx() / meshMin * 1.5f
-        }
-    }
 
     val shape by remember(progress) {
         mutableStateOf(
             DottedMeshShape(
                 meshSizeX,
                 meshSizeY,
-                maxRadius,
                 progress
             )
         )
