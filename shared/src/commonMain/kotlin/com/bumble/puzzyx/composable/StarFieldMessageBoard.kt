@@ -182,21 +182,15 @@ private fun StarFieldContent(
     modifier: Modifier = Modifier,
 ) {
     var size by remember { mutableStateOf(IntSize.Zero) }
-    Box(modifier = modifier
-        .onSizeChanged { size = it }) {
+    Box(
+        modifier = modifier.onSizeChanged { size = it },
+    ) {
         starField.stars.forEachIndexed { index, star ->
             key(index) {
                 val zPos = star.zCoord
                 val xPos = star.xCoord * zPos
                 val yPos = star.yCoord * zPos
-                val alpha =
-                    smoothstep(starField.specs.zFadeInStart, starField.specs.zFadeInEnd, zPos) -
-                            smoothstep(
-                                starField.specs.zFadeOutStart,
-                                starField.specs.zFadeOutEnd,
-                                zPos
-                            )
-
+                val alpha = starField.specs.calcAlpha(zPos)
                 if (alpha > 0f) {
                     StarContent(
                         star.type,
@@ -218,6 +212,9 @@ private fun StarFieldContent(
         }
     }
 }
+
+private fun StarFieldSpecs.calcAlpha(zPos: Float) =
+    smoothstep(zFadeInStart, zFadeInEnd, zPos) - smoothstep(zFadeOutStart, zFadeOutEnd, zPos)
 
 @Composable
 private fun StarContent(
