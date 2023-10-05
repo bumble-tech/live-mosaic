@@ -103,7 +103,7 @@ class PuzzyxAppNode(
                 MessageBoard(modifier)
             }
             is StarFieldMessageBoard -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                AutoPlayScript(initialDelayMs = 15000) { nextScreen() }
                 StarFieldMessageBoard(modifier)
             }
         }
