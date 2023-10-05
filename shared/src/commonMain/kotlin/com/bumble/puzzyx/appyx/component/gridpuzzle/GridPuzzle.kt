@@ -16,6 +16,4 @@ class GridPuzzle(
     model = GridPuzzleModel(savedStateMap, gridRows, gridCols, pieces),
     motionController = { GridPuzzleVisualisation(it, defaultAnimationSpec) },
     defaultAnimationSpec = defaultAnimationSpec
-) {
-
-}
+)

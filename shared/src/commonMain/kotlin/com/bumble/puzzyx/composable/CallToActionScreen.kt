@@ -11,7 +11,9 @@ import com.bumble.puzzyx.ui.appyx_dark
 import com.bumble.puzzyx.ui.appyx_yellow1
 
 @Composable
-fun CallToActionScreen(modifier: Modifier) {
+fun CallToActionScreen(
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier
             .fillMaxSize()
