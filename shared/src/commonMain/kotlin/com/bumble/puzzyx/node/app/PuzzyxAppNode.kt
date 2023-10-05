@@ -45,13 +45,16 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle2
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
+import com.bumble.puzzyx.node.puzzle2.Puzzle2Node
 import com.bumble.puzzyx.ui.DottedMeshShape
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
+    Puzzle2,
     Puzzle1,
     CallToAction,
     MessageBoard,
@@ -76,6 +79,9 @@ class PuzzyxAppNode(
     sealed class NavTarget : Parcelable {
         @Parcelize
         object Puzzle1 : NavTarget()
+
+        @Parcelize
+        object Puzzle2 : NavTarget()
 
         @Parcelize
         object CallToAction : NavTarget()
@@ -106,6 +112,9 @@ class PuzzyxAppNode(
                 AutoPlayScript(initialDelayMs = 15000) { nextScreen() }
                 StarFieldMessageBoard(modifier)
             }
+            is Puzzle2 -> Puzzle2Node(
+                buildContext = buildContext
+            )
         }
 
     override fun onChildFinished(child: Node) {
