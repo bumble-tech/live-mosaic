@@ -1,6 +1,6 @@
 package com.bumble.puzzyx.model
 
 
-data class CardId(
+data class MessageId(
     val entryId: Int,
 )

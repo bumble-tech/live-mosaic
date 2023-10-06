@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.appyx.component.lineofcards
+package com.bumble.puzzyx.appyx.component.messages
 
 import com.bumble.appyx.interactions.core.ui.property.impl.Alpha
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationX

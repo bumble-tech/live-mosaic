@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.appyx.component.lineofcards
+package com.bumble.puzzyx.appyx.component.messages
 
 import com.bumble.appyx.interactions.core.Element
 import com.bumble.appyx.interactions.core.asElement
@@ -6,19 +6,19 @@ import com.bumble.appyx.interactions.core.model.transition.BaseTransitionModel
 import com.bumble.appyx.navigation.state.SavedStateMap
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.puzzyx.model.CardId
-import com.bumble.puzzyx.model.Line
+import com.bumble.puzzyx.model.MessageId
+import com.bumble.puzzyx.model.MessageList
 
-class LineOfCardsModel(
+class MessagesModel(
     savedStateMap: SavedStateMap? = null,
-    line: Line,
-) : BaseTransitionModel<CardId, LineOfCardsModel.State>(
+    messageList: MessageList,
+) : BaseTransitionModel<MessageId, MessagesModel.State>(
     savedStateMap = savedStateMap
 ) {
 
     @Parcelize
     data class State(
-        val elements: Map<Element<CardId>, ElementState>,
+        val elements: Map<Element<MessageId>, ElementState>,
     ) : Parcelable
 
     enum class ElementState {
@@ -27,19 +27,19 @@ class LineOfCardsModel(
 
     override val initialState: State by lazy {
         State(
-            elements = line.cards.associate { it.asElement() to ElementState.INITIAL },
+            elements = messageList.messages.associate { it.asElement() to ElementState.INITIAL },
         )
     }
 
-    override fun State.availableElements(): Set<Element<CardId>> =
+    override fun State.availableElements(): Set<Element<MessageId>> =
         elements.keys.toSet()
 
-    override fun State.destroyedElements(): Set<Element<CardId>> =
+    override fun State.destroyedElements(): Set<Element<MessageId>> =
         emptySet()
 
     override fun State.removeDestroyedElements(): State =
         this
 
-    override fun State.removeDestroyedElement(element: Element<CardId>): State =
+    override fun State.removeDestroyedElement(element: Element<MessageId>): State =
         this
 }

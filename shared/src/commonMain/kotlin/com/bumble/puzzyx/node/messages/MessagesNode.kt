@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.node.linesofcards
+package com.bumble.puzzyx.node.messages
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -25,14 +25,14 @@ import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.navigation.node.node
-import com.bumble.puzzyx.appyx.component.lineofcards.LineOfCards
-import com.bumble.puzzyx.appyx.component.lineofcards.LineOfCardsVisualisation
-import com.bumble.puzzyx.appyx.component.lineofcards.operation.flip
-import com.bumble.puzzyx.appyx.component.lineofcards.operation.reveal
+import com.bumble.puzzyx.appyx.component.messages.LinesOfMessagesVisualisation
+import com.bumble.puzzyx.appyx.component.messages.Messages
+import com.bumble.puzzyx.appyx.component.messages.operation.flip
+import com.bumble.puzzyx.appyx.component.messages.operation.reveal
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.EntryCard
-import com.bumble.puzzyx.model.CardId
-import com.bumble.puzzyx.model.Line
+import com.bumble.puzzyx.model.MessageId
+import com.bumble.puzzyx.model.MessageList
 import com.bumble.puzzyx.model.entries
 import kotlin.random.Random
 
@@ -41,15 +41,15 @@ private val animationSpec = spring<Float>(
     dampingRatio = Spring.DampingRatioNoBouncy
 )
 
-class LineOfCardsNode(
+class MessagesNode(
     buildContext: BuildContext,
-    private val messages: ImmutableList<CardId>,
-    private val lineOfCards: LineOfCards = LineOfCards(
-        line = Line(
-            cards = messages,
+    private val messages: ImmutableList<MessageId>,
+    private val component: Messages = Messages(
+        messageList = MessageList(
+            messages = messages,
         ),
         motionController = {
-            LineOfCardsVisualisation(
+            LinesOfMessagesVisualisation(
                 uiContext = it,
                 defaultAnimationSpec = animationSpec
             )
@@ -58,12 +58,12 @@ class LineOfCardsNode(
         defaultAnimationSpec = animationSpec
     ),
     private val initialDelay: Long = 0L,
-) : ParentNode<CardId>(
+) : ParentNode<MessageId>(
     buildContext = buildContext,
-    appyxComponent = lineOfCards
+    appyxComponent = component
 ) {
 
-    override fun resolve(interactionTarget: CardId, buildContext: BuildContext): Node =
+    override fun resolve(interactionTarget: MessageId, buildContext: BuildContext): Node =
         node(buildContext) { modifier ->
             EntryCard(
                 modifier = modifier
@@ -80,11 +80,11 @@ class LineOfCardsNode(
                 val reorderedMessages = messages.shuffled()
                 reorderedMessages.forEachIndexed { index, messageId ->
                     val duration = if (index != messages.size - 1) 200L else 2000L
-                    add({ lineOfCards.reveal(messageId.entryId) } to duration)
+                    add({ component.reveal(messageId.entryId) } to duration)
                 }
                 reorderedMessages.forEachIndexed { index, messageId ->
                     val duration = if (index != messages.size - 1) 200L else 2000L
-                    add({ lineOfCards.flip(messageId.entryId) } to duration)
+                    add({ component.flip(messageId.entryId) } to duration)
                 }
             },
             initialDelayMs = 4000 + initialDelay,
@@ -122,7 +122,7 @@ class LineOfCardsNode(
                     .background(Color.Red.copy(alpha = 0.2f)),
             )
             AppyxComponent(
-                appyxComponent = lineOfCards,
+                appyxComponent = component,
                 modifier = Modifier
                     .fillMaxSize()
                     .align(Alignment.Center)

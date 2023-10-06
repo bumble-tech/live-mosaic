@@ -4,6 +4,6 @@ import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 
 @Parcelize
-data class Line(
-    val cards: List<CardId>,
+data class MessageList(
+    val messages: List<MessageId>,
 ) : Parcelable

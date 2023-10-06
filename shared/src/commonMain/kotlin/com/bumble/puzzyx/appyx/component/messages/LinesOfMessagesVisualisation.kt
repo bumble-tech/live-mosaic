@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.appyx.component.lineofcards
+package com.bumble.puzzyx.appyx.component.messages
 
 import androidx.compose.animation.core.SpringSpec
 import com.bumble.appyx.interactions.core.ui.context.UiContext
@@ -9,16 +9,16 @@ import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignmen
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseMotionController
-import com.bumble.puzzyx.appyx.component.lineofcards.LineOfCardsModel.ElementState.VANISHED
-import com.bumble.puzzyx.appyx.component.lineofcards.LineOfCardsModel.ElementState.INITIAL
-import com.bumble.puzzyx.appyx.component.lineofcards.LineOfCardsModel.ElementState.REVEALED
-import com.bumble.puzzyx.appyx.component.lineofcards.LineOfCardsModel.State
-import com.bumble.puzzyx.model.CardId
+import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.VANISHED
+import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.INITIAL
+import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.REVEALED
+import com.bumble.puzzyx.appyx.component.messages.MessagesModel.State
+import com.bumble.puzzyx.model.MessageId
 
-class LineOfCardsVisualisation(
+class LinesOfMessagesVisualisation(
     uiContext: UiContext,
     defaultAnimationSpec: SpringSpec<Float>
-) : BaseMotionController<CardId, State, MutableUiState, TargetUiState>(
+) : BaseMotionController<MessageId, State, MutableUiState, TargetUiState>(
     uiContext = uiContext,
     defaultAnimationSpec = defaultAnimationSpec
 ) {
@@ -30,7 +30,7 @@ class LineOfCardsVisualisation(
         targetUiState.toMutableState(uiContext)
 
 
-    override fun State.toUiTargets(): List<MatchedTargetUiState<CardId, TargetUiState>> {
+    override fun State.toUiTargets(): List<MatchedTargetUiState<MessageId, TargetUiState>> {
         val xLength = 1.05f
         val yBias = 0.115f
         val xBias = xLength / (elements.size - 1)

@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Shape
 import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.components.backstack.operation.replace
+import com.bumble.appyx.navigation.collections.toImmutableList
 import com.bumble.appyx.navigation.composable.AppyxComponent
 import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
@@ -40,14 +41,16 @@ import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.composable.MessageBoard
 import com.bumble.puzzyx.composable.StarFieldMessageBoard
+import com.bumble.puzzyx.model.MessageId
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
+import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
-import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle2
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StackedMessages
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
-import com.bumble.puzzyx.node.linesofcards.StackedLinesOfCardsNode
+import com.bumble.puzzyx.node.messages.StackedMessagesNode
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
 import com.bumble.puzzyx.ui.DottedMeshShape
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
@@ -55,7 +58,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
-    Puzzle2,
+    StackedMessages,
     Puzzle1,
     CallToAction,
     MessageBoard,
@@ -82,7 +85,7 @@ class PuzzyxAppNode(
         object Puzzle1 : NavTarget()
 
         @Parcelize
-        object Puzzle2 : NavTarget()
+        object StackedMessages : NavTarget()
 
         @Parcelize
         object CallToAction : NavTarget()
@@ -118,19 +121,22 @@ class PuzzyxAppNode(
                 children()
             }
 
-            is Puzzle2 -> StackedLinesOfCardsNode(buildContext)
-//                BoardNode(
-//                buildContext = buildContext,
-//                messages = immutableListOf(
-//                    MessageId(0),
-//                    MessageId(1),
-//                    MessageId(2),
-//                    MessageId(3),
-//                    MessageId(4),
-//                    MessageId(5),
-//                    MessageId(6),
-//                )
-//            )
+            is StackedMessages -> StackedMessagesNode(
+                buildContext,
+                buildList {
+                    val messageIds =
+                        entries.indices
+                            .map { MessageId(it) }
+
+                    // Take groups of 7 messages.
+                    messageIds.windowed(7, 7, false)
+                        .map { add(it.toImmutableList()) }
+
+                    // If there is still missing messages, take 7 from the tail, potentially
+                    // repeating some of them.
+                    add(messageIds.takeLast(7).toImmutableList())
+                }
+            )
         }
 
     override fun onChildFinished(child: Node) {
