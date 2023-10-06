@@ -31,6 +31,7 @@ import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
+import com.bumble.appyx.navigation.node.children
 import com.bumble.appyx.navigation.node.node
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
@@ -44,10 +45,10 @@ import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.MessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
-import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle2
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
+import com.bumble.puzzyx.node.linesofcards.StackedLinesOfCardsNode
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
-import com.bumble.puzzyx.node.puzzle2.Puzzle2Node
 import com.bumble.puzzyx.ui.DottedMeshShape
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -100,21 +101,36 @@ class PuzzyxAppNode(
                 puzzle = PUZZLE1,
                 buildContext = buildContext
             )
+
             is CallToAction -> node(buildContext) { modifier ->
                 AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
                 CallToActionScreen(modifier)
             }
+
             is MessageBoard -> node(buildContext) { modifier ->
                 AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
                 MessageBoard(modifier)
             }
+
             is StarFieldMessageBoard -> node(buildContext) { modifier ->
                 AutoPlayScript(initialDelayMs = 15000) { nextScreen() }
                 StarFieldMessageBoard(modifier)
+                children()
             }
-            is Puzzle2 -> Puzzle2Node(
-                buildContext = buildContext
-            )
+
+            is Puzzle2 -> StackedLinesOfCardsNode(buildContext)
+//                BoardNode(
+//                buildContext = buildContext,
+//                messages = immutableListOf(
+//                    MessageId(0),
+//                    MessageId(1),
+//                    MessageId(2),
+//                    MessageId(3),
+//                    MessageId(4),
+//                    MessageId(5),
+//                    MessageId(6),
+//                )
+//            )
         }
 
     override fun onChildFinished(child: Node) {
