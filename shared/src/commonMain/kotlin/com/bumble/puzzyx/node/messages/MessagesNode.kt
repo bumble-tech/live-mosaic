@@ -5,7 +5,6 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.collections.ImmutableList
@@ -57,6 +55,7 @@ class MessagesNode(
         savedStateMap = buildContext.savedStateMap,
         defaultAnimationSpec = animationSpec
     ),
+    private val onFinished: (Long) -> Unit,
     private val initialDelay: Long = 0L,
 ) : ParentNode<MessageId>(
     buildContext = buildContext,
@@ -88,7 +87,7 @@ class MessagesNode(
                 }
             },
             initialDelayMs = 4000 + initialDelay,
-            onFinish = { if (initialDelay != 0L) finish() }
+            onFinish = { onFinished(initialDelay) }
         )
 
         Box(
@@ -110,17 +109,6 @@ class MessagesNode(
                     ),
                 )
             }
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(600.dp, 300.dp)
-                    .graphicsLayer(
-                        rotationX = rotationXY.value / 2f,
-                        rotationY = rotationXY.value,
-                        rotationZ = rotationZ,
-                    )
-                    .background(Color.Red.copy(alpha = 0.2f)),
-            )
             AppyxComponent(
                 appyxComponent = component,
                 modifier = Modifier

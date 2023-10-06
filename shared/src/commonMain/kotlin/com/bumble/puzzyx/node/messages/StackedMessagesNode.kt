@@ -23,7 +23,7 @@ import com.bumble.puzzyx.model.MessageId
 
 class StackedMessagesNode(
     buildContext: BuildContext,
-    val stackOfMessages: List<ImmutableList<MessageId>>,
+    private val stackOfMessages: List<ImmutableList<MessageId>>,
 ) : ParentNode<StackedMessagesNode.InteractionTarget>(
     buildContext = buildContext,
     appyxComponent = PermanentAppyxComponent(model = PermanentModel(buildContext.savedStateMap))
@@ -41,7 +41,8 @@ class StackedMessagesNode(
             is InteractionTarget.Messages -> MessagesNode(
                 buildContext = buildContext,
                 messages = interactionTarget.messages,
-                initialDelay = interactionTarget.delay
+                initialDelay = interactionTarget.delay,
+                onFinished = { if (it == (stackOfMessages.size - 1) * 5000L) finish() }
             )
         }
 
