@@ -6,19 +6,19 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.bumble.appyx.navigation.collections.ImmutableList
 import com.bumble.appyx.navigation.composable.AppyxComponent
+import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
@@ -41,7 +41,8 @@ private val animationSpec = spring<Float>(
 
 class MessagesNode(
     buildContext: BuildContext,
-    private val messages: ImmutableList<MessageId>,
+    private val nodeId: Int,
+    private val messages: List<MessageId>,
     private val component: Messages = Messages(
         messageList = MessageList(
             messages = messages,
@@ -49,7 +50,8 @@ class MessagesNode(
         motionController = {
             LinesOfMessagesVisualisation(
                 uiContext = it,
-                defaultAnimationSpec = animationSpec
+                defaultAnimationSpec = animationSpec,
+                parity = nodeId % 2
             )
         },
         savedStateMap = buildContext.savedStateMap,
@@ -66,61 +68,61 @@ class MessagesNode(
         node(buildContext) { modifier ->
             EntryCard(
                 modifier = modifier
-                    .size(240.dp)
-                    .aspectRatio(1.5f),
+                    .scale(LocalScreenSize.current.widthDp.value / 1728f)
+                    .size(240.dp, 160.dp),
                 entry = entries[interactionTarget.entryId],
             )
         }
 
     @Composable
     override fun View(modifier: Modifier) {
-        AutoPlayScript(
-            steps = buildList {
-                val reorderedMessages = messages.shuffled()
-                reorderedMessages.forEachIndexed { index, messageId ->
-                    val duration = if (index != messages.size - 1) 200L else 2000L
-                    add({ component.reveal(messageId.entryId) } to duration)
-                }
-                reorderedMessages.forEachIndexed { index, messageId ->
-                    val duration = if (index != messages.size - 1) 200L else 2000L
-                    add({ component.flip(messageId.entryId) } to duration)
-                }
-            },
-            initialDelayMs = 4000 + initialDelay,
-            onFinish = { onFinished(initialDelay) }
-        )
+        key(initialDelay) {
+            AutoPlayScript(
+                steps = buildList {
+                    val reorderedMessages = messages.shuffled()
+                    reorderedMessages.forEachIndexed { index, messageId ->
+                        val duration = if (index != messages.size - 1) 200L else 2000L
+                        add({ component.reveal(messageId.entryId) } to duration)
+                    }
+                    reorderedMessages.forEachIndexed { index, messageId ->
+                        val duration = if (index != messages.size - 1) 200L else 2000L
+                        add({ component.flip(messageId.entryId) } to duration)
+                    }
+                },
+                initialDelayMs = 4000 + initialDelay,
+                onFinish = { onFinished(initialDelay) }
+            )
 
-        Box(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(24.dp)
-        ) {
-            val sign = remember { if (Random.nextBoolean()) 1f else -1f }
-            val targetRotationXY = remember { -sign * (2f + 4f * Random.nextFloat()) }
-            val rotationZ = remember { sign * (1.5f + 1.5f * Random.nextFloat()) }
-            val rotationXY = remember { Animatable(0f) }
-            LaunchedEffect(Unit) {
-                rotationXY.animateTo(
-                    targetValue = targetRotationXY,
-                    animationSpec = tween(
-                        durationMillis = 6000,
-                        delayMillis = (4000 + initialDelay).toInt(),
-                        easing = FastOutSlowInEasing,
-                    ),
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+            ) {
+                val sign = remember { if (Random.nextBoolean()) 1f else -1f }
+                val targetRotationXY = remember { -sign * (2f + 4f * Random.nextFloat()) }
+                val rotationZ = remember { sign * (1.5f + 1.5f * Random.nextFloat()) }
+                val rotationXY = remember { Animatable(0f) }
+                LaunchedEffect(Unit) {
+                    rotationXY.animateTo(
+                        targetValue = targetRotationXY,
+                        animationSpec = tween(
+                            durationMillis = 6000,
+                            delayMillis = (4000 + initialDelay).toInt(),
+                            easing = FastOutSlowInEasing,
+                        ),
+                    )
+                }
+                AppyxComponent(
+                    appyxComponent = component,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .align(Alignment.Center)
+                        .graphicsLayer(
+                            rotationX = rotationXY.value / 2f,
+                            rotationY = rotationXY.value,
+                            rotationZ = rotationZ,
+                        ),
                 )
             }
-            AppyxComponent(
-                appyxComponent = component,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.Center)
-                    .aspectRatio(1f)
-                    .graphicsLayer(
-                        rotationX = rotationXY.value / 2f,
-                        rotationY = rotationXY.value,
-                        rotationZ = rotationZ,
-                    ),
-            )
         }
     }
 }

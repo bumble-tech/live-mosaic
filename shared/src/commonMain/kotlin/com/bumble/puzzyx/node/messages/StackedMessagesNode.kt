@@ -31,7 +31,8 @@ class StackedMessagesNode(
     sealed class InteractionTarget : Parcelable {
         @Parcelize
         data class Messages(
-            val messages: ImmutableList<MessageId>,
+            val nodeId: Int,
+            val messages: List<MessageId>,
             val delay: Long = 0L,
         ) : InteractionTarget()
     }
@@ -40,6 +41,7 @@ class StackedMessagesNode(
         when (interactionTarget) {
             is InteractionTarget.Messages -> MessagesNode(
                 buildContext = buildContext,
+                nodeId = interactionTarget.nodeId,
                 messages = interactionTarget.messages,
                 initialDelay = interactionTarget.delay,
                 onFinished = { if (it == (stackOfMessages.size - 1) * 5000L) finish() }
@@ -51,8 +53,9 @@ class StackedMessagesNode(
         Box(modifier = modifier.fillMaxSize()) {
             stackOfMessages.forEachIndexed { index, messages ->
                 Messages(
+                    nodeId = index,
+                    messages = messages,
                     initialDelay = 5000 * index,
-                    messages = messages
                 )
             }
         }
@@ -60,8 +63,9 @@ class StackedMessagesNode(
 
     @Composable
     private fun Messages(
-        initialDelay: Int = 0,
+        nodeId: Int,
         messages: ImmutableList<MessageId>,
+        initialDelay: Int = 0,
     ) {
         val yOffset = remember { Animatable(-400f) }
         LaunchedEffect(Unit) {
@@ -76,6 +80,7 @@ class StackedMessagesNode(
         }
         PermanentChild(
             interactionTarget = InteractionTarget.Messages(
+                nodeId = nodeId,
                 messages = messages,
                 delay = initialDelay.toLong(),
             )

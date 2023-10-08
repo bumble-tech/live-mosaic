@@ -9,15 +9,16 @@ import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignmen
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseMotionController
-import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.VANISHED
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.INITIAL
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.REVEALED
+import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.VANISHED
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.State
 import com.bumble.puzzyx.model.MessageId
 
 class LinesOfMessagesVisualisation(
     uiContext: UiContext,
-    defaultAnimationSpec: SpringSpec<Float>
+    defaultAnimationSpec: SpringSpec<Float>,
+    private val parity: Int,
 ) : BaseMotionController<MessageId, State, MutableUiState, TargetUiState>(
     uiContext = uiContext,
     defaultAnimationSpec = defaultAnimationSpec
@@ -31,12 +32,12 @@ class LinesOfMessagesVisualisation(
 
 
     override fun State.toUiTargets(): List<MatchedTargetUiState<MessageId, TargetUiState>> {
-        val xLength = 1.05f
-        val yBias = 0.115f
+        val xLength = 250f * transitionBounds.density.density * elements.size / 3456f
+        val yLength = 200f * transitionBounds.density.density / 2160f
         val xBias = xLength / (elements.size - 1)
         return elements.entries.mapIndexed { index, entry ->
             val xNewBias = -xLength / 2f + xBias * index
-            val yNewBias = if (index % 2 == 0) yBias else -yBias
+            val yNewBias = if (index % 2 == parity) yLength else -yLength
             MatchedTargetUiState(
                 element = entry.key,
                 targetUiState = when (entry.value) {
