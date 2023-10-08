@@ -19,14 +19,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.imageloader.ResourceImage
+import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.ui.colors
 
 @Composable
 fun EntryCard(
-    modifier: Modifier,
-    entry: Entry
+    entry: Entry,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier.clip(RoundedCornerShape(16.dp))
@@ -39,6 +39,7 @@ fun EntryCard(
                 contentScale = entry.contentScale,
                 modifier = Modifier.fillMaxSize().align(Alignment.Center)
             )
+
             is Entry.ComposableContent -> entry.content()
         }
         GitHubHeader(
@@ -89,15 +90,14 @@ fun TextEntry(
             .fillMaxSize()
             .background(colors[colorIdx])
             .padding(12.dp)
-            .padding(top = 36.dp)
-        ,
+            .padding(top = 36.dp),
     )
 }
 
 @Composable
 fun EntryCardSmall(
-    modifier: Modifier,
-    entry: Entry.Text
+    entry: Entry.Text,
+    modifier: Modifier = Modifier,
 ) {
     ScaledLayout(
         modifier = modifier.padding(8.dp),

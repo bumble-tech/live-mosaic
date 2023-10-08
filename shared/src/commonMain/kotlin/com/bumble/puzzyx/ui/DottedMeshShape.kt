@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import com.bumble.appyx.interactions.core.annotations.FloatRange
-import com.bumble.appyx.interactions.core.ui.math.clamp
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
 import com.bumble.puzzyx.math.mapValueRange
 import java.lang.Integer.max
@@ -70,16 +69,12 @@ class DottedMeshShape(
                             + (0.5f - abs(u - 0.5f))
                             + (0.5f - abs(v - 0.5f)))
 
-                    val radius = clamp(
-                        x = mapValueRange(
-                            value.coerceAtMost(1f),
-                            fromRangeMin = 0f,
-                            fromRangeMax = 1f,
-                            destRangeMin = 0f,
-                            destRangeMax = targetRadius
-                        ),
-                        min = 0f,
-                        max = clampRadius,
+                    val radius = mapValueRange(
+                        value = value.coerceAtMost(1f),
+                        fromRangeMin = 0f,
+                        fromRangeMax = 1f,
+                        destRangeMin = 0f,
+                        destRangeMax = targetRadius
                     )
 
                     // Clip with ovals when you see them, but stick with rectangles otherwise. This

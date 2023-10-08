@@ -26,7 +26,7 @@ import kotlin.math.min
 import kotlin.random.Random
 
 class GridPuzzleVisualisation(
-    private val uiContext: UiContext,
+    uiContext: UiContext,
     defaultAnimationSpec: SpringSpec<Float>
 ) : BaseMotionController<PuzzlePiece, State, MutableUiState, TargetUiState>(
     uiContext = uiContext,

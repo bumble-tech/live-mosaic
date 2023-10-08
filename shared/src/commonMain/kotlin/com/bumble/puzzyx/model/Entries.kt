@@ -112,7 +112,7 @@ val entries = listOf(
                     .background(color)
             )
         }
-    )
+    ),
 )
 
 val puzzle1Entries = entries

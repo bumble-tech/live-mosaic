@@ -65,7 +65,7 @@ class PuzzyxAppNode(
             initialTargets = listOf(screens.first()),
             savedStateMap = buildContext.savedStateMap,
         ),
-        motionController = { BackStackClipper(it, shape = { progress -> ClipShape(progress) }) }
+        motionController = { BackStackClipper(it, shape = { progress -> clipShape(progress) }) }
     )
 ) : ParentNode<NavTarget>(
     buildContext = buildContext,
@@ -103,7 +103,7 @@ class PuzzyxAppNode(
                 MessageBoard(modifier)
             }
             is StarFieldMessageBoard -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                AutoPlayScript(initialDelayMs = 15000) { nextScreen() }
                 StarFieldMessageBoard(modifier)
             }
         }
@@ -184,7 +184,7 @@ class PuzzyxAppNode(
 }
 
 @Composable
-private fun ClipShape(progress: Float): Shape {
+private fun clipShape(progress: Float): Shape {
     val screenSize = LocalScreenSize.current
     val (meshMin, meshMax) = 14 to 25
     val meshSizeX = if (screenSize.widthDp > screenSize.heightDp) meshMax else meshMin
