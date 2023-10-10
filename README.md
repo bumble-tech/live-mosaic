@@ -2,7 +2,7 @@
 
 We are very happy to seeing you here! 
 
-==**Before starting please make sure filling your details [here](https://forms.gle/6QxSXJ7SWPtWXrP99) to join the shuffle.**==
+**Before starting please make sure filling your details [here](https://forms.gle/6QxSXJ7SWPtWXrP99) to join the shuffle.**
 
 Puzzyx is a multiplatform application created by lovely Bumble developers using Appyx where we aim to
 finish a puzzle with content created by Droidcon attendees! Pick you photo or text content, add it to puzzle and 
