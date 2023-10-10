@@ -1,24 +1,25 @@
 ## Welcome to Puzzyx Challenge!
 
-We are very happy to seeing you here! 
+We are very happy to see you here! 
 
-**Before starting please make sure filling your details [here](https://forms.gle/6QxSXJ7SWPtWXrP99) to join the shuffle.**
+**Before starting please make sure to fill your details [here](https://forms.gle/6QxSXJ7SWPtWXrP99) to join the shuffle.**
 
 Puzzyx is a multiplatform application created by lovely Bumble developers using Appyx where we aim to
 finish a puzzle with content created by Droidcon attendees! Pick you photo or text content, add it to puzzle and 
 let it shine on our screen! ✨✨
 
 
-Here is what you need to do to create your own tile:
-- Get Familiar with [Entry](./shared/src/commonMain/kotlin/com/bumble/puzzyx/model/Entry.kt) class and its types
-- Pick the Entry type you would like to add
+**Here is what you need to do to create your own tile:**
+
+- Get familiar with [Entry](./shared/src/commonMain/kotlin/com/bumble/puzzyx/model/Entry.kt) class and its types
+- Pick an Entry type you would like to add
 - Shout out to Droidcon what you want to say
 - Or get your cool/funny photo and add it to [Resources](./shared/src/commonMain/resources/participant)
-- Create your Entry instance inside [Entries.kt](./shared/src/commonMain/kotlin/com/bumble/puzzyx/model/Entries.kt)
+- Add your `Entry` instance to the list in [Entries.kt](./shared/src/commonMain/kotlin/com/bumble/puzzyx/model/Entries.kt)
 - Your tile is good to go! All you need to do is create your PR and ask Bumble team for review!
 
 **Please be mindful about created content, Bumble keeps the right of rejecting a PR. 
-Any remote images,hate speech, discrimination, explicit content is not allowed.*
+Any remote images, hate speech, discrimination or explicit content is not allowed.*
 
 
 ## Project page
