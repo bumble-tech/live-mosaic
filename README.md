@@ -26,7 +26,7 @@ Any remote images,hate speech, discrimination, explicit content is not allowed.*
 
 ## If you want to learn more about Appyx
 
-[https://bumble-tech.github.io/appyx/](hhttps://bumble-tech.github.io/appyx/)
+[https://bumble-tech.github.io/appyx/](https://bumble-tech.github.io/appyx/)
 
 ## License
 
