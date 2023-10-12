@@ -1,5 +1,8 @@
 package com.bumble.puzzyx.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 enum class Puzzle(
     val imagesDir: String,
     val columns: Int,

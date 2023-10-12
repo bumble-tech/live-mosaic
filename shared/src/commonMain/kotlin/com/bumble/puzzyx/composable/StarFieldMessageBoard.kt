@@ -192,21 +192,21 @@ private fun StarFieldContent(
                 val yPos = star.yCoord * zPos
                 val alpha = starField.specs.calcAlpha(zPos)
                 if (alpha > 0f) {
-                    StarContent(
-                        star.type,
-                        modifier = Modifier
-                            .scale(zPos)
-                            .then(star.size)
-                            .align(Alignment.Center)
-                            .absoluteOffset {
-                                IntOffset(
-                                    x = (size.width * xPos).roundToInt(),
-                                    y = (size.height * yPos).roundToInt(),
-                                )
-                            }
-                            .alpha(alpha)
-                            .zIndex(zPos)
-                    )
+                    ScaledLayout(modifier = Modifier
+                        .scale(zPos)
+                        .then(star.size)
+                        .align(Alignment.Center)
+                        .absoluteOffset {
+                            IntOffset(
+                                x = (size.width * xPos).roundToInt(),
+                                y = (size.height * yPos).roundToInt(),
+                            )
+                        }
+                        .alpha(alpha)
+                        .zIndex(zPos)) {
+
+                        StarContent(star.type)
+                    }
                 }
             }
         }

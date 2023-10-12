@@ -1,8 +1,10 @@
 package com.bumble.puzzyx.model
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.layout.ContentScale
 
+@Immutable
 sealed class Entry {
     abstract val puzzle: Puzzle
     abstract val githubUserName: String

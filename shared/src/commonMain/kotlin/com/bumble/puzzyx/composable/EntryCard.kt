@@ -2,6 +2,7 @@ package com.bumble.puzzyx.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -99,16 +100,27 @@ fun EntryCardSmall(
     entry: Entry.Text,
     modifier: Modifier = Modifier,
 ) {
-    ScaledLayout(
-        modifier = modifier.padding(8.dp),
-        scale = 0.5f
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
+    BoxWithConstraints {
+        val padding = remember(maxWidth) {
+            when  {
+                maxWidth < 20.dp -> 0.dp
+                maxWidth < 40.dp -> 2.dp
+                maxWidth < 60.dp -> 4.dp
+                maxWidth < 80.dp -> 6.dp
+                else -> 8.dp
+            }
+        }
+        ScaledLayout(
+            modifier = modifier
+                .padding(padding),
         ) {
-            Text(entry.githubUserName)
-            Text(entry.message)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                Text(entry.githubUserName)
+                Text(entry.message)
+            }
         }
     }
 }
