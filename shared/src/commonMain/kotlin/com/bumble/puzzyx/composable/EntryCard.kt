@@ -99,9 +99,9 @@ fun EntryCardSmall(
     entry: Entry.Text,
     modifier: Modifier = Modifier,
 ) {
-    ScaledLayout(
-        modifier = modifier.padding(8.dp),
-        scale = 0.5f
+    OptimisingLayout(
+        modifier = modifier,
+        optimalWidth = 150.dp,
     ) {
         Column(
             modifier = Modifier
