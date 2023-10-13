@@ -25,4 +25,5 @@ rootProject.name = "puzzyx"
 
 include(":androidApp")
 include(":desktopApp")
+include(":ios")
 include(":shared")

@@ -19,6 +19,10 @@ kotlin {
         }
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -31,6 +35,15 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
             }
+        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
         }
         val commonTest by getting {
             dependencies {
@@ -57,4 +70,7 @@ dependencies {
     add("kspCommonMainMetadata", libs.appyx.mutable.ui.processor)
     add("kspAndroid", libs.appyx.mutable.ui.processor)
     add("kspDesktop", libs.appyx.mutable.ui.processor)
+    add("kspIosArm64", libs.appyx.mutable.ui.processor)
+    add("kspIosX64", libs.appyx.mutable.ui.processor)
+    add("kspIosSimulatorArm64", libs.appyx.mutable.ui.processor)
 }

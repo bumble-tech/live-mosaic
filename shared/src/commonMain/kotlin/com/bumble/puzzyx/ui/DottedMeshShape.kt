@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.bumble.appyx.interactions.core.annotations.FloatRange
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
 import com.bumble.puzzyx.math.mapValueRange
-import java.lang.Integer.max
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -43,7 +42,7 @@ class DottedMeshShape(
     ): Outline {
         val (width, height) = size
         val progressDelayed = lerpFloat(-1.0f, 1f, progress)
-        val targetRadius = size.maxDimension / max(meshSizeX, meshSizeY)
+        val targetRadius = size.maxDimension / maxOf(meshSizeX, meshSizeY)
 
         val sheet = Path().apply {
             addRect(Rect(0f, 0f, width, height))
