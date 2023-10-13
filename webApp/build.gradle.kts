@@ -17,7 +17,7 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
-//                implementation(project(":shared"))
+                implementation(project(":shared"))
                 implementation(libs.appyx.navigation)
                 implementation(libs.appyx.components.backstack)
             }
@@ -39,7 +39,10 @@ tasks.register<Copy>("copyResources") {
     include("**/*")
 }
 
-tasks.named("jsMainClasses") {
+tasks.named("jsBrowserProductionExecutableDistributeResources") {
     dependsOn("copyResources")
 }
 
+tasks.named("compileKotlinJs") {
+    dependsOn("copyResources")
+}

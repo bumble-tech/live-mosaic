@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.LayoutDirection
 import com.bumble.appyx.interactions.core.annotations.FloatRange
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
 import com.bumble.puzzyx.math.mapValueRange
-import java.lang.Integer.max
 import kotlin.math.abs
+import kotlin.math.max
 import kotlin.math.sqrt
 
 /**

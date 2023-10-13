@@ -19,11 +19,11 @@ kotlin {
         }
     }
 
-//    js(IR) {
-//        // Adding moduleName as a workaround for this issue: https://youtrack.jetbrains.com/issue/KT-51942
-//        moduleName = "puzzyx-common"
-//        browser()
-//    }
+    js(IR) {
+        // Adding moduleName as a workaround for this issue: https://youtrack.jetbrains.com/issue/KT-51942
+        moduleName = "puzzyx-common"
+        browser()
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -63,4 +63,5 @@ dependencies {
     add("kspCommonMainMetadata", libs.appyx.mutable.ui.processor)
     add("kspAndroid", libs.appyx.mutable.ui.processor)
     add("kspDesktop", libs.appyx.mutable.ui.processor)
+    add("kspJs", libs.appyx.mutable.ui.processor)
 }
