@@ -62,7 +62,6 @@ google-accompanist-systemui = { module = "com.google.accompanist:accompanist-sys
 google-accompanist-flow = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 google-material = "com.google.android.material:material:1.4.0"
 junit = "junit:junit:4.13.2"
-k5-compose = "me.nikhilchaudhari:k5-compose:1.0.1"
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlin-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
