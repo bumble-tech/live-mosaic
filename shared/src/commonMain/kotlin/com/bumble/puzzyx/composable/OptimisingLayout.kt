@@ -16,16 +16,18 @@ import kotlin.math.roundToInt
 internal fun OptimisingLayout(
     modifier: Modifier = Modifier,
     optimalWidth: Dp,
+    paddingFraction: Float = 0.12f,
+    contentAlignment: Alignment = Alignment.Center,
     content: @Composable @UiComposable () -> Unit
 ) {
     Box(modifier = modifier) {
         BoxWithConstraints(
             modifier = Modifier
-                .fillMaxSize(0.84f)
-                .align(Alignment.Center)
+                .fillMaxSize((1f - paddingFraction).coerceIn(0f, 1f))
+                .align(contentAlignment)
         ) {
             ScaledLayout(
-                scale = (this@BoxWithConstraints.maxWidth / optimalWidth).coerceIn(0.1f, 1f),
+                scale = (this@BoxWithConstraints.maxWidth / optimalWidth).coerceAtMost(1f),
                 content = content
             )
         }
@@ -34,7 +36,7 @@ internal fun OptimisingLayout(
 
 
 @Composable
-internal fun ScaledLayout(
+private fun ScaledLayout(
     modifier: Modifier = Modifier,
     scale: Float = 1f,
     content: @Composable @UiComposable () -> Unit
