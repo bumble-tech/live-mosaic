@@ -30,7 +30,6 @@ import com.bumble.puzzyx.appyx.component.messages.operation.reveal
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.EntryCard
 import com.bumble.puzzyx.model.MessageId
-import com.bumble.puzzyx.model.MessageList
 import com.bumble.puzzyx.model.entries
 import kotlin.random.Random
 
@@ -41,17 +40,15 @@ private val animationSpec = spring<Float>(
 
 class MessagesNode(
     buildContext: BuildContext,
-    private val nodeId: Int,
+    private val index: Int,
     private val messages: List<MessageId>,
     private val component: Messages = Messages(
-        messageList = MessageList(
-            messages = messages,
-        ),
+        messages = messages,
         motionController = {
             LinesOfMessagesVisualisation(
                 uiContext = it,
                 defaultAnimationSpec = animationSpec,
-                parity = nodeId % 2
+                parity = index % 2
             )
         },
         savedStateMap = buildContext.savedStateMap,
@@ -80,14 +77,8 @@ class MessagesNode(
             AutoPlayScript(
                 steps = buildList {
                     val reorderedMessages = messages.shuffled()
-                    reorderedMessages.forEachIndexed { index, messageId ->
-                        val duration = if (index != messages.size - 1) 200L else 2000L
-                        add({ component.reveal(messageId.entryId) } to duration)
-                    }
-                    reorderedMessages.forEachIndexed { index, messageId ->
-                        val duration = if (index != messages.size - 1) 200L else 2000L
-                        add({ component.flip(messageId.entryId) } to duration)
-                    }
+                    revealMessages(reorderedMessages)
+                    flipMessages(reorderedMessages)
                 },
                 initialDelayMs = 4000 + initialDelay,
                 onFinish = { onFinished(initialDelay) }
@@ -123,6 +114,24 @@ class MessagesNode(
                         ),
                 )
             }
+        }
+    }
+
+    private fun MutableList<Pair<() -> Unit, Long>>.revealMessages(messages: List<MessageId>) {
+        addOperation(messages) { reveal(it) }
+    }
+
+    private fun MutableList<Pair<() -> Unit, Long>>.flipMessages(messages: List<MessageId>) {
+        addOperation(messages) { flip(it) }
+    }
+
+    private fun MutableList<Pair<() -> Unit, Long>>.addOperation(
+        messages: List<MessageId>,
+        operation: Messages.(Int) -> Unit,
+    ) {
+        messages.forEachIndexed { index, messageId ->
+            val duration = if (index != messages.size - 1) 200L else 2000L
+            add({ component.operation(messageId.entryId) } to duration)
         }
     }
 }

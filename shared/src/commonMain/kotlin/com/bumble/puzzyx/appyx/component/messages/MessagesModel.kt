@@ -7,11 +7,10 @@ import com.bumble.appyx.navigation.state.SavedStateMap
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.model.MessageId
-import com.bumble.puzzyx.model.MessageList
 
 class MessagesModel(
     savedStateMap: SavedStateMap? = null,
-    messageList: MessageList,
+    messages: List<MessageId>,
 ) : BaseTransitionModel<MessageId, MessagesModel.State>(
     savedStateMap = savedStateMap
 ) {
@@ -22,12 +21,12 @@ class MessagesModel(
     ) : Parcelable
 
     enum class ElementState {
-        INITIAL, REVEALED, VANISHED
+        CREATED, REVEALED, FLIPPED
     }
 
     override val initialState: State by lazy {
         State(
-            elements = messageList.messages.associate { it.asElement() to ElementState.INITIAL },
+            elements = messages.associate { it.asElement() to ElementState.CREATED },
         )
     }
 

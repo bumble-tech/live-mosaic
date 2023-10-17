@@ -14,24 +14,40 @@ import androidx.compose.ui.unit.dp
 import com.bumble.appyx.interactions.permanent.PermanentAppyxComponent
 import com.bumble.appyx.interactions.permanent.PermanentModel
 import com.bumble.appyx.navigation.collections.ImmutableList
+import com.bumble.appyx.navigation.collections.toImmutableList
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.model.MessageId
+import com.bumble.puzzyx.model.entries
 
 class StackedMessagesNode(
     buildContext: BuildContext,
-    private val stackOfMessages: List<ImmutableList<MessageId>>,
+    private val groupSize: Int = DEFAULT_GROUP_SIZE,
 ) : ParentNode<StackedMessagesNode.InteractionTarget>(
     buildContext = buildContext,
     appyxComponent = PermanentAppyxComponent(model = PermanentModel(buildContext.savedStateMap))
 ) {
+    private val stackOfMessages: List<ImmutableList<MessageId>> = buildList {
+        val messageIds =
+            entries.indices
+                .map { MessageId(it) }
+
+        // Take groups of groupSize messages.
+        messageIds.windowed(groupSize, groupSize, false)
+            .map { add(it.toImmutableList()) }
+
+        // If there is still missing messages, take groupSize from the tail, potentially
+        // repeating some of them.
+        add(messageIds.takeLast(groupSize).toImmutableList())
+    }
+
     sealed class InteractionTarget : Parcelable {
         @Parcelize
         data class Messages(
-            val nodeId: Int,
+            val index: Int,
             val messages: List<MessageId>,
             val delay: Long = 0L,
         ) : InteractionTarget()
@@ -41,7 +57,7 @@ class StackedMessagesNode(
         when (interactionTarget) {
             is InteractionTarget.Messages -> MessagesNode(
                 buildContext = buildContext,
-                nodeId = interactionTarget.nodeId,
+                index = interactionTarget.index,
                 messages = interactionTarget.messages,
                 initialDelay = interactionTarget.delay,
                 onFinished = { if (it == (stackOfMessages.size - 1) * 5000L) finish() }
@@ -53,7 +69,7 @@ class StackedMessagesNode(
         Box(modifier = modifier.fillMaxSize()) {
             stackOfMessages.forEachIndexed { index, messages ->
                 Messages(
-                    nodeId = index,
+                    index = index,
                     messages = messages,
                     initialDelay = 5000 * index,
                 )
@@ -63,7 +79,7 @@ class StackedMessagesNode(
 
     @Composable
     private fun Messages(
-        nodeId: Int,
+        index: Int,
         messages: ImmutableList<MessageId>,
         initialDelay: Int = 0,
     ) {
@@ -80,7 +96,7 @@ class StackedMessagesNode(
         }
         PermanentChild(
             interactionTarget = InteractionTarget.Messages(
-                nodeId = nodeId,
+                index = index,
                 messages = messages,
                 delay = initialDelay.toLong(),
             )
@@ -91,5 +107,9 @@ class StackedMessagesNode(
                     .offset(y = yOffset.value.dp)
             )
         }
+    }
+
+    private companion object {
+        const val DEFAULT_GROUP_SIZE = 7
     }
 }

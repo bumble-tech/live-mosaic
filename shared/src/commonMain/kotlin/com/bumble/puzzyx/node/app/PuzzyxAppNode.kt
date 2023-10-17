@@ -58,11 +58,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
+    StackedMessages,
     Puzzle1,
     CallToAction,
     MessageBoard,
     StarFieldMessageBoard,
-    StackedMessages,
 )
 
 class PuzzyxAppNode(
@@ -121,22 +121,7 @@ class PuzzyxAppNode(
                 children()
             }
 
-            is StackedMessages -> StackedMessagesNode(
-                buildContext,
-                buildList {
-                    val messageIds =
-                        entries.indices
-                            .map { MessageId(it) }
-
-                    // Take groups of 7 messages.
-                    messageIds.windowed(7, 7, false)
-                        .map { add(it.toImmutableList()) }
-
-                    // If there is still missing messages, take 7 from the tail, potentially
-                    // repeating some of them.
-                    add(messageIds.takeLast(7).toImmutableList())
-                }
-            )
+            is StackedMessages -> StackedMessagesNode(buildContext)
         }
 
     override fun onChildFinished(child: Node) {
