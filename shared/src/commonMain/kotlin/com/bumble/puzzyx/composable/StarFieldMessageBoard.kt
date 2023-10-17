@@ -192,8 +192,8 @@ private fun StarFieldContent(
                 val yPos = star.yCoord * zPos
                 val alpha = starField.specs.calcAlpha(zPos)
                 if (alpha > 0f) {
-                    StarContent(
-                        star.type,
+                    OptimisingLayout(
+                        optimalWidth = 200.dp,
                         modifier = Modifier
                             .scale(zPos)
                             .then(star.size)
@@ -206,7 +206,11 @@ private fun StarFieldContent(
                             }
                             .alpha(alpha)
                             .zIndex(zPos)
-                    )
+                    ) {
+                        StarContent(
+                            star.type,
+                        )
+                    }
                 }
             }
         }
