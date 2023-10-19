@@ -71,7 +71,6 @@ class StackedMessagesNode(
                 Messages(
                     index = index,
                     messages = messages,
-                    initialDelay = 5000 * index,
                 )
             }
         }
@@ -81,14 +80,13 @@ class StackedMessagesNode(
     private fun Messages(
         index: Int,
         messages: ImmutableList<MessageId>,
-        initialDelay: Int = 0,
     ) {
         val yOffset = remember { Animatable(-400f) }
         LaunchedEffect(Unit) {
             yOffset.animateTo(
                 targetValue = 200f,
                 animationSpec = tween(
-                    delayMillis = initialDelay,
+                    delayMillis = 5000 * index,
                     durationMillis = 10000,
                     easing = LinearEasing
                 ),
@@ -98,7 +96,7 @@ class StackedMessagesNode(
             interactionTarget = InteractionTarget.Messages(
                 index = index,
                 messages = messages,
-                delay = initialDelay.toLong(),
+                delay = (5000 * index).toLong(),
             )
         ) { child ->
             child(
