@@ -7,7 +7,7 @@ import com.bumble.puzzyx.appyx.component.messages.Messages
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState
 
 @Parcelize
-class Reveal(entryId: Int, override var mode: Operation.Mode) : BaseMessagesModelOperation(entryId, mode) {
+class Reveal(override val entryId: Int, override var mode: Operation.Mode) : BaseMessagesModelOperation(entryId, mode) {
     override val targetElementState: ElementState = ElementState.REVEALED
 }
 

@@ -1,6 +1,9 @@
 package com.bumble.puzzyx.appyx.component.messages
 
 import androidx.compose.animation.core.SpringSpec
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.DpSize
 import com.bumble.appyx.interactions.core.ui.context.UiContext
 import com.bumble.appyx.interactions.core.ui.property.impl.Alpha
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationX
@@ -19,6 +22,8 @@ class LinesOfMessagesVisualisation(
     uiContext: UiContext,
     defaultAnimationSpec: SpringSpec<Float>,
     private val parity: Int,
+    private val entrySize: DpSize,
+    private val entryPadding: DpSize,
 ) : BaseMotionController<MessageId, State, MutableUiState, TargetUiState>(
     uiContext = uiContext,
     defaultAnimationSpec = defaultAnimationSpec
@@ -53,30 +58,29 @@ class LinesOfMessagesVisualisation(
 
 
     override fun State.toUiTargets(): List<MatchedTargetUiState<MessageId, TargetUiState>> {
-        val xLength = 250f * transitionBounds.density.density * elements.size / 3456f
-        val yLength = 200f * transitionBounds.density.density / 2160f
-        val xBias = xLength / (elements.size - 1)
+        val effectiveEntrySize = entrySize.plus(entryPadding)
+        val maxEntryWidth = effectiveEntrySize.width * elements.size
         return elements.entries.mapIndexed { index, entry ->
-            val xNewBias = -xLength / 2f + xBias * index
-            val yNewBias = if (index % 2 == parity) yLength else -yLength
+            val horizontalOffset = -maxEntryWidth / 4f + (effectiveEntrySize.width / 2f) * index
+            val verticalOffset =
+                (if (index % 2 == parity) effectiveEntrySize.height else -effectiveEntrySize.height) / 2f
             MatchedTargetUiState(
                 element = entry.key,
                 targetUiState = when (entry.value) {
-                    CREATED -> created.withUpdatedPosition(xNewBias, yNewBias)
-                    REVEALED -> revealed.withUpdatedPosition(xNewBias, yNewBias)
-                    FLIPPED -> flipped.withUpdatedPosition(xNewBias, yNewBias)
+                    CREATED -> created.withUpdatedPosition(horizontalOffset, verticalOffset)
+                    REVEALED -> revealed.withUpdatedPosition(horizontalOffset, verticalOffset)
+                    FLIPPED -> flipped.withUpdatedPosition(horizontalOffset, verticalOffset)
                 },
             )
         }
     }
 
-    private fun TargetUiState.withUpdatedPosition(horizontalBias: Float, verticalBias: Float) =
+    private fun TargetUiState.withUpdatedPosition(horizontalBias: Dp, verticalBias: Dp) =
         copy(
             position = PositionInside.Target(
-                alignment = BiasAlignment.InsideAlignment(
-                    horizontalBias = horizontalBias,
-                    verticalBias = verticalBias,
-                )
+                alignment = BiasAlignment.InsideAlignment.Center,
+                offset = DpOffset(horizontalBias, verticalBias)
             )
         )
+
 }

@@ -2,13 +2,11 @@ package com.bumble.puzzyx.appyx.component.messages.operation
 
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
-import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.State
 
-@Parcelize
 abstract class BaseMessagesModelOperation(
-    private val entryId: Int,
+    open val entryId: Int,
     override var mode: Operation.Mode
 ) : BaseOperation<State>() {
     override fun isApplicable(state: State): Boolean =

@@ -6,6 +6,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -14,11 +15,10 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.composable.AppyxComponent
-import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
@@ -29,6 +29,7 @@ import com.bumble.puzzyx.appyx.component.messages.operation.flip
 import com.bumble.puzzyx.appyx.component.messages.operation.reveal
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.EntryCard
+import com.bumble.puzzyx.composable.OptimisingLayout
 import com.bumble.puzzyx.model.MessageId
 import com.bumble.puzzyx.model.entries
 import kotlin.random.Random
@@ -48,7 +49,12 @@ class MessagesNode(
             LinesOfMessagesVisualisation(
                 uiContext = it,
                 defaultAnimationSpec = animationSpec,
-                parity = index % 2
+                parity = index % 2,
+                entrySize = DpSize(
+                    ENTRY_WIDTH.dp,
+                    (ENTRY_WIDTH / ENTRY_ASPECT_RATIO).dp
+                ),
+                entryPadding = DpSize(ENTRY_PADDING.dp, ENTRY_PADDING.dp)
             )
         },
         savedStateMap = buildContext.savedStateMap,
@@ -65,8 +71,8 @@ class MessagesNode(
         node(buildContext) { modifier ->
             EntryCard(
                 modifier = modifier
-                    .scale(LocalScreenSize.current.widthDp.value / 1728f)
-                    .size(240.dp, 160.dp),
+                    .size(ENTRY_WIDTH.dp)
+                    .aspectRatio(ENTRY_ASPECT_RATIO),
                 entry = entries[interactionTarget.entryId],
             )
         }
@@ -102,17 +108,23 @@ class MessagesNode(
                         ),
                     )
                 }
-                AppyxComponent(
-                    appyxComponent = component,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .align(Alignment.Center)
-                        .graphicsLayer(
-                            rotationX = rotationXY.value / 2f,
-                            rotationY = rotationXY.value,
-                            rotationZ = rotationZ,
-                        ),
-                )
+                OptimisingLayout(
+                    optimalWidth = 1500.dp,
+                    paddingFraction = 0f,
+                ) {
+                    AppyxComponent(
+                        appyxComponent = component,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .align(Alignment.Center)
+                            .graphicsLayer(
+                                rotationX = rotationXY.value / 2f,
+                                rotationY = rotationXY.value,
+                                rotationZ = rotationZ,
+                            ),
+                    )
+                }
+
             }
         }
     }
@@ -133,5 +145,11 @@ class MessagesNode(
             val duration = if (index != messages.size - 1) 200L else 2000L
             add({ component.operation(messageId.entryId) } to duration)
         }
+    }
+
+    companion object {
+        const val ENTRY_WIDTH = 240f
+        const val ENTRY_ASPECT_RATIO = 1.5f
+        const val ENTRY_PADDING = 8f
     }
 }
