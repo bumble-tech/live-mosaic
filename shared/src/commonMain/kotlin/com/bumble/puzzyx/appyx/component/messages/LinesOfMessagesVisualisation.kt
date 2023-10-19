@@ -17,6 +17,7 @@ import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.FLI
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.REVEALED
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.State
 import com.bumble.puzzyx.model.MessageId
+import kotlin.math.nextUp
 
 class LinesOfMessagesVisualisation(
     uiContext: UiContext,
@@ -60,10 +61,31 @@ class LinesOfMessagesVisualisation(
     override fun State.toUiTargets(): List<MatchedTargetUiState<MessageId, TargetUiState>> {
         val effectiveEntrySize = entrySize.plus(entryPadding)
         val maxEntryWidth = effectiveEntrySize.width * elements.size
+        val halfEffectiveEntrySize = effectiveEntrySize / 2f
         return elements.entries.mapIndexed { index, entry ->
-            val horizontalOffset = -maxEntryWidth / 4f + (effectiveEntrySize.width / 2f) * index
-            val verticalOffset =
-                (if (index % 2 == parity) effectiveEntrySize.height else -effectiveEntrySize.height) / 2f
+            /**
+             * This code determines the positioning of entries on the screen. Entries are arranged in two rows,
+             * alternating between rows as we iterate through the list. For each entry, we offset it by half
+             * of its effective width along the X-axis. The effective width is calculated by adding the entry
+             * width and padding.
+             *
+             * This arrangement results in the following pattern for entry indices:
+             *
+             *     Row 1:    1   3   5
+             *     Row 2:  0   2   4   6
+             *
+             * The choice of the initial row alternates based on the parity, giving us an alternative pattern:
+             *
+             *     Row 1:  0   2   4   6
+             *     Row 2:    1   3   5
+             */
+            val effectiveMaxWidth = (effectiveEntrySize.width * (elements.size / 2f).nextUp()) / 2f
+            val horizontalOffset = -effectiveMaxWidth + halfEffectiveEntrySize.width * index
+            val verticalOffset = if (index % 2 == parity) {
+                halfEffectiveEntrySize.height
+            } else {
+                -halfEffectiveEntrySize.height
+            }
             MatchedTargetUiState(
                 element = entry.key,
                 targetUiState = when (entry.value) {

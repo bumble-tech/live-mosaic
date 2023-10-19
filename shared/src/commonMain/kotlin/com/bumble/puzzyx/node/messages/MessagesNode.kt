@@ -111,12 +111,12 @@ class MessagesNode(
                 OptimisingLayout(
                     optimalWidth = 1500.dp,
                     paddingFraction = 0f,
+                    modifier = Modifier.align(Alignment.Center)
                 ) {
                     AppyxComponent(
                         appyxComponent = component,
                         modifier = Modifier
                             .fillMaxSize()
-                            .align(Alignment.Center)
                             .graphicsLayer(
                                 rotationX = rotationXY.value / 2f,
                                 rotationY = rotationXY.value,
