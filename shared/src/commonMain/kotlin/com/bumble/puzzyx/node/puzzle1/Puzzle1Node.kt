@@ -38,7 +38,7 @@ import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.EntryCardSmall
 import com.bumble.puzzyx.composable.FlashCard
-import com.bumble.puzzyx.imageloader.ResourceImage
+import com.bumble.puzzyx.imageloader.EmbeddableResourceImage
 import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.Puzzle
 import com.bumble.puzzyx.model.PuzzlePiece
@@ -90,7 +90,7 @@ class Puzzle1Node(
                 FlashCard(
                     flash = Color.White,
                     front = { modifier ->
-                        ResourceImage(
+                        EmbeddableResourceImage(
                             path = "${puzzle.imagesDir}/slice_${puzzlePiece.j}_${puzzlePiece.i}.png",
                             contentScale = ContentScale.FillBounds,
                             modifier = modifier
