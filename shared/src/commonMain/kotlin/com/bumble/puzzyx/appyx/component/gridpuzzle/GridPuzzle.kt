@@ -14,6 +14,6 @@ class GridPuzzle(
     defaultAnimationSpec: SpringSpec<Float> = DefaultAnimationSpec
 ) : BaseAppyxComponent<PuzzlePiece, GridPuzzleModel.State>(
     model = GridPuzzleModel(savedStateMap, gridRows, gridCols, pieces),
-    motionController = { GridPuzzleVisualisation(it, defaultAnimationSpec) },
+    visualisation = { GridPuzzleVisualisation(it, defaultAnimationSpec) },
     defaultAnimationSpec = defaultAnimationSpec
 )

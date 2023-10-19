@@ -13,9 +13,10 @@ import com.bumble.appyx.interactions.core.ui.property.impl.RotationZ
 import com.bumble.appyx.interactions.core.ui.property.impl.RoundedCorners
 import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.Center
 import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.InsideAlignment.Companion.fractionAlignment
-import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside.Target
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionAlignment
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionOffset
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
-import com.bumble.appyx.transitionmodel.BaseMotionController
+import com.bumble.appyx.transitionmodel.BaseVisualisation
 import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
 import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.CAROUSEL
 import com.bumble.puzzyx.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.FLIPPED
@@ -28,7 +29,7 @@ import kotlin.random.Random
 class GridPuzzleVisualisation(
     uiContext: UiContext,
     defaultAnimationSpec: SpringSpec<Float>
-) : BaseMotionController<PuzzlePiece, State, MutableUiState, TargetUiState>(
+) : BaseVisualisation<PuzzlePiece, State, MutableUiState, TargetUiState>(
     uiContext = uiContext,
     defaultAnimationSpec = defaultAnimationSpec
 ) {
@@ -53,9 +54,11 @@ class GridPuzzleVisualisation(
         }
 
     private fun State.scattered(i: Int, j: Int) = TargetUiState(
-        position = Target(
-            alignment = alignment(i, j),
-            offset = DpOffset(
+        position = PositionAlignment.Target(
+            insideAlignment = alignment(i, j)
+        ),
+        positionOffset = PositionOffset.Target(
+            DpOffset(
                 x = offset(i, gridCols, transitionBounds.widthDp),
                 y = offset(j, gridRows, transitionBounds.heightDp),
             ),
@@ -75,8 +78,8 @@ class GridPuzzleVisualisation(
     }
 
     private fun State.assembled(i: Int, j: Int, idx: Int) = TargetUiState(
-        position = Target(
-            alignment = alignment(i, j),
+        position = PositionAlignment.Target(
+            insideAlignment = alignment(i, j),
         ),
         angularPosition = AngularPosition.Target(
             AngularPosition.Value(
@@ -99,7 +102,7 @@ class GridPuzzleVisualisation(
         val targetRing = idx % maxRings + 2
 
         return flipped.copy(
-            position = Target(Center),
+            position = PositionAlignment.Target(Center),
             rotationZ = RotationZ.Target(
                 (if (Random.nextBoolean()) -1 else 1) * Random.nextInt(1, 3) * 360f
             ),

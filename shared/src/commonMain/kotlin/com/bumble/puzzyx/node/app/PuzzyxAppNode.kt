@@ -62,7 +62,7 @@ class PuzzyxAppNode(
             initialTargets = listOf(screens.first()),
             savedStateMap = buildContext.savedStateMap,
         ),
-        motionController = { BackStackClipper(it, shape = { progress -> clipShape(progress) }) }
+        visualisation = { BackStackClipper(it, shape = { progress -> clipShape(progress) }) }
     )
 ) : ParentNode<NavTarget>(
     buildContext = buildContext,
