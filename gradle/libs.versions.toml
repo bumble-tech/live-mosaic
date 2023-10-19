@@ -20,9 +20,7 @@ junit5 = "5.8.2"
 jvmTarget = "17"
 kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
-mvicore = "1.2.6"
 resources = "0.22.3"
-ribs = "0.39.0"
 serialization-json = "1.5.0"
 ktor = "2.3.4"
 uuid = "9.0.0"
@@ -69,14 +67,6 @@ kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-te
 kotlin-coroutines-test-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm", version.ref = "coroutines" }
 kotlin-coroutines-rx2 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
-mvicore-base = { module = "com.github.badoo.mvicore:mvicore", version.ref = "mvicore" }
-mvicore-android = { module = "com.github.badoo.mvicore:mvicore-android", version.ref = "mvicore" }
-mvicore-binder = { module = "com.github.badoo.mvicore:binder", version.ref = "mvicore" }
-ribs-base = { module = "com.github.badoo.RIBs:rib-base", version.ref = "ribs" }
-ribs-base-test = { module = "com.github.badoo.RIBs:rib-base-test", version.ref = "ribs" }
-ribs-base-test-activity = { module = "com.github.badoo.RIBs:rib-base-test-activity", version.ref = "ribs" }
-ribs-base-test-rx2 = { module = "com.github.badoo.RIBs:rib-base-test-rx2", version.ref = "ribs" }
-ribs-compose = { module = "com.github.badoo.RIBs:rib-compose", version.ref = "ribs" }
 
 rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
 rxjava3 = "io.reactivex.rxjava3:rxjava:3.1.5"
