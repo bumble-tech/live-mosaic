@@ -2,6 +2,7 @@ package com.bumble.puzzyx.node.messages
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.composable.AppyxComponent
+import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
@@ -32,6 +34,7 @@ import com.bumble.puzzyx.composable.EntryCard
 import com.bumble.puzzyx.composable.OptimisingLayout
 import com.bumble.puzzyx.model.MessageId
 import com.bumble.puzzyx.model.entries
+import kotlinx.coroutines.async
 import kotlin.random.Random
 
 private val animationSpec = spring<Float>(
@@ -61,7 +64,6 @@ class MessagesNode(
         defaultAnimationSpec = animationSpec
     ),
     private val onFinished: (Long) -> Unit,
-    private val initialDelay: Long = 0L,
 ) : ParentNode<MessageId>(
     buildContext = buildContext,
     appyxComponent = component
@@ -79,7 +81,8 @@ class MessagesNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        key(initialDelay) {
+        key(index) {
+            val initialDelay = 5000L * index
             AutoPlayScript(
                 steps = buildList {
                     val reorderedMessages = messages.shuffled()
@@ -94,19 +97,34 @@ class MessagesNode(
                 modifier = modifier
                     .fillMaxSize()
             ) {
+                val initialYOffset = -0.75f * LocalScreenSize.current.heightDp.value
+                val targetYOffset = 0.375f * LocalScreenSize.current.heightDp.value
                 val sign = remember { if (Random.nextBoolean()) 1f else -1f }
                 val targetRotationXY = remember { -sign * (2f + 4f * Random.nextFloat()) }
                 val rotationZ = remember { sign * (1.5f + 1.5f * Random.nextFloat()) }
                 val rotationXY = remember { Animatable(0f) }
+                val yOffset = remember { Animatable(initialYOffset) }
                 LaunchedEffect(Unit) {
-                    rotationXY.animateTo(
-                        targetValue = targetRotationXY,
-                        animationSpec = tween(
-                            durationMillis = 6000,
-                            delayMillis = (4000 + initialDelay).toInt(),
-                            easing = FastOutSlowInEasing,
-                        ),
-                    )
+                    async {
+                        yOffset.animateTo(
+                            targetValue = targetYOffset,
+                            animationSpec = tween(
+                                delayMillis = 5000 * index,
+                                durationMillis = 10000,
+                                easing = LinearEasing
+                            ),
+                        )
+                    }
+                    async {
+                        rotationXY.animateTo(
+                            targetValue = targetRotationXY,
+                            animationSpec = tween(
+                                durationMillis = 6000,
+                                delayMillis = (4000 + initialDelay).toInt(),
+                                easing = FastOutSlowInEasing,
+                            ),
+                        )
+                    }
                 }
                 OptimisingLayout(
                     optimalWidth = 1500.dp,
@@ -121,6 +139,7 @@ class MessagesNode(
                                 rotationX = rotationXY.value / 2f,
                                 rotationY = rotationXY.value,
                                 rotationZ = rotationZ,
+                                translationY = yOffset.value,
                             ),
                     )
                 }

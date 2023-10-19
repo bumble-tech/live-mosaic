@@ -1,16 +1,9 @@
 package com.bumble.puzzyx.node.messages
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.bumble.appyx.interactions.permanent.PermanentAppyxComponent
 import com.bumble.appyx.interactions.permanent.PermanentModel
 import com.bumble.appyx.navigation.collections.ImmutableList
@@ -49,7 +42,6 @@ class StackedMessagesNode(
         data class Messages(
             val index: Int,
             val messages: List<MessageId>,
-            val delay: Long = 0L,
         ) : InteractionTarget()
     }
 
@@ -59,7 +51,6 @@ class StackedMessagesNode(
                 buildContext = buildContext,
                 index = interactionTarget.index,
                 messages = interactionTarget.messages,
-                initialDelay = interactionTarget.delay,
                 onFinished = { if (it == (stackOfMessages.size - 1) * 5000L) finish() }
             )
         }
@@ -81,28 +72,14 @@ class StackedMessagesNode(
         index: Int,
         messages: ImmutableList<MessageId>,
     ) {
-        val yOffset = remember { Animatable(-400f) }
-        LaunchedEffect(Unit) {
-            yOffset.animateTo(
-                targetValue = 200f,
-                animationSpec = tween(
-                    delayMillis = 5000 * index,
-                    durationMillis = 10000,
-                    easing = LinearEasing
-                ),
-            )
-        }
         PermanentChild(
             interactionTarget = InteractionTarget.Messages(
                 index = index,
                 messages = messages,
-                delay = (5000 * index).toLong(),
             )
         ) { child ->
             child(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .offset(y = yOffset.value.dp)
+                modifier = Modifier.fillMaxSize()
             )
         }
     }
