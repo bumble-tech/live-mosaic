@@ -8,7 +8,7 @@ import com.bumble.appyx.interactions.core.ui.context.UiContext
 import com.bumble.appyx.interactions.core.ui.helper.DefaultAnimationSpec
 import com.bumble.appyx.interactions.core.ui.property.impl.ZIndex
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
-import com.bumble.appyx.transitionmodel.BaseMotionController
+import com.bumble.appyx.transitionmodel.BaseVisualisation
 
 
 /**
@@ -26,7 +26,7 @@ class BackStackClipper<InteractionTarget : Any>(
     uiContext: UiContext,
     private val shape: @Composable (progress: Float) -> Shape,
     defaultAnimationSpec: SpringSpec<Float> = DefaultAnimationSpec
-) : BaseMotionController<InteractionTarget, BackStackModel.State<InteractionTarget>, MutableUiState, TargetUiState>(
+) : BaseVisualisation<InteractionTarget, BackStackModel.State<InteractionTarget>, MutableUiState, TargetUiState>(
     uiContext = uiContext,
     defaultAnimationSpec = defaultAnimationSpec,
 ) {

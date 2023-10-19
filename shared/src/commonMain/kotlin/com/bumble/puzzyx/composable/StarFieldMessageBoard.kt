@@ -35,7 +35,6 @@ import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.ui.appyx_dark
 import kotlinx.coroutines.isActive
-import org.jetbrains.skia.svg.SVGPreserveAspectRatio
 import kotlin.math.max
 import kotlin.math.roundToInt
 import kotlin.random.Random
