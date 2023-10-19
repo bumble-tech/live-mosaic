@@ -56,10 +56,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
-    StackedMessages,
     Puzzle1,
     CallToAction,
     StarFieldMessageBoard,
+    StackedMessages,
 )
 
 class PuzzyxAppNode(
