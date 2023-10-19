@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,7 @@ import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.ui.appyx_dark
 import kotlinx.coroutines.isActive
+import org.jetbrains.skia.svg.SVGPreserveAspectRatio
 import kotlin.math.max
 import kotlin.math.roundToInt
 import kotlin.random.Random
@@ -56,7 +58,8 @@ private data class Star(
     val xCoord: Float = Random.nextDouble(-0.5, 0.5).toFloat(),
     val yCoord: Float = Random.nextDouble(-0.5, 0.5).toFloat(),
     val zCoord: Float,
-    val size: Modifier,
+    val sizeDp: Dp,
+    val aspectRatio: Float = 1f,
     val type: StarType,
 )
 
@@ -64,13 +67,14 @@ private data class Star(
 private sealed class StarType {
     data class RegularType(val color: Color) : StarType() {
         companion object {
-            val size: Modifier = Modifier.size(4.dp)
+            val sizeDp: Dp = 4.dp
         }
     }
 
     data class EntryType(val entry: Entry) : StarType() {
         companion object {
-            val size: Modifier = Modifier.fillMaxSize(0.15f).aspectRatio(1.5f)
+            val sizeDp: Dp = 260.dp
+            const val aspectRatio: Float = 1.5f
         }
     }
 
@@ -102,7 +106,7 @@ private data class StarField(
                         from = starFieldSpecs.zNewCoord.toDouble(),
                         until = starFieldSpecs.zFadeOutEnd.toDouble(),
                     ).toFloat(),
-                    size = StarType.RegularType.size,
+                    sizeDp = StarType.RegularType.sizeDp,
                     type = StarType.RegularType(
                         color = Color(
                             red = Random.nextDouble(0.60, 0.66).toFloat(),
@@ -117,7 +121,8 @@ private data class StarField(
             entries.reversed().mapIndexed { index, entry ->
                 Star(
                     zCoord = starFieldSpecs.zFadeInStart - index * starFieldSpecs.zOffset,
-                    size = StarType.EntryType.size,
+                    sizeDp = StarType.EntryType.sizeDp,
+                    aspectRatio = StarType.EntryType.aspectRatio,
                     type = StarType.EntryType(entry = entry),
                 )
             }
@@ -192,11 +197,12 @@ private fun StarFieldContent(
                 val yPos = star.yCoord * zPos
                 val alpha = starField.specs.calcAlpha(zPos)
                 if (alpha > 0f) {
-                    StarContent(
-                        star.type,
+                    OptimisingLayout(
+                        optimalWidth = star.sizeDp,
                         modifier = Modifier
                             .scale(zPos)
-                            .then(star.size)
+                            .size(star.sizeDp)
+                            .aspectRatio(star.aspectRatio)
                             .align(Alignment.Center)
                             .absoluteOffset {
                                 IntOffset(
@@ -206,7 +212,11 @@ private fun StarFieldContent(
                             }
                             .alpha(alpha)
                             .zIndex(zPos)
-                    )
+                    ) {
+                        StarContent(
+                            star.type,
+                        )
+                    }
                 }
             }
         }
