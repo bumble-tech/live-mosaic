@@ -7,7 +7,6 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -16,9 +15,6 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
@@ -68,7 +64,7 @@ class MessagesNode(
         savedStateMap = buildContext.savedStateMap,
         defaultAnimationSpec = animationSpec
     ),
-    private val onFinished: (Long) -> Unit,
+    private val onFinished: (Int) -> Unit,
 ) : ParentNode<MessageId>(
     buildContext = buildContext,
     appyxComponent = component
@@ -76,44 +72,47 @@ class MessagesNode(
 
     override fun resolve(interactionTarget: MessageId, buildContext: BuildContext): Node =
         node(buildContext) { modifier ->
-            EntryCard(
-                modifier = modifier
-                    .size(ENTRY_WIDTH.dp)
-                    .aspectRatio(ENTRY_ASPECT_RATIO),
-                entry = entries[interactionTarget.entryId],
-            )
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = modifier.fillMaxSize()
+            ) {
+                EntryCard(
+                    entry = entries[interactionTarget.entryId],
+                    modifier = Modifier
+                        .size(ENTRY_WIDTH.dp, ENTRY_WIDTH.dp / ENTRY_ASPECT_RATIO)
+                )
+            }
         }
 
     @Composable
     override fun View(modifier: Modifier) {
         key(index) {
-            val initialDelay = 5000L * index
+            val initialDelay = 8500L * index
             AutoPlayScript(
                 steps = buildList {
                     val reorderedMessages = messages.shuffled()
                     revealMessages(reorderedMessages)
                     flipMessages(reorderedMessages)
                 },
-                initialDelayMs = 4000 + initialDelay,
-                onFinish = { onFinished(initialDelay) }
+                initialDelayMs = 500 + initialDelay,
+                onFinish = { onFinished(index) }
             )
 
             Box(
                 modifier = modifier
-                    .fillMaxSize()
             ) {
-                val verticalBias = remember { Animatable(-0.4f) }
+                val verticalBias = remember { Animatable(-0.35f) }
                 val sign = remember { if (Random.nextBoolean()) 1f else -1f }
-                val targetRotationXY = remember { -sign * (2f + 4f * Random.nextFloat()) }
-                val rotationZ = remember { sign * (1.5f + 1.5f * Random.nextFloat()) }
+                val targetRotationXY = remember { -sign * (2f + 1f * Random.nextFloat()) }
+                val rotationZ = remember { sign * (1.5f + 0.5f * Random.nextFloat()) }
                 val rotationXY = remember { Animatable(0f) }
                 LaunchedEffect(Unit) {
                     async {
                         verticalBias.animateTo(
                             targetValue = 0.2f,
                             animationSpec = tween(
-                                delayMillis = 5000 * index,
-                                durationMillis = 10000,
+                                delayMillis = 8500 * index,
+                                durationMillis = 13500,
                                 easing = LinearEasing
                             ),
                         )
@@ -122,8 +121,8 @@ class MessagesNode(
                         rotationXY.animateTo(
                             targetValue = targetRotationXY,
                             animationSpec = tween(
+                                delayMillis = (500 + initialDelay).toInt(),
                                 durationMillis = 6000,
-                                delayMillis = (4000 + initialDelay).toInt(),
                                 easing = FastOutSlowInEasing,
                             ),
                         )
@@ -132,7 +131,6 @@ class MessagesNode(
                 OptimisingLayout(
                     optimalWidth = 1500.dp,
                     paddingFraction = 0f,
-                    modifier = Modifier.align(Alignment.Center)
                 ) {
                     val translationY = verticalBias.value * with(LocalDensity.current) {
                         LocalScreenSize.current.heightDp.toPx()
@@ -147,7 +145,7 @@ class MessagesNode(
                                 this.rotationY = rotationXY.value
                                 this.rotationZ = rotationZ
                                 this.translationY = translationY
-                            },
+                            }
                     )
                 }
             }
@@ -167,7 +165,7 @@ class MessagesNode(
         operation: Messages.(Int) -> Unit,
     ) {
         messages.forEachIndexed { index, messageId ->
-            val duration = if (index != messages.size - 1) 200L else 2000L
+            val duration = if (index != messages.size - 1) 200L else 5500L
             add({ component.operation(messageId.entryId) } to duration)
         }
     }

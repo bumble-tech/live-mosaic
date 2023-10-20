@@ -52,7 +52,7 @@ class StackedMessagesNode(
                 buildContext = buildContext,
                 index = interactionTarget.index,
                 messages = stackOfMessages[interactionTarget.index],
-                onFinished = { if (it == (stackOfMessages.size - 1) * 5000L) finish() }
+                onFinished = { if (it == stackOfMessages.size - 1) finish() }
             )
         }
 

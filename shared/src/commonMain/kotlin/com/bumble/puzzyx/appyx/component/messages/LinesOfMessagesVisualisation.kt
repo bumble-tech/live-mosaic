@@ -16,7 +16,6 @@ import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.FLI
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.REVEALED
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.State
 import com.bumble.puzzyx.model.MessageId
-import kotlin.math.nextUp
 
 class LinesOfMessagesVisualisation(
     uiContext: UiContext,
@@ -30,24 +29,24 @@ class LinesOfMessagesVisualisation(
 ) {
 
     private val created = TargetUiState(
+        linePosition = PositionOffset.Target(),
         rotationX = RotationX.Target(0f),
         scale = Scale.Target(1.2f),
         alpha = Alpha.Target(0f),
-        position = PositionOffset.Target(),
     )
 
     private val revealed = TargetUiState(
+        linePosition = PositionOffset.Target(),
         rotationX = RotationX.Target(0f),
         scale = Scale.Target(1f),
         alpha = Alpha.Target(1f),
-        position = PositionOffset.Target(),
     )
 
     private val flipped = TargetUiState(
+        linePosition = PositionOffset.Target(),
         rotationX = RotationX.Target(-90f),
         scale = Scale.Target(0.8f),
         alpha = Alpha.Target(0f),
-        position = PositionOffset.Target(),
     )
 
     override fun mutableUiStateFor(
@@ -77,12 +76,12 @@ class LinesOfMessagesVisualisation(
              *     Row 1:  0   2   4   6
              *     Row 2:    1   3   5
              */
-            val effectiveMaxWidth = (effectiveEntrySize.width * (elements.size / 2f).nextUp()) / 2f
-            val horizontalOffset = -effectiveMaxWidth + halfEffectiveEntrySize.width * index
+            val effectiveMaxWidth = halfEffectiveEntrySize.width * (elements.size - 1)
+            val horizontalOffset = -effectiveMaxWidth / 2f + halfEffectiveEntrySize.width * index
             val verticalOffset = if (index % 2 == parity) {
-                halfEffectiveEntrySize.height
-            } else {
                 -halfEffectiveEntrySize.height
+            } else {
+                halfEffectiveEntrySize.height
             }
             MatchedTargetUiState(
                 element = entry.key,
@@ -97,10 +96,12 @@ class LinesOfMessagesVisualisation(
 
     private fun TargetUiState.withUpdatedPosition(horizontalBias: Dp, verticalBias: Dp) =
         copy(
-            position = PositionOffset.Target(
+            linePosition = PositionOffset.Target(
                 offset = DpOffset(
-                    x = transitionBounds.widthDp / 2f + horizontalBias,
-                    y = transitionBounds.heightDp / 2f + verticalBias,
+//                    x = transitionBounds.widthDp / 2f + horizontalBias,
+//                    y = transitionBounds.heightDp / 2f + verticalBias,
+                    x = horizontalBias,
+                    y = verticalBias,
                 )
             )
         )
