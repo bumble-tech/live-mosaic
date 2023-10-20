@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.composable.AppyxComponent
@@ -97,17 +98,15 @@ class MessagesNode(
                 modifier = modifier
                     .fillMaxSize()
             ) {
-                val initialYOffset = -0.75f * LocalScreenSize.current.heightDp.value
-                val targetYOffset = 0.375f * LocalScreenSize.current.heightDp.value
+                val verticalBias = remember { Animatable(-0.4f) }
                 val sign = remember { if (Random.nextBoolean()) 1f else -1f }
                 val targetRotationXY = remember { -sign * (2f + 4f * Random.nextFloat()) }
                 val rotationZ = remember { sign * (1.5f + 1.5f * Random.nextFloat()) }
                 val rotationXY = remember { Animatable(0f) }
-                val yOffset = remember { Animatable(initialYOffset) }
                 LaunchedEffect(Unit) {
                     async {
-                        yOffset.animateTo(
-                            targetValue = targetYOffset,
+                        verticalBias.animateTo(
+                            targetValue = 0.2f,
                             animationSpec = tween(
                                 delayMillis = 5000 * index,
                                 durationMillis = 10000,
@@ -139,7 +138,7 @@ class MessagesNode(
                                 rotationX = rotationXY.value / 2f,
                                 rotationY = rotationXY.value,
                                 rotationZ = rotationZ,
-                                translationY = yOffset.value,
+                                translationY = with(LocalDensity.current) { LocalScreenSize.current.heightDp.toPx() } * verticalBias.value
                             ),
                     )
                 }
