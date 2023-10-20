@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.interactions.permanent.PermanentAppyxComponent
-import com.bumble.appyx.interactions.permanent.PermanentModel
 import com.bumble.appyx.navigation.collections.ImmutableList
 import com.bumble.appyx.navigation.collections.toImmutableList
+import com.bumble.appyx.navigation.composable.PermanentChild
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
@@ -19,10 +19,6 @@ import com.bumble.puzzyx.model.entries
 class StackedMessagesNode(
     buildContext: BuildContext,
     private val groupSize: Int = DEFAULT_GROUP_SIZE,
-) : ParentNode<StackedMessagesNode.InteractionTarget>(
-    buildContext = buildContext,
-    appyxComponent = PermanentAppyxComponent(model = PermanentModel(buildContext.savedStateMap))
-) {
     private val stackOfMessages: List<ImmutableList<MessageId>> = buildList {
         val messageIds =
             entries.indices
@@ -35,14 +31,19 @@ class StackedMessagesNode(
         // If there is still missing messages, take groupSize from the tail, potentially
         // repeating some of them.
         add(messageIds.takeLast(groupSize).toImmutableList())
-    }
+    },
+    private val permanentAppyxComponent: PermanentAppyxComponent<InteractionTarget> = PermanentAppyxComponent(
+        savedStateMap = buildContext.savedStateMap,
+        initialTargets = List(stackOfMessages.size) { index -> InteractionTarget.Messages(index) },
+    ),
+) : ParentNode<StackedMessagesNode.InteractionTarget>(
+    buildContext = buildContext,
+    appyxComponent = permanentAppyxComponent
+) {
 
     sealed class InteractionTarget : Parcelable {
         @Parcelize
-        data class Messages(
-            val index: Int,
-            val messages: List<MessageId>,
-        ) : InteractionTarget()
+        data class Messages(val index: Int) : InteractionTarget()
     }
 
     override fun resolve(interactionTarget: InteractionTarget, buildContext: BuildContext): Node =
@@ -50,37 +51,25 @@ class StackedMessagesNode(
             is InteractionTarget.Messages -> MessagesNode(
                 buildContext = buildContext,
                 index = interactionTarget.index,
-                messages = interactionTarget.messages,
+                messages = stackOfMessages[interactionTarget.index],
                 onFinished = { if (it == (stackOfMessages.size - 1) * 5000L) finish() }
             )
         }
 
     @Composable
     override fun View(modifier: Modifier) {
-        Box(modifier = modifier.fillMaxSize()) {
-            stackOfMessages.forEachIndexed { index, messages ->
-                Messages(
-                    index = index,
-                    messages = messages,
+        Box(
+            modifier = modifier.fillMaxSize()
+        ) {
+            stackOfMessages.forEachIndexed { index, _ ->
+                PermanentChild(
+                    permanentAppyxComponent = permanentAppyxComponent,
+                    interactionTarget = InteractionTarget.Messages(
+                        index = index,
+                    ),
+                    modifier = Modifier.fillMaxSize()
                 )
             }
-        }
-    }
-
-    @Composable
-    private fun Messages(
-        index: Int,
-        messages: ImmutableList<MessageId>,
-    ) {
-        PermanentChild(
-            interactionTarget = InteractionTarget.Messages(
-                index = index,
-                messages = messages,
-            )
-        ) { child ->
-            child(
-                modifier = Modifier.fillMaxSize()
-            )
         }
     }
 
