@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import com.bumble.appyx.interactions.core.ui.LocalBoxScope
 import com.bumble.appyx.navigation.composable.AppyxComponent
 import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
@@ -72,13 +73,11 @@ class MessagesNode(
 
     override fun resolve(interactionTarget: MessageId, buildContext: BuildContext): Node =
         node(buildContext) { modifier ->
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = modifier.fillMaxSize()
-            ) {
+            LocalBoxScope.current?.run {
                 EntryCard(
                     entry = entries[interactionTarget.entryId],
-                    modifier = Modifier
+                    modifier = modifier
+                        .align(Alignment.Center)
                         .size(ENTRY_WIDTH.dp, ENTRY_WIDTH.dp / ENTRY_ASPECT_RATIO)
                 )
             }
@@ -101,8 +100,8 @@ class MessagesNode(
             Box(
                 modifier = modifier
             ) {
-                val verticalBias = remember { Animatable(-0.35f) }
-                val sign = remember { if (Random.nextBoolean()) 1f else -1f }
+                val verticalBias = remember { Animatable(-0.3f) }
+                val sign = remember { if (index % 2 == 0) 1f else -1f }
                 val targetRotationXY = remember { -sign * (2f + 1f * Random.nextFloat()) }
                 val rotationZ = remember { sign * (1.5f + 0.5f * Random.nextFloat()) }
                 val rotationXY = remember { Animatable(0f) }

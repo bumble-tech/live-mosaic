@@ -1,21 +1,23 @@
 package com.bumble.puzzyx.appyx.component.messages
 
 import androidx.compose.animation.core.SpringSpec
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.DpSize
 import com.bumble.appyx.interactions.core.ui.context.UiContext
 import com.bumble.appyx.interactions.core.ui.property.impl.Alpha
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationX
 import com.bumble.appyx.interactions.core.ui.property.impl.Scale
-import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionOffset
+import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionAlignment
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseVisualisation
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.CREATED
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.FLIPPED
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.ElementState.REVEALED
 import com.bumble.puzzyx.appyx.component.messages.MessagesModel.State
+import com.bumble.puzzyx.math.mapValueRange
 import com.bumble.puzzyx.model.MessageId
+import kotlin.math.nextUp
+import kotlin.math.roundToInt
 
 class LinesOfMessagesVisualisation(
     uiContext: UiContext,
@@ -29,21 +31,27 @@ class LinesOfMessagesVisualisation(
 ) {
 
     private val created = TargetUiState(
-        linePosition = PositionOffset.Target(),
+        linePosition = PositionAlignment.Target(
+            PositionAlignment.Value(insideAlignment = BiasAlignment.InsideAlignment.Center)
+        ),
         rotationX = RotationX.Target(0f),
         scale = Scale.Target(1.2f),
         alpha = Alpha.Target(0f),
     )
 
     private val revealed = TargetUiState(
-        linePosition = PositionOffset.Target(),
+        linePosition = PositionAlignment.Target(
+            PositionAlignment.Value(insideAlignment = BiasAlignment.InsideAlignment.Center)
+        ),
         rotationX = RotationX.Target(0f),
         scale = Scale.Target(1f),
         alpha = Alpha.Target(1f),
     )
 
     private val flipped = TargetUiState(
-        linePosition = PositionOffset.Target(),
+        linePosition = PositionAlignment.Target(
+            PositionAlignment.Value(insideAlignment = BiasAlignment.InsideAlignment.Center)
+        ),
         rotationX = RotationX.Target(-90f),
         scale = Scale.Target(0.8f),
         alpha = Alpha.Target(0f),
@@ -76,32 +84,40 @@ class LinesOfMessagesVisualisation(
              *     Row 1:  0   2   4   6
              *     Row 2:    1   3   5
              */
-            val effectiveMaxWidth = halfEffectiveEntrySize.width * (elements.size - 1)
-            val horizontalOffset = -effectiveMaxWidth / 2f + halfEffectiveEntrySize.width * index
-            val verticalOffset = if (index % 2 == parity) {
-                -halfEffectiveEntrySize.height
+            val mappedHalfEntryHeight =
+                effectiveEntrySize.height / (transitionBounds.heightDp - effectiveEntrySize.height)
+            val horizontalBias = mapValueRange(
+                value = transitionBounds.widthDp.value / 2f - halfEffectiveEntrySize.width.value * ((elements.size / 2f).nextUp()
+                    .roundToInt()) + index * halfEffectiveEntrySize.width.value,
+                fromRangeMin = 0f,
+                fromRangeMax = transitionBounds.widthDp.value - effectiveEntrySize.width.value,
+                destRangeMin = -1f,
+                destRangeMax = 1f,
+            )
+            val verticalBias = if (index % 2 == parity) {
+                -mappedHalfEntryHeight
             } else {
-                halfEffectiveEntrySize.height
+                mappedHalfEntryHeight
             }
             MatchedTargetUiState(
                 element = entry.key,
                 targetUiState = when (entry.value) {
-                    CREATED -> created.withUpdatedPosition(horizontalOffset, verticalOffset)
-                    REVEALED -> revealed.withUpdatedPosition(horizontalOffset, verticalOffset)
-                    FLIPPED -> flipped.withUpdatedPosition(horizontalOffset, verticalOffset)
+                    CREATED -> created.withUpdatedPosition(horizontalBias, verticalBias)
+                    REVEALED -> revealed.withUpdatedPosition(horizontalBias, verticalBias)
+                    FLIPPED -> flipped.withUpdatedPosition(horizontalBias, verticalBias)
                 },
             )
         }
     }
 
-    private fun TargetUiState.withUpdatedPosition(horizontalBias: Dp, verticalBias: Dp) =
+    private fun TargetUiState.withUpdatedPosition(horizontalBias: Float, verticalBias: Float) =
         copy(
-            linePosition = PositionOffset.Target(
-                offset = DpOffset(
-//                    x = transitionBounds.widthDp / 2f + horizontalBias,
-//                    y = transitionBounds.heightDp / 2f + verticalBias,
-                    x = horizontalBias,
-                    y = verticalBias,
+            linePosition = PositionAlignment.Target(
+                PositionAlignment.Value(
+                    insideAlignment = BiasAlignment.InsideAlignment(
+                        horizontalBias,
+                        verticalBias
+                    )
                 )
             )
         )
