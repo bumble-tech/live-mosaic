@@ -16,6 +16,10 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
@@ -49,7 +53,7 @@ class MessagesNode(
     private val messages: List<MessageId>,
     private val component: Messages = Messages(
         messages = messages,
-        motionController = {
+        visualisation = {
             LinesOfMessagesVisualisation(
                 uiContext = it,
                 defaultAnimationSpec = animationSpec,
@@ -130,19 +134,22 @@ class MessagesNode(
                     paddingFraction = 0f,
                     modifier = Modifier.align(Alignment.Center)
                 ) {
+                    val translationY = verticalBias.value * with(LocalDensity.current) {
+                        LocalScreenSize.current.heightDp.toPx()
+                    }
                     AppyxComponent(
                         appyxComponent = component,
                         modifier = Modifier
                             .fillMaxSize()
-                            .graphicsLayer(
-                                rotationX = rotationXY.value / 2f,
-                                rotationY = rotationXY.value,
-                                rotationZ = rotationZ,
-                                translationY = with(LocalDensity.current) { LocalScreenSize.current.heightDp.toPx() } * verticalBias.value
-                            ),
+                            .graphicsLayer {
+                                this.compositingStrategy = CompositingStrategy.Offscreen
+                                this.rotationX = rotationXY.value / 2f
+                                this.rotationY = rotationXY.value
+                                this.rotationZ = rotationZ
+                                this.translationY = translationY
+                            },
                     )
                 }
-
             }
         }
     }
