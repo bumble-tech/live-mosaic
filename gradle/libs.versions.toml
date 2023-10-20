@@ -8,21 +8,19 @@ androidMinSdk = "21"
 androidTargetSdk = "32"
 androidx-lifecycle = "2.6.1"
 androidx-navigation-compose = "2.5.1"
-appyx = "2.0.0-alpha06"
+appyx = "2.0.0-alpha09"
 coil = "2.2.1"
-composePlugin = "1.4.3"
+composePlugin = "1.5.3"
 composeBom = "2023.05.01"
-composeCompiler = "1.4.4"
+composeCompiler = "1.5.3"
 coroutines = "1.7.1"
 dependencyAnalysis = "1.13.1"
 detekt = "1.22.0"
 junit5 = "5.8.2"
 jvmTarget = "17"
-kotlin = "1.8.10"
-ksp = "1.8.0-1.0.8"
-mvicore = "1.2.6"
+kotlin = "1.9.10"
+ksp = "1.9.10-1.0.13"
 resources = "0.22.3"
-ribs = "0.39.0"
 serialization-json = "1.5.0"
 ktor = "2.3.4"
 uuid = "9.0.0"
@@ -69,14 +67,6 @@ kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-te
 kotlin-coroutines-test-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm", version.ref = "coroutines" }
 kotlin-coroutines-rx2 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
-mvicore-base = { module = "com.github.badoo.mvicore:mvicore", version.ref = "mvicore" }
-mvicore-android = { module = "com.github.badoo.mvicore:mvicore-android", version.ref = "mvicore" }
-mvicore-binder = { module = "com.github.badoo.mvicore:binder", version.ref = "mvicore" }
-ribs-base = { module = "com.github.badoo.RIBs:rib-base", version.ref = "ribs" }
-ribs-base-test = { module = "com.github.badoo.RIBs:rib-base-test", version.ref = "ribs" }
-ribs-base-test-activity = { module = "com.github.badoo.RIBs:rib-base-test-activity", version.ref = "ribs" }
-ribs-base-test-rx2 = { module = "com.github.badoo.RIBs:rib-base-test-rx2", version.ref = "ribs" }
-ribs-compose = { module = "com.github.badoo.RIBs:rib-compose", version.ref = "ribs" }
 
 rxjava2 = "io.reactivex.rxjava2:rxjava:2.2.21"
 rxjava3 = "io.reactivex.rxjava3:rxjava:3.1.5"

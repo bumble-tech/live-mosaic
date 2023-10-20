@@ -4,12 +4,14 @@ import com.bumble.appyx.interactions.core.ui.property.impl.AngularPosition
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationY
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationZ
 import com.bumble.appyx.interactions.core.ui.property.impl.RoundedCorners
-import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionInside
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionAlignment
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionOffset
 import com.bumble.appyx.interactions.core.ui.state.MutableUiStateSpecs
 
 @MutableUiStateSpecs
 data class TargetUiState(
-    val position: PositionInside.Target,
+    val position: PositionAlignment.Target,
+    val positionOffset: PositionOffset.Target = PositionOffset.Target(),
     val angularPosition: AngularPosition.Target = AngularPosition.Target(
         AngularPosition.Value.Zero
     ),
