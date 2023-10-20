@@ -2,10 +2,12 @@ package com.bumble.puzzyx.composable
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.NonRestartableComposable
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
 import kotlinx.coroutines.delay
 
 @Composable
+@NonRestartableComposable
 fun AutoPlayScript(
     steps: List<Pair<() -> Unit, Long>> = emptyList(),
     initialDelayMs: Long = 1,
