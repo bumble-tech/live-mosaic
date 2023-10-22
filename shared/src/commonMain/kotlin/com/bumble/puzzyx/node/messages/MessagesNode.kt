@@ -86,14 +86,14 @@ class MessagesNode(
     @Composable
     override fun View(modifier: Modifier) {
         key(index) {
-            val initialDelay = 8500L * index
+            val initialDelay = INITIAL_DELAY * index
             AutoPlayScript(
                 steps = buildList {
                     val reorderedMessages = messages.shuffled()
                     revealMessages(reorderedMessages)
                     flipMessages(reorderedMessages)
                 },
-                initialDelayMs = 500 + initialDelay,
+                initialDelayMs = (INITIAL_EXTRA_DELAY + initialDelay).toLong(),
                 onFinish = { onFinished(index) }
             )
 
@@ -110,8 +110,8 @@ class MessagesNode(
                         verticalBias.animateTo(
                             targetValue = 0.2f,
                             animationSpec = tween(
-                                delayMillis = 8500 * index,
-                                durationMillis = 13500,
+                                delayMillis = INITIAL_DELAY * index,
+                                durationMillis = VERTICAL_BIAS_DURATION,
                                 easing = LinearEasing
                             ),
                         )
@@ -120,8 +120,8 @@ class MessagesNode(
                         rotationXY.animateTo(
                             targetValue = targetRotationXY,
                             animationSpec = tween(
-                                delayMillis = (500 + initialDelay).toInt(),
-                                durationMillis = 6000,
+                                delayMillis = INITIAL_DELAY * index,
+                                durationMillis = ROTATION_DURATION,
                                 easing = FastOutSlowInEasing,
                             ),
                         )
@@ -163,8 +163,9 @@ class MessagesNode(
         messages: List<MessageId>,
         operation: Messages.(Int) -> Unit,
     ) {
+        val lastDelay = OPERATIONS_BLOCK_DURATION - SINGLE_OPERATION_DELAY * (messages.size - 1)
         messages.forEachIndexed { index, messageId ->
-            val duration = if (index != messages.size - 1) 200L else 5500L
+            val duration = if (index != messages.size - 1) SINGLE_OPERATION_DELAY else lastDelay
             add({ component.operation(messageId.entryId) } to duration)
         }
     }
@@ -173,5 +174,12 @@ class MessagesNode(
         const val ENTRY_WIDTH = 240f
         const val ENTRY_ASPECT_RATIO = 1.5f
         const val ENTRY_PADDING = 8f
+
+        const val INITIAL_DELAY = 8500
+        const val INITIAL_EXTRA_DELAY = 500
+        const val VERTICAL_BIAS_DURATION = 14000
+        const val ROTATION_DURATION = 7000
+        const val SINGLE_OPERATION_DELAY = 200L
+        const val OPERATIONS_BLOCK_DURATION = 7000L
     }
 }
