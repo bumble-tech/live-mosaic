@@ -37,15 +37,17 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.CallToActionScreen
-import com.bumble.puzzyx.composable.StarFieldMessageBoard
+import com.bumble.puzzyx.data.EntryDataSource
+import com.bumble.puzzyx.data.EntryDataSourceImpl
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StackedMessages
-import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarField
 import com.bumble.puzzyx.node.messages.StackedMessagesNode
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
+import com.bumble.puzzyx.node.starfield.StarFieldNode
 import com.bumble.puzzyx.ui.DottedMeshShape
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,7 +56,7 @@ import kotlinx.coroutines.flow.update
 private val screens = listOf(
     Puzzle1,
     CallToAction,
-    StarFieldMessageBoard,
+    StarField,
     StackedMessages,
 )
 
@@ -72,6 +74,7 @@ class PuzzyxAppNode(
     appyxComponent = backStack
 ) {
     private var screenIdx = 0
+    private val entryDataSource: EntryDataSource = EntryDataSourceImpl()
 
     sealed class NavTarget : Parcelable {
         @Parcelize
@@ -84,7 +87,7 @@ class PuzzyxAppNode(
         object CallToAction : NavTarget()
 
         @Parcelize
-        object StarFieldMessageBoard : NavTarget()
+        object StarField : NavTarget()
     }
 
 
@@ -100,12 +103,9 @@ class PuzzyxAppNode(
                 CallToActionScreen(modifier)
             }
 
-            is StarFieldMessageBoard -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 15000) { nextScreen() }
-                StarFieldMessageBoard(modifier)
-            }
+            is StarField -> StarFieldNode(buildContext, entryDataSource)
 
-            is StackedMessages -> StackedMessagesNode(buildContext)
+            is StackedMessages -> StackedMessagesNode(buildContext, entryDataSource)
         }
 
     override fun onChildFinished(child: Node) {

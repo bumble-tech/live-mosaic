@@ -34,9 +34,9 @@ import com.bumble.puzzyx.appyx.component.messages.operation.reveal
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.EntryCard
 import com.bumble.puzzyx.composable.OptimisingLayout
+import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.MessageId
-import com.bumble.puzzyx.model.entries
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 private val animationSpec = spring<Float>(
@@ -48,6 +48,7 @@ class MessagesNode(
     buildContext: BuildContext,
     private val index: Int,
     private val messages: List<MessageId>,
+    private val localEntries: List<Entry>,
     private val component: Messages = Messages(
         messages = messages,
         visualisation = {
@@ -75,7 +76,7 @@ class MessagesNode(
         node(buildContext) { modifier ->
             LocalBoxScope.current?.run {
                 EntryCard(
-                    entry = entries[interactionTarget.entryId],
+                    entry = localEntries[interactionTarget.entryId],
                     modifier = modifier
                         .align(Alignment.Center)
                         .size(ENTRY_WIDTH.dp, ENTRY_WIDTH.dp / ENTRY_ASPECT_RATIO)
@@ -106,7 +107,7 @@ class MessagesNode(
                 val rotationZ = remember { sign * (1.5f + 0.5f * Random.nextFloat()) }
                 val rotationXY = remember { Animatable(0f) }
                 LaunchedEffect(Unit) {
-                    async {
+                    launch {
                         verticalBias.animateTo(
                             targetValue = 0.2f,
                             animationSpec = tween(
@@ -116,7 +117,7 @@ class MessagesNode(
                             ),
                         )
                     }
-                    async {
+                    launch {
                         rotationXY.animateTo(
                             targetValue = targetRotationXY,
                             animationSpec = tween(
