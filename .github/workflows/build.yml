@@ -19,9 +19,3 @@ jobs:
       - uses: gradle/gradle-build-action@v2
       - name: Build
         run: ./gradlew :desktopApp:packageReleaseStripArchitecture
-      - name: Upload distributable
-        uses: actions/upload-artifact@v3
-        with:
-          name: Distributable
-          path: |
-            desktopApp/build/distributable/
