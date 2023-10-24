@@ -129,7 +129,7 @@ fun TextEntry(
 }
 
 @Composable
-private fun scaleFactor(): Float = when (LocalScreenSize.current.windowSizeClass) {
+fun scaleFactor(): Float = when (LocalScreenSize.current.windowSizeClass) {
     WindowSizeClass.COMPACT -> 1f
     WindowSizeClass.MEDIUM -> 1.5f
     WindowSizeClass.EXPANDED -> 2f
