@@ -11,8 +11,14 @@ interface EntryDataSource {
 
 class EntryDataSourceImpl : EntryDataSource {
     override suspend fun getFeaturedEntries(entriesCount: Int, newestEntriesCount: Int): ImmutableList<Entry> {
-        val newestEntries = entries.takeLast(newestEntriesCount).reversed()
-        val remainingEntries = entries.dropLast(newestEntriesCount).shuffled().take(entriesCount - newestEntriesCount)
+        val newestEntries = entries
+            .takeLast(newestEntriesCount)
+            .reversed()
+            
+        val remainingEntries = entries
+            .dropLast(newestEntriesCount)
+            .shuffled()
+            .take(entriesCount - newestEntriesCount)
         val temporaryEntries = newestEntries + remainingEntries
         return if (temporaryEntries.size < entriesCount) {
             val repeatEntries = entries.shuffled().take(entriesCount - temporaryEntries.size)
