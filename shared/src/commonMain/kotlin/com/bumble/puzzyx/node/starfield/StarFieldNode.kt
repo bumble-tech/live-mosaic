@@ -12,12 +12,12 @@ import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.StarFieldMessageBoard
-import com.bumble.puzzyx.data.EntryDataSource
 import com.bumble.puzzyx.model.Entry
+import com.bumble.puzzyx.model.entries
+import com.bumble.puzzyx.model.getFeaturedEntries
 
 class StarFieldNode(
     buildContext: BuildContext,
-    private val entryDataSource: EntryDataSource,
 ) : Node(buildContext) {
 
     @Composable
@@ -25,7 +25,7 @@ class StarFieldNode(
         var entriesForStarField by remember { mutableStateOf(immutableListOf<Entry>()) }
         AutoPlayScript(initialDelayMs = 20000) { finish() }
         LaunchedEffect(Unit) {
-            entriesForStarField = entryDataSource.getFeaturedEntries(
+            entriesForStarField = entries.getFeaturedEntries(
                 entriesCount = 20,
                 newestEntriesCount = 12,
             )

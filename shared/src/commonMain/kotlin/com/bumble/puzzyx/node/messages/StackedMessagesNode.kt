@@ -11,22 +11,20 @@ import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.puzzyx.data.EntryDataSource
 import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.MessageId
-import kotlinx.coroutines.runBlocking
+import com.bumble.puzzyx.model.entries
+import com.bumble.puzzyx.model.getFeaturedEntries
 
 class StackedMessagesNode(
     buildContext: BuildContext,
-    private val entryDataSource: EntryDataSource,
     private val groupCount: Int = DEFAULT_GROUP_COUNT,
     private val groupSize: Int = DEFAULT_GROUP_SIZE,
-    // Not ideal but make the trick.
-    private val groupedMessages: List<List<Entry>> = runBlocking {
-        entryDataSource.getFeaturedEntries(
+    private val groupedMessages: List<List<Entry>> = buildList {
+        entries.getFeaturedEntries(
             entriesCount = groupCount * groupSize,
             newestEntriesCount = groupCount * (groupSize - 1),
-        ).windowed(groupSize, groupSize, false).toMutableList()
+        ).windowed(groupSize, groupSize, false).toMutableList().also { addAll(it) }
     },
     private val permanentAppyxComponent: PermanentAppyxComponent<InteractionTarget> = PermanentAppyxComponent(
         savedStateMap = buildContext.savedStateMap,

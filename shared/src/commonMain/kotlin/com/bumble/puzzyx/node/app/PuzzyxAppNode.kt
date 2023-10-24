@@ -37,8 +37,6 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.CallToActionScreen
-import com.bumble.puzzyx.data.EntryDataSource
-import com.bumble.puzzyx.data.EntryDataSourceImpl
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
@@ -74,7 +72,6 @@ class PuzzyxAppNode(
     appyxComponent = backStack
 ) {
     private var screenIdx = 0
-    private val entryDataSource: EntryDataSource = EntryDataSourceImpl()
 
     sealed class NavTarget : Parcelable {
         @Parcelize
@@ -103,9 +100,9 @@ class PuzzyxAppNode(
                 CallToActionScreen(modifier)
             }
 
-            is StarField -> StarFieldNode(buildContext, entryDataSource)
+            is StarField -> StarFieldNode(buildContext)
 
-            is StackedMessages -> StackedMessagesNode(buildContext, entryDataSource)
+            is StackedMessages -> StackedMessagesNode(buildContext)
         }
 
     override fun onChildFinished(child: Node) {
