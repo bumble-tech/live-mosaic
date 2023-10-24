@@ -15,14 +15,6 @@ import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.resource
 
-@Composable
-expect fun EmbeddableResourceImage(
-    path: String,
-    modifier: Modifier = Modifier,
-    contentDescription: String? = null,
-    contentScale: ContentScale = ContentScale.Fit,
-)
-
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 internal fun ResourceImage(
