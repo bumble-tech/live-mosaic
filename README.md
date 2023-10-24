@@ -14,7 +14,9 @@ let it shine on our screen! ✨✨
 - Get familiar with [Entry](./shared/src/commonMain/kotlin/com/bumble/puzzyx/model/Entry.kt) class and its types
 - Pick an Entry type you would like to add
 - Shout out to Droidcon what you want to say
-- Or get your cool/funny photo and add it to [Resources](./shared/src/commonMain/resources/participant)
+- Or get your cool/funny photo and add it to [Resources](./shared/src/commonMain/resources/participant). Image requirements are:
+    - Should be in landscape mode with ~1.5 ratio
+    - Should not be larger than 500 KB
 - Add your `Entry` instance to the list in [Entries.kt](./shared/src/commonMain/kotlin/com/bumble/puzzyx/model/Entries.kt)
 - Your tile is good to go! All you need to do is create your PR and ask Bumble team for review!
 
