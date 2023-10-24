@@ -29,7 +29,9 @@ val entries = listOf(
     Entry.Text(
         puzzle = Puzzle.PUZZLE1,
         githubUserName = "dataGeek",
-        message = "Shoutout to the organizers for an amazing lineup!"
+        message = "Who's up for a post-conference karaoke session tonight? " +
+                "Mind blown by the innovative ideas shared today. " +
+                "Great to see old friends and make new ones!"
     ),
     Entry.Text(
         puzzle = Puzzle.PUZZLE1,
@@ -39,7 +41,9 @@ val entries = listOf(
     Entry.Text(
         puzzle = Puzzle.PUZZLE1,
         githubUserName = "byteBender",
-        message = "Let's connect! Find me at the networking session!"
+        message = "Who's up for a post-conference karaoke session tonight? " +
+                "Mind blown by the innovative ideas shared today. " +
+                "Great to see old friends and make new ones!"
     ),
     Entry.Text(
         puzzle = Puzzle.PUZZLE1,
@@ -59,7 +63,9 @@ val entries = listOf(
     Entry.Text(
         puzzle = Puzzle.PUZZLE1,
         githubUserName = "cyberPioneer",
-        message = "Who's up for a post-conference karaoke session tonight?"
+        message = "Who's up for a post-conference karaoke session tonight? " +
+                "Mind blown by the innovative ideas shared today. " +
+                "Great to see old friends and make new ones!"
     ),
     Entry.Text(
         puzzle = Puzzle.PUZZLE1,

@@ -47,6 +47,7 @@ private data class StarFieldSpecs(
     val zFadeInEnd: Float = 0.4f,
     val zFadeOutStart: Float = 1.3f,
     val zFadeOutEnd: Float = 1.4f,
+    val scaleFactor: Float,
 ) {
     val zOffset = (zFadeOutEnd - zFadeInStart) / maxEntries
 }
@@ -70,7 +71,7 @@ private sealed class StarType {
 
     data class EntryType(val entry: Entry) : StarType() {
         companion object {
-            val sizeDp: Dp = 260.dp
+            val sizeDp: Dp = 200.dp
             const val aspectRatio: Float = 1.5f
         }
     }
@@ -115,7 +116,7 @@ private data class StarField(
             entries.mapIndexed { index, entry ->
                 Star(
                     zCoord = starFieldSpecs.zFadeInStart - index * starFieldSpecs.zOffset,
-                    sizeDp = StarType.EntryType.sizeDp,
+                    sizeDp = StarType.EntryType.sizeDp * starFieldSpecs.scaleFactor,
                     aspectRatio = StarType.EntryType.aspectRatio,
                     type = StarType.EntryType(entry = entry),
                 )
@@ -125,9 +126,11 @@ private data class StarField(
 
 
 private fun StarField.update(
-    timeInSecs: Float
+    timeInSecs: Float,
+    specs: StarFieldSpecs,
 ): StarField =
     copy(
+        specs = specs,
         stars = stars.map { star ->
             val zUpdatedCoord = star.zCoord + specs.speed * timeInSecs
             if (zUpdatedCoord < specs.zFadeOutEnd) {
@@ -147,7 +150,13 @@ fun StarFieldMessageBoard(
     entries: ImmutableList<Entry>,
     modifier: Modifier = Modifier,
 ) {
-    val starFieldSpecs = remember { StarFieldSpecs(maxEntries = entries.size) }
+    val scaleFactor = scaleFactor()
+    val starFieldSpecs = remember(scaleFactor, entries) {
+        StarFieldSpecs(
+            maxEntries = entries.size,
+            scaleFactor = scaleFactor
+        )
+    }
     var starField by remember { mutableStateOf(generateStars(starFieldSpecs, entries)) }
     var running by remember { mutableStateOf(true) }
     LaunchedEffect(Unit) {
@@ -159,6 +168,7 @@ fun StarFieldMessageBoard(
                 }
                 starField = starField.update(
                     timeInSecs = (it - lastFrame) / 1_000f,
+                    specs = starFieldSpecs,
                 )
                 lastFrame = it
             }
