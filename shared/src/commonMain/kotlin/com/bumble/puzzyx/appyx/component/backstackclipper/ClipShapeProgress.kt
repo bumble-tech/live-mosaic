@@ -28,7 +28,8 @@ class ClipShapeProgress(
     coroutineScope: CoroutineScope,
     target: Target,
     displacement: StateFlow<Float> = MutableStateFlow(0f),
-    private val shape: @Composable (progress: Float) -> Shape = { RectangleShape },
+    // web-target doesn't like a lambda here for some reason
+    private val shape: @Composable ((progress: Float) -> Shape)? = null,
 ) : MotionProperty<Float, AnimationVector1D>(
     coroutineScope = coroutineScope,
     animatable = Animatable(target.value),
@@ -47,9 +48,8 @@ class ClipShapeProgress(
         get() = Modifier.composed {
             val progress = renderValueFlow.collectAsState().value
             if (progress == 0f) this
-            else this.clip(shape.invoke(progress))
+            else this.clip(shape?.invoke(progress) ?: RectangleShape)
         }
-
 
     override suspend fun lerpTo(start: Target, end: Target, fraction: Float) {
         snapTo(

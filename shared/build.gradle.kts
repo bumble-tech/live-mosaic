@@ -7,7 +7,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         compilations.all {
             kotlinOptions.jvmTarget = libs.versions.jvmTarget.get()
         }
@@ -17,6 +17,12 @@ kotlin {
         compilations.all {
             kotlinOptions.jvmTarget = libs.versions.jvmTarget.get()
         }
+    }
+
+    js(IR) {
+        // Adding moduleName as a workaround for this issue: https://youtrack.jetbrains.com/issue/KT-51942
+        moduleName = "puzzyx-common"
+        browser()
     }
 
     sourceSets {
@@ -57,4 +63,5 @@ dependencies {
     add("kspCommonMainMetadata", libs.appyx.mutable.ui.processor)
     add("kspAndroid", libs.appyx.mutable.ui.processor)
     add("kspDesktop", libs.appyx.mutable.ui.processor)
+    add("kspJs", libs.appyx.mutable.ui.processor)
 }

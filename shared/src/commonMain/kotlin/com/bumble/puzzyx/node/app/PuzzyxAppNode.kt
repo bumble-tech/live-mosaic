@@ -26,30 +26,26 @@ import androidx.compose.ui.graphics.Shape
 import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.components.backstack.operation.replace
-import com.bumble.appyx.navigation.collections.toImmutableList
 import com.bumble.appyx.navigation.composable.AppyxComponent
 import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.modality.BuildContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.ParentNode
-import com.bumble.appyx.navigation.node.children
 import com.bumble.appyx.navigation.node.node
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.CallToActionScreen
-import com.bumble.puzzyx.composable.StarFieldMessageBoard
-import com.bumble.puzzyx.model.MessageId
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
-import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StackedMessages
-import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarFieldMessageBoard
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarField
 import com.bumble.puzzyx.node.messages.StackedMessagesNode
 import com.bumble.puzzyx.node.puzzle1.Puzzle1Node
+import com.bumble.puzzyx.node.starfield.StarFieldNode
 import com.bumble.puzzyx.ui.DottedMeshShape
 import com.bumble.puzzyx.ui.LocalAutoPlayFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,7 +54,7 @@ import kotlinx.coroutines.flow.update
 private val screens = listOf(
     Puzzle1,
     CallToAction,
-    StarFieldMessageBoard,
+    StarField,
     StackedMessages,
 )
 
@@ -88,7 +84,7 @@ class PuzzyxAppNode(
         object CallToAction : NavTarget()
 
         @Parcelize
-        object StarFieldMessageBoard : NavTarget()
+        object StarField : NavTarget()
     }
 
 
@@ -103,11 +99,8 @@ class PuzzyxAppNode(
                 AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
                 CallToActionScreen(modifier)
             }
-            is StarFieldMessageBoard -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 15000) { nextScreen() }
-                StarFieldMessageBoard(modifier)
-                children()
-            }
+
+            is StarField -> StarFieldNode(buildContext)
 
             is StackedMessages -> StackedMessagesNode(buildContext)
         }

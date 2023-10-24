@@ -6,7 +6,3 @@ plugins {
     id("org.jetbrains.compose") version libs.versions.composePlugin.get() apply false
     id("com.google.devtools.ksp") version libs.versions.ksp.get() apply false
 }
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}

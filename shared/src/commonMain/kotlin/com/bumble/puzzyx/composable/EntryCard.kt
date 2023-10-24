@@ -25,9 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumble.puzzyx.imageloader.EmbeddableResourceImage
 import com.bumble.appyx.navigation.integration.LocalScreenSize
 import com.bumble.appyx.navigation.integration.ScreenSize.WindowSizeClass
-import com.bumble.puzzyx.imageloader.ResourceImage
 import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.ui.colors
 import kotlinx.coroutines.isActive
@@ -48,7 +48,7 @@ fun EntryCard(
                 paddingTop = size
             )
 
-            is Entry.Image -> ResourceImage(
+            is Entry.Image -> EmbeddableResourceImage(
                 path = "participant/${entry.path}",
                 contentDescription = entry.contentDescription,
                 contentScale = entry.contentScale,
@@ -76,7 +76,7 @@ fun GitHubHeader(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
-        ResourceImage(
+        EmbeddableResourceImage(
             path = "github.png",
             contentScale = ContentScale.Inside,
             modifier = Modifier

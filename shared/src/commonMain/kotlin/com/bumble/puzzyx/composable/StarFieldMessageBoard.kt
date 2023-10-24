@@ -32,10 +32,8 @@ import com.bumble.appyx.navigation.collections.ImmutableList
 import com.bumble.appyx.navigation.collections.toImmutableList
 import com.bumble.puzzyx.composable.StarField.Companion.generateStars
 import com.bumble.puzzyx.model.Entry
-import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.ui.appyx_dark
 import kotlinx.coroutines.isActive
-import kotlin.math.max
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
@@ -77,12 +75,6 @@ private sealed class StarType {
             const val aspectRatio: Float = 1.5f
         }
     }
-
-    fun calcZNewCoord(zFadeInStart: Float, zOffset: Float, maxEntries: Int): Float =
-        when (this) {
-            is RegularType -> zFadeInStart
-            is EntryType -> zFadeInStart - zOffset * max(0, entries.size - maxEntries)
-        }
 }
 
 @Immutable
@@ -91,11 +83,14 @@ private data class StarField(
     val stars: ImmutableList<Star>,
 ) {
     companion object {
-        fun generateStars(starFieldSpecs: StarFieldSpecs): StarField =
+        fun generateStars(
+            starFieldSpecs: StarFieldSpecs,
+            entries: ImmutableList<Entry>
+        ): StarField =
             StarField(
                 specs = starFieldSpecs,
                 stars = (regularStars(starFieldSpecs)
-                        + entryStars(starFieldSpecs)
+                        + entryStars(starFieldSpecs, entries)
                         ).toImmutableList()
             )
 
@@ -117,8 +112,8 @@ private data class StarField(
                 )
             }.toList()
 
-        private fun entryStars(starFieldSpecs: StarFieldSpecs) =
-            entries.reversed().mapIndexed { index, entry ->
+        private fun entryStars(starFieldSpecs: StarFieldSpecs, entries: ImmutableList<Entry>) =
+            entries.mapIndexed { index, entry ->
                 Star(
                     zCoord = starFieldSpecs.zFadeInStart - index * starFieldSpecs.zOffset,
                     sizeDp = StarType.EntryType.sizeDp * starFieldSpecs.scaleFactor,
@@ -144,28 +139,29 @@ private fun StarField.update(
                 star.copy(
                     xCoord = Random.nextDouble(-0.5, 0.5).toFloat(),
                     yCoord = Random.nextDouble(-0.5, 0.5).toFloat(),
-                    zCoord = star.type.calcZNewCoord(
-                        specs.zFadeInStart,
-                        specs.zOffset,
-                        specs.maxEntries
-                    ),
+                    zCoord = specs.zFadeInStart,
                 )
             }
-        }.toImmutableList()
+        }.toImmutableList(),
     )
 
 @Composable
 fun StarFieldMessageBoard(
+    entries: ImmutableList<Entry>,
     modifier: Modifier = Modifier,
 ) {
     val scaleFactor = scaleFactor()
-    val starFieldSpecs = remember(scaleFactor) {
-        StarFieldSpecs(scaleFactor = scaleFactor)
+    val starFieldSpecs = remember(scaleFactor, entries) {
+        StarFieldSpecs(
+            maxEntries = entries.size,
+            scaleFactor = scaleFactor
+        )
     }
-    var starField by remember { mutableStateOf(generateStars(starFieldSpecs)) }
+    var starField by remember { mutableStateOf(generateStars(starFieldSpecs, entries)) }
+    var running by remember { mutableStateOf(true) }
     LaunchedEffect(Unit) {
         var lastFrame = 0L
-        while (isActive) {
+        while (isActive && running) {
             withFrameMillis {
                 if (lastFrame == 0L) {
                     lastFrame = it
@@ -203,8 +199,9 @@ private fun StarFieldContent(
                 val yPos = star.yCoord * zPos
                 val alpha = starField.specs.calcAlpha(zPos)
                 if (alpha > 0f) {
-                    OptimisingLayout(
-                        optimalWidth = star.sizeDp,
+                    StarContent(
+                        star.type,
+                        star.sizeDp,
                         modifier = Modifier
                             .scale(zPos)
                             .size(star.sizeDp)
@@ -218,11 +215,7 @@ private fun StarFieldContent(
                             }
                             .alpha(alpha)
                             .zIndex(zPos)
-                    ) {
-                        StarContent(
-                            star.type,
-                        )
-                    }
+                    )
                 }
             }
         }
@@ -235,23 +228,13 @@ private fun StarFieldSpecs.calcAlpha(zPos: Float) =
 @Composable
 private fun StarContent(
     type: StarType,
+    sizeDp: Dp,
     modifier: Modifier = Modifier,
 ) {
     when (type) {
         is StarType.RegularType -> RegularStarContent(type.color, modifier)
-        is StarType.EntryType -> EntryStarContent(type.entry, modifier)
+        is StarType.EntryType -> EntryStarContent(type.entry, sizeDp, modifier)
     }
-}
-
-@Composable
-private fun EntryStarContent(
-    entry: Entry,
-    modifier: Modifier = Modifier,
-) {
-    EntryCard(
-        entry = entry,
-        modifier = modifier
-    )
 }
 
 @Composable
@@ -263,5 +246,21 @@ private fun RegularStarContent(
         modifier = modifier
     ) {
         drawCircle(color = color, radius = density * 2f)
+    }
+}
+
+@Composable
+private fun EntryStarContent(
+    entry: Entry,
+    sizeDp: Dp,
+    modifier: Modifier = Modifier,
+) {
+    OptimisingLayout(
+        optimalWidth = sizeDp,
+        modifier = modifier,
+    ) {
+        EntryCard(
+            entry = entry,
+        )
     }
 }
