@@ -1,5 +1,6 @@
 package com.bumble.puzzyx.composable
 
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,31 +9,45 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumble.appyx.navigation.integration.LocalScreenSize
+import com.bumble.appyx.navigation.integration.ScreenSize.WindowSizeClass
 import com.bumble.puzzyx.imageloader.ResourceImage
 import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.ui.colors
+import kotlinx.coroutines.isActive
 
 @Composable
 fun EntryCard(
     entry: Entry,
     modifier: Modifier = Modifier,
 ) {
+    val scaleFactor = scaleFactor()
+    val size = 24.dp * scaleFactor
     Box(
         modifier = modifier.clip(RoundedCornerShape(16.dp))
     ) {
         when (entry) {
-            is Entry.Text -> TextEntry(entry)
+            is Entry.Text -> TextEntry(
+                entry = entry,
+                paddingTop = size
+            )
+
             is Entry.Image -> ResourceImage(
                 path = "participant/${entry.path}",
                 contentDescription = entry.contentDescription,
@@ -43,17 +58,20 @@ fun EntryCard(
             is Entry.ComposableContent -> entry.content()
         }
         GitHubHeader(
+            size = size,
             entry = entry,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp * scaleFactor)
         )
     }
 }
 
 @Composable
 fun GitHubHeader(
+    size: Dp,
     entry: Entry,
     modifier: Modifier = Modifier
 ) {
+    val scaleFactor = scaleFactor()
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -62,15 +80,15 @@ fun GitHubHeader(
             path = "github.png",
             contentScale = ContentScale.Inside,
             modifier = Modifier
-                .size(32.dp)
                 .padding(2.dp)
+                .size(size)
         )
         Spacer(
-            modifier = Modifier.size(4.dp)
+            modifier = Modifier.size(4.dp * scaleFactor)
         )
         Text(
             text = entry.githubUserName,
-            fontSize = 18.sp,
+            fontSize = 16.sp * scaleFactor,
             fontWeight = FontWeight.Bold
         )
     }
@@ -78,20 +96,43 @@ fun GitHubHeader(
 
 @Composable
 fun TextEntry(
+    paddingTop: Dp,
     entry: Entry.Text,
     modifier: Modifier = Modifier
 ) {
     val colorIdx = remember { colors.indices.random() }
+    val state = rememberScrollState()
 
-    Text(
-        text = entry.message,
-        fontSize = 16.sp,
+    LaunchedEffect(Unit) {
+        while (isActive) {
+            state.animateScrollTo(state.maxValue, tween(10000))
+            state.scrollTo(0)
+        }
+    }
+
+    val scaleFactor = scaleFactor()
+
+    Column(
         modifier = modifier
             .fillMaxSize()
             .background(colors[colorIdx])
-            .padding(12.dp)
-            .padding(top = 36.dp),
-    )
+            .padding(12.dp * scaleFactor)
+            .padding(top = paddingTop)
+            .clipToBounds()
+            .verticalScroll(state)
+    ) {
+        Text(
+            text = entry.message,
+            fontSize = 16.sp * scaleFactor,
+        )
+    }
+}
+
+@Composable
+private fun scaleFactor(): Float = when (LocalScreenSize.current.windowSizeClass) {
+    WindowSizeClass.COMPACT -> 1f
+    WindowSizeClass.MEDIUM -> 1.5f
+    WindowSizeClass.EXPANDED -> 2f
 }
 
 @Composable

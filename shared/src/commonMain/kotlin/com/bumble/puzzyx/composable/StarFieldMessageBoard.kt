@@ -30,7 +30,10 @@ import androidx.compose.ui.zIndex
 import com.bumble.appyx.interactions.core.ui.math.smoothstep
 import com.bumble.appyx.navigation.collections.ImmutableList
 import com.bumble.appyx.navigation.collections.toImmutableList
+import com.bumble.appyx.navigation.integration.LocalScreenSize
+import com.bumble.appyx.navigation.integration.ScreenSize.WindowSizeClass
 import com.bumble.puzzyx.composable.StarField.Companion.generateStars
+import com.bumble.puzzyx.composable.StarType.EntryType.Companion.getSize
 import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.entries
 import com.bumble.puzzyx.ui.appyx_dark
@@ -49,6 +52,7 @@ private data class StarFieldSpecs(
     val zFadeInEnd: Float = 0.4f,
     val zFadeOutStart: Float = 1.3f,
     val zFadeOutEnd: Float = 1.4f,
+    val windowSize: WindowSizeClass,
 ) {
     val zOffset = (zFadeOutEnd - zFadeInStart) / maxEntries
 }
@@ -72,7 +76,14 @@ private sealed class StarType {
 
     data class EntryType(val entry: Entry) : StarType() {
         companion object {
-            val sizeDp: Dp = 260.dp
+            fun getSize(windowSize: WindowSizeClass): Dp {
+                return when (windowSize) {
+                    WindowSizeClass.COMPACT -> 180.dp
+                    WindowSizeClass.MEDIUM -> 260.dp
+                    WindowSizeClass.EXPANDED -> 400.dp
+                }
+            }
+
             const val aspectRatio: Float = 1.5f
         }
     }
@@ -120,7 +131,7 @@ private data class StarField(
             entries.reversed().mapIndexed { index, entry ->
                 Star(
                     zCoord = starFieldSpecs.zFadeInStart - index * starFieldSpecs.zOffset,
-                    sizeDp = StarType.EntryType.sizeDp,
+                    sizeDp = getSize(starFieldSpecs.windowSize),
                     aspectRatio = StarType.EntryType.aspectRatio,
                     type = StarType.EntryType(entry = entry),
                 )
@@ -130,9 +141,11 @@ private data class StarField(
 
 
 private fun StarField.update(
-    timeInSecs: Float
+    timeInSecs: Float,
+    specs: StarFieldSpecs,
 ): StarField =
     copy(
+        specs = specs,
         stars = stars.map { star ->
             val zUpdatedCoord = star.zCoord + specs.speed * timeInSecs
             if (zUpdatedCoord < specs.zFadeOutEnd) {
@@ -155,7 +168,10 @@ private fun StarField.update(
 fun StarFieldMessageBoard(
     modifier: Modifier = Modifier,
 ) {
-    val starFieldSpecs = remember { StarFieldSpecs() }
+    val windowSize = LocalScreenSize.current.windowSizeClass
+    val starFieldSpecs = remember(windowSize) {
+        StarFieldSpecs(windowSize = windowSize)
+    }
     var starField by remember { mutableStateOf(generateStars(starFieldSpecs)) }
     LaunchedEffect(Unit) {
         var lastFrame = 0L
@@ -166,6 +182,7 @@ fun StarFieldMessageBoard(
                 }
                 starField = starField.update(
                     timeInSecs = (it - lastFrame) / 1_000f,
+                    specs = starFieldSpecs,
                 )
                 lastFrame = it
             }
