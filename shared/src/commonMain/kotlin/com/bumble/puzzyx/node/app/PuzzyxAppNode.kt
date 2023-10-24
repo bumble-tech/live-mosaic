@@ -38,9 +38,13 @@ import com.bumble.puzzyx.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.puzzyx.composable.AutoPlayScript
 import com.bumble.puzzyx.composable.CallToActionScreen
 import com.bumble.puzzyx.model.Puzzle.PUZZLE1
+import com.bumble.puzzyx.model.Puzzle.PUZZLE2
+import com.bumble.puzzyx.model.Puzzle.PUZZLE3
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.CallToAction
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle1
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle2
+import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.Puzzle3
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StackedMessages
 import com.bumble.puzzyx.node.app.PuzzyxAppNode.NavTarget.StarField
 import com.bumble.puzzyx.node.messages.StackedMessagesNode
@@ -53,6 +57,8 @@ import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
     Puzzle1,
+    Puzzle2,
+    Puzzle3,
     CallToAction,
     StarField,
     StackedMessages,
@@ -78,6 +84,12 @@ class PuzzyxAppNode(
         object Puzzle1 : NavTarget()
 
         @Parcelize
+        object Puzzle2 : NavTarget()
+
+        @Parcelize
+        object Puzzle3 : NavTarget()
+
+        @Parcelize
         object StackedMessages : NavTarget()
 
         @Parcelize
@@ -92,6 +104,16 @@ class PuzzyxAppNode(
         when (navTarget) {
             is Puzzle1 -> Puzzle1Node(
                 puzzle = PUZZLE1,
+                buildContext = buildContext
+            )
+
+            is Puzzle2 -> Puzzle1Node(
+                puzzle = PUZZLE2,
+                buildContext = buildContext
+            )
+
+            is Puzzle3 -> Puzzle1Node(
+                puzzle = PUZZLE3,
                 buildContext = buildContext
             )
 

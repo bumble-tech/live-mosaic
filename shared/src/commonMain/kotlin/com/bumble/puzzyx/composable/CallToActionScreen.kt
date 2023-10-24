@@ -1,28 +1,19 @@
 package com.bumble.puzzyx.composable
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.bumble.puzzyx.ui.appyx_dark
-import com.bumble.puzzyx.ui.appyx_yellow1
+import androidx.compose.ui.layout.ContentScale
+import com.bumble.puzzyx.imageloader.EmbeddableResourceImage
 
 @Composable
 fun CallToActionScreen(
     modifier: Modifier = Modifier,
 ) {
-    Box(
+    EmbeddableResourceImage(
+        path = "bumble_droidcon.jpg",
+        contentScale = ContentScale.FillBounds,
         modifier = modifier
             .fillMaxSize()
-            .background(appyx_dark)
-    ) {
-        Text(
-            text = "Join the challenge",
-            color = appyx_yellow1,
-            modifier = Modifier.align(Alignment.Center)
-        )
-    }
+    )
 }

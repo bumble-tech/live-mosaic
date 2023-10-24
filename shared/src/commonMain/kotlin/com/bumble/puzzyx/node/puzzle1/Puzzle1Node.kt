@@ -36,10 +36,8 @@ import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.carousel
 import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.flip
 import com.bumble.puzzyx.appyx.component.gridpuzzle.operation.scatter
 import com.bumble.puzzyx.composable.AutoPlayScript
-import com.bumble.puzzyx.composable.EntryCardSmall
 import com.bumble.puzzyx.composable.FlashCard
 import com.bumble.puzzyx.imageloader.EmbeddableResourceImage
-import com.bumble.puzzyx.model.Entry
 import com.bumble.puzzyx.model.Puzzle
 import com.bumble.puzzyx.model.PuzzlePiece
 import com.bumble.puzzyx.model.puzzle1Entries
@@ -80,7 +78,6 @@ class Puzzle1Node(
     override fun resolve(puzzlePiece: PuzzlePiece, buildContext: BuildContext): Node =
         node(buildContext) { modifier ->
             val colorIdx = rememberSaveable(puzzlePiece) { Random.nextInt(colors.size) }
-            val color = colors[colorIdx]
 
             Box(
                 modifier = modifier
@@ -91,20 +88,18 @@ class Puzzle1Node(
                     flash = Color.White,
                     front = { modifier ->
                         EmbeddableResourceImage(
-                            path = "${puzzle.imagesDir}/slice_${puzzlePiece.j}_${puzzlePiece.i}.png",
+                            path = "${puzzle.frontImagesDir}/slice_${puzzlePiece.j}_${puzzlePiece.i}.png",
                             contentScale = ContentScale.FillBounds,
                             modifier = modifier
                                 .fillMaxSize()
                         )
                     },
                     back = { modifier ->
-                        EntryCardSmall(
+                        EmbeddableResourceImage(
+                            path = "${puzzle.backImagesDir}/slice_${puzzlePiece.j}_${puzzlePiece.i}.png",
+                            contentScale = ContentScale.FillBounds,
                             modifier = modifier
                                 .fillMaxSize()
-                                .background(color),
-                            // TODO decide on the fate of this
-                            entry = puzzle1Entries[puzzlePiece.entryId] as? Entry.Text
-                                ?: Entry.Text(Puzzle.PUZZLE1, "n/a")
                         )
                     }
                 )
