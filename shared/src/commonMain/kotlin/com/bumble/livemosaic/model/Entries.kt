@@ -44,7 +44,7 @@ val mosaic3Entries = entries
     .also {
         if (it.size > MOSAIC3.maxEntryCount)
             error("Mosaic 3 is already filled up. Add your entry to another one!")
-        if (it.isNotEmpty() && entries.filter { it.mosaic == MOSAIC1 }.size > MOSAIC1.maxEntryCount)
+        if (it.isNotEmpty() && entries.filter { it.mosaic == MOSAIC1 }.size < MOSAIC1.maxEntryCount)
             error("Mosaic 1 is not yet filled up. Add your entry to it!")
         if (it.isNotEmpty() && entries.filter { it.mosaic == MOSAIC2 }.size < MOSAIC2.maxEntryCount)
             error("Mosaic 2 is not yet filled up. Add your entry to it!")
