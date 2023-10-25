@@ -1,4 +1,4 @@
-package com.bumble.puzzyx.imageloader
+package com.bumble.livemosaic.imageloader
 
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
