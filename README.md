@@ -32,7 +32,9 @@ Get familiar with [`Entry`](https://github.com/bumble-tech/live-mosaic/blob/main
 - `Image`: A photo
 - `CustomComposable`: get creative!
 
-- Create and add your `Entry` instance to the list in [`Entries.kt`](https://github.com/bumble-tech/live-mosaic/blob/main/shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entries.kt)!
+Create your `Entry`:
+
+- Add it to the list in [`Entries.kt`](https://github.com/bumble-tech/live-mosaic/blob/main/shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entries.kt)!
 - Create a pull request and the Bumble Inc team will review it!
 - Show us your pull request at the Bumble Inc. booth on your device, and once we merge it, we’ll hand you your raffle ticket.
 
@@ -74,7 +76,7 @@ If you're adding an image to the entries:
 
 ## :computer: How can I launch the project on desktop?
 
-<img width="500" src="https://github.com/bumble-tech/live-mosaic/assets/238198/52118435-c11e-4f75-8641-775a287b05c6">
+<img width="500" src="https://imgur.com/KP9yZWd.png">
 
 - Clone the project and open it in Android Studio
 - Open `Edit configurations`
