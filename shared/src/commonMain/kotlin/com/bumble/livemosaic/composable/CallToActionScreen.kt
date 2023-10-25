@@ -12,7 +12,7 @@ fun CallToActionScreen(
 ) {
     EmbeddableResourceImage(
         path = "bumble_droidcon.jpg",
-        contentScale = ContentScale.FillBounds,
+        contentScale = ContentScale.Fit,
         modifier = modifier
             .fillMaxSize()
     )
