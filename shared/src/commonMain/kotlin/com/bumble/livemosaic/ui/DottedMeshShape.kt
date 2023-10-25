@@ -76,29 +76,14 @@ class DottedMeshShape(
                         destRangeMin = 0f,
                         destRangeMax = targetRadius
                     )
-
-                    // Clip with ovals when you see them, but stick with rectangles otherwise. This
-                    // helps make clipping faster and prevents dropping frames.
-                    if (radius < clampRadius) {
-                        addOval(
-                            Rect(
-                                left = center.x - radius,
-                                top = center.y - radius,
-                                right = center.x + radius,
-                                bottom = center.y + radius,
-                            ),
-                        )
-                    } else {
-                        addRect(
-                            Rect(
-                                left = center.x - halfMeshWidth,
-                                top = center.y - halfMeshHeight,
-                                right = center.x + halfMeshWidth,
-                                bottom = center.y + halfMeshHeight,
-                            ),
-                        )
-                    }
-
+                    addOval(
+                        Rect(
+                            left = center.x - radius,
+                            top = center.y - radius,
+                            right = center.x + radius,
+                            bottom = center.y + radius,
+                        ),
+                    )
                 }
             }
         }
