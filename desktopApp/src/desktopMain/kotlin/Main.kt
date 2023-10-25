@@ -33,6 +33,7 @@ fun main() = application {
     val windowState = rememberWindowState(placement = WindowPlacement.Fullscreen)
     val eventScope = remember { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
     Window(
+        title = "Bumble Tech Live mosaic",
         state = windowState,
         onCloseRequest = ::exitApplication,
         onKeyEvent = { onKeyEvent(it, events, eventScope) },
