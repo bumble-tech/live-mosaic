@@ -47,7 +47,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.bumble.appyx.live-mosaic"
+    namespace = "com.bumble.appyx.livemosaic"
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
     compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
