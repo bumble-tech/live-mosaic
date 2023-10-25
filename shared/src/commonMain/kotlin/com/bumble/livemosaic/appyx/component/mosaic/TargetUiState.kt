@@ -1,4 +1,4 @@
-package com.bumble.livemosaic.appyx.component.gridpuzzle
+package com.bumble.livemosaic.appyx.component.mosaic
 
 import com.bumble.appyx.interactions.core.ui.property.impl.AngularPosition
 import com.bumble.appyx.interactions.core.ui.property.impl.RotationY

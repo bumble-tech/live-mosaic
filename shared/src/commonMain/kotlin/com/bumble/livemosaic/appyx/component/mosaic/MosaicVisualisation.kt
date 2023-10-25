@@ -1,4 +1,4 @@
-package com.bumble.livemosaic.appyx.component.gridpuzzle
+package com.bumble.livemosaic.appyx.component.mosaic
 
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.SpringSpec
@@ -17,19 +17,19 @@ import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionAlig
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionOffset
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseVisualisation
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.ASSEMBLED
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.CAROUSEL
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.FLIPPED
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.State
-import com.bumble.livemosaic.model.PuzzlePiece
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.MosaicMode.ASSEMBLED
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.MosaicMode.CAROUSEL
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.MosaicMode.FLIPPED
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.MosaicMode.SCATTERED
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.State
+import com.bumble.livemosaic.model.MosaicPiece
 import kotlin.math.min
 import kotlin.random.Random
 
-class GridPuzzleVisualisation(
+class MosaicVisualisation(
     uiContext: UiContext,
     defaultAnimationSpec: SpringSpec<Float>
-) : BaseVisualisation<PuzzlePiece, State, MutableUiState, TargetUiState>(
+) : BaseVisualisation<MosaicPiece, State, MutableUiState, TargetUiState>(
     uiContext = uiContext,
     defaultAnimationSpec = defaultAnimationSpec
 ) {
@@ -39,12 +39,12 @@ class GridPuzzleVisualisation(
     ): MutableUiState =
         targetUiState.toMutableState(uiContext)
 
-    override fun State.toUiTargets(): List<MatchedTargetUiState<PuzzlePiece, TargetUiState>> =
+    override fun State.toUiTargets(): List<MatchedTargetUiState<MosaicPiece, TargetUiState>> =
         pieces.mapIndexed { idx, piece ->
             val (i, j) = piece.interactionTarget
             MatchedTargetUiState(
                 element = piece,
-                targetUiState = when (puzzleMode) {
+                targetUiState = when (mosaicMode) {
                     SCATTERED -> scattered(i, j)
                     ASSEMBLED -> assembled(i, j, idx)
                     FLIPPED -> flipped(i, j, idx)

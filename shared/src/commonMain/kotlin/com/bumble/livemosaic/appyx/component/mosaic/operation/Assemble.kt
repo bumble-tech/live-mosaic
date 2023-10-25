@@ -1,12 +1,12 @@
-package com.bumble.livemosaic.appyx.component.gridpuzzle.operation
+package com.bumble.livemosaic.appyx.component.mosaic.operation
 
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzle
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.State
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicComponent
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.State
 
 @Parcelize
 class Assemble(
@@ -21,11 +21,11 @@ class Assemble(
 
     override fun createTargetState(fromState: State): State =
         fromState.copy(
-            puzzleMode = GridPuzzleModel.PuzzleMode.ASSEMBLED
+            mosaicMode = MosaicModel.MosaicMode.ASSEMBLED
         )
 }
 
-fun GridPuzzle.assemble(
+fun MosaicComponent.assemble(
     mode: Operation.Mode = Operation.Mode.IMMEDIATE,
     animationSpec: AnimationSpec<Float>? = null
 ) {
