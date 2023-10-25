@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 sealed class Events {
-    object OnBackPressed : Events()
+    data object OnBackPressed : Events()
 }
 
 fun main() = application {
@@ -58,7 +58,6 @@ fun main() = application {
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 private fun onKeyEvent(
     keyEvent: KeyEvent,
     events: Channel<Events>,

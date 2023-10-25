@@ -1,15 +1,15 @@
-package com.bumble.livemosaic.appyx.component.gridpuzzle.operation
+package com.bumble.livemosaic.appyx.component.mosaic.operation
 
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzle
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.State
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicComponent
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.State
 
 @Parcelize
-class Carousel(
+class Flip(
     override var mode: Operation.Mode
 ) : BaseOperation<State>() {
 
@@ -21,13 +21,13 @@ class Carousel(
 
     override fun createTargetState(fromState: State): State =
         fromState.copy(
-            puzzleMode = GridPuzzleModel.PuzzleMode.CAROUSEL
+            mosaicMode = MosaicModel.MosaicMode.FLIPPED
         )
 }
 
-fun GridPuzzle.carousel(
+fun MosaicComponent.flip(
     mode: Operation.Mode = Operation.Mode.IMMEDIATE,
     animationSpec: AnimationSpec<Float>? = null
 ) {
-    operation(operation = Carousel(mode), animationSpec = animationSpec)
+    operation(operation = Flip(mode), animationSpec = animationSpec)
 }

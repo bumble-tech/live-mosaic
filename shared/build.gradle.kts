@@ -21,7 +21,7 @@ kotlin {
 
     js(IR) {
         // Adding moduleName as a workaround for this issue: https://youtrack.jetbrains.com/issue/KT-51942
-        moduleName = "puzzyx-common"
+        moduleName = "live-mosaic-common"
         browser()
     }
 
@@ -47,7 +47,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.bumble.appyx.puzzyx"
+    namespace = "com.bumble.appyx.livemosaic"
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
     compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {

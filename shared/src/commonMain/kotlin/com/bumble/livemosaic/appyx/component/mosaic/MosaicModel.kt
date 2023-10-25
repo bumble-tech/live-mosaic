@@ -1,4 +1,4 @@
-package com.bumble.livemosaic.appyx.component.gridpuzzle
+package com.bumble.livemosaic.appyx.component.mosaic
 
 import com.bumble.appyx.interactions.core.Element
 import com.bumble.appyx.interactions.core.Elements
@@ -7,19 +7,19 @@ import com.bumble.appyx.interactions.core.model.transition.BaseTransitionModel
 import com.bumble.appyx.navigation.state.SavedStateMap
 import com.bumble.appyx.utils.multiplatform.Parcelable
 import com.bumble.appyx.utils.multiplatform.Parcelize
-import com.bumble.livemosaic.appyx.component.gridpuzzle.GridPuzzleModel.PuzzleMode.SCATTERED
-import com.bumble.livemosaic.model.PuzzlePiece
+import com.bumble.livemosaic.appyx.component.mosaic.MosaicModel.MosaicMode.SCATTERED
+import com.bumble.livemosaic.model.MosaicPiece
 
-class GridPuzzleModel(
+class MosaicModel(
     savedStateMap: SavedStateMap? = null,
     gridRows: Int,
     gridCols: Int,
-    pieces: List<PuzzlePiece>
-) : BaseTransitionModel<PuzzlePiece, GridPuzzleModel.State>(
+    pieces: List<MosaicPiece>
+) : BaseTransitionModel<MosaicPiece, MosaicModel.State>(
     savedStateMap = savedStateMap
 ) {
 
-    enum class PuzzleMode {
+    enum class MosaicMode {
         SCATTERED, ASSEMBLED, FLIPPED, CAROUSEL
     }
 
@@ -27,8 +27,8 @@ class GridPuzzleModel(
     data class State(
         val gridRows: Int,
         val gridCols: Int,
-        val puzzleMode: PuzzleMode = SCATTERED,
-        val pieces: Elements<PuzzlePiece> = listOf()
+        val mosaicMode: MosaicMode = SCATTERED,
+        val pieces: Elements<MosaicPiece> = listOf()
     ) : Parcelable {
 
         val maxNbElements: Int = gridRows * gridCols
@@ -46,13 +46,13 @@ class GridPuzzleModel(
         )
     }
 
-    override fun State.availableElements(): Set<Element<PuzzlePiece>> =
+    override fun State.availableElements(): Set<Element<MosaicPiece>> =
         pieces.toSet()
 
-    override fun State.destroyedElements(): Set<Element<PuzzlePiece>> =
+    override fun State.destroyedElements(): Set<Element<MosaicPiece>> =
         emptySet()
 
-    override fun State.removeDestroyedElement(element: Element<PuzzlePiece>): State =
+    override fun State.removeDestroyedElement(element: Element<MosaicPiece>): State =
         this
 
     override fun State.removeDestroyedElements(): State =

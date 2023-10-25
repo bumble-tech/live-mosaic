@@ -36,7 +36,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "puzzyx-desktop"
+            packageName = "live-mosaic-desktop"
             packageVersion = "1.0.0"
         }
     }

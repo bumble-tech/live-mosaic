@@ -15,7 +15,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,28 +36,26 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.livemosaic.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.livemosaic.composable.AutoPlayScript
 import com.bumble.livemosaic.composable.CallToActionScreen
-import com.bumble.livemosaic.model.Puzzle.PUZZLE1
-import com.bumble.livemosaic.model.Puzzle.PUZZLE2
-import com.bumble.livemosaic.model.Puzzle.PUZZLE3
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.CallToAction
-import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle1
-import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle2
-import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle3
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic1
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic2
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic3
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StackedMessages
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StarField
 import com.bumble.livemosaic.node.messages.StackedMessagesNode
-import com.bumble.livemosaic.node.puzzle1.Puzzle1Node
+import com.bumble.livemosaic.node.mosaic.MosaicNode
 import com.bumble.livemosaic.node.starfield.StarFieldNode
 import com.bumble.livemosaic.ui.DottedMeshShape
 import com.bumble.livemosaic.ui.LocalAutoPlayFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 
 private val screens = listOf(
-    Puzzle1,
-    Puzzle2,
-    Puzzle3,
+    Mosaic1,
+    Mosaic2,
+    Mosaic3,
     CallToAction,
     StarField,
     StackedMessages,
@@ -81,39 +78,39 @@ class LiveMosaicAppNode(
 
     sealed class NavTarget : Parcelable {
         @Parcelize
-        object Puzzle1 : NavTarget()
+        data object Mosaic1 : NavTarget()
 
         @Parcelize
-        object Puzzle2 : NavTarget()
+        data object Mosaic2 : NavTarget()
 
         @Parcelize
-        object Puzzle3 : NavTarget()
+        data object Mosaic3 : NavTarget()
 
         @Parcelize
-        object StackedMessages : NavTarget()
+        data object StackedMessages : NavTarget()
 
         @Parcelize
-        object CallToAction : NavTarget()
+        data object CallToAction : NavTarget()
 
         @Parcelize
-        object StarField : NavTarget()
+        data object StarField : NavTarget()
     }
 
 
     override fun resolve(navTarget: NavTarget, buildContext: BuildContext): Node =
         when (navTarget) {
-            is Puzzle1 -> Puzzle1Node(
-                puzzle = PUZZLE1,
+            is Mosaic1 -> MosaicNode(
+                config = MOSAIC1,
                 buildContext = buildContext
             )
 
-            is Puzzle2 -> Puzzle1Node(
-                puzzle = PUZZLE2,
+            is Mosaic2 -> MosaicNode(
+                config = MOSAIC2,
                 buildContext = buildContext
             )
 
-            is Puzzle3 -> Puzzle1Node(
-                puzzle = PUZZLE3,
+            is Mosaic3 -> MosaicNode(
+                config = MOSAIC3,
                 buildContext = buildContext
             )
 
@@ -136,14 +133,17 @@ class LiveMosaicAppNode(
         Box(
             modifier = modifier.fillMaxSize()
         ) {
-            var autoPlayFlow = remember { MutableStateFlow(true) }
+            val isAutoPlayOn = remember { mutableStateOf(true) }
 
-            CompositionLocalProvider(
-                LocalAutoPlayFlow provides autoPlayFlow
-            ) {
+            CompositionLocalProvider(LocalAutoPlayFlow provides isAutoPlayOn) {
                 CurrentScreen()
                 Row {
-                    AutoPlayToggle(autoPlayFlow)
+                    AutoPlayToggle(
+                        isAutoPlayOn = isAutoPlayOn.value,
+                        toggleAutoPlay = {
+                            isAutoPlayOn.value = !isAutoPlayOn.value
+                        }
+                    )
                     NextButton()
                 }
             }
@@ -159,11 +159,9 @@ class LiveMosaicAppNode(
     }
 
     @Composable
-    private fun AutoPlayToggle(autoPlayFlow: MutableStateFlow<Boolean>) {
-        val isAutoPlayOn = autoPlayFlow.collectAsState().value
-
+    private fun AutoPlayToggle(isAutoPlayOn: Boolean, toggleAutoPlay: () -> Unit) {
         Button(
-            onClick = { autoPlayFlow.update { !it } },
+            onClick = toggleAutoPlay,
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
         ) {
             Icon(
@@ -177,7 +175,7 @@ class LiveMosaicAppNode(
 
     @Composable
     private fun NextButton() {
-        if (!LocalAutoPlayFlow.current.collectAsState().value) {
+        if (!LocalAutoPlayFlow.current.value) {
             Button(
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                 onClick = { nextScreen() }

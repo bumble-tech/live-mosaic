@@ -1,6 +1,6 @@
 package com.bumble.livemosaic.model
 
-enum class Puzzle(
+enum class MosaicConfig(
     val frontImagesDir: String,
     val backImagesDir: String,
     val columns: Int,
