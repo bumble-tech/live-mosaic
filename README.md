@@ -83,7 +83,7 @@ If you're adding an image to the entries:
 - Type `run` in the input above it
 - Close the window, now you can launch it from where you usually pick the android app
 
-**Tip**: After launching the app, look for a faint :pause_button: in the top left corner. It turns on/off some manual controls to play with! 
+**Tip**: After launching the app, look for a faint :pause_button: in the top left corner. It turns on/off some manual controls to play with!
 
 
 ## Conditions of entry
@@ -107,11 +107,21 @@ Examples of content that we would refuse may include but are not limited to:
 ## License
 
 <pre>
-Copyright 2023 Bumble
-This software is licensed under the Apache License, Version 2.0 (the "License"); you may not use this software except in compliance with the License. You may obtain a copy of the License at
-      http://www.apache.org/licenses/LICENSE-2.0
+Copyright 2023 Bumble.
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Files saved within folders entitled `/shared/commonMain/resources/bumble` are not subject to the Apache License, Version 2.0 and permission is not granted for the use of any files within these folders.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Files saved within folders entitled `/shared/commonMain/resources/bumble`
+are not subject to the Apache License, Version 2.0 and permission
+is not granted for the use of any files within these folders.
 </pre>
