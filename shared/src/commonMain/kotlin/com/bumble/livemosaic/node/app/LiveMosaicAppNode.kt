@@ -36,26 +36,26 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.livemosaic.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.livemosaic.composable.AutoPlayScript
 import com.bumble.livemosaic.composable.CallToActionScreen
-import com.bumble.livemosaic.model.Puzzle.PUZZLE1
-import com.bumble.livemosaic.model.Puzzle.PUZZLE2
-import com.bumble.livemosaic.model.Puzzle.PUZZLE3
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.CallToAction
-import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle1
-import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle2
-import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle3
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic1
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic2
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic3
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StackedMessages
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StarField
 import com.bumble.livemosaic.node.messages.StackedMessagesNode
-import com.bumble.livemosaic.node.puzzle1.Puzzle1Node
+import com.bumble.livemosaic.node.mosaic.MosaicNode
 import com.bumble.livemosaic.node.starfield.StarFieldNode
 import com.bumble.livemosaic.ui.DottedMeshShape
 import com.bumble.livemosaic.ui.LocalAutoPlayFlow
 
 private val screens = listOf(
-    Puzzle1,
-    Puzzle2,
-    Puzzle3,
+    Mosaic1,
+    Mosaic2,
+    Mosaic3,
     CallToAction,
     StarField,
     StackedMessages,
@@ -78,13 +78,13 @@ class LiveMosaicAppNode(
 
     sealed class NavTarget : Parcelable {
         @Parcelize
-        data object Puzzle1 : NavTarget()
+        data object Mosaic1 : NavTarget()
 
         @Parcelize
-        data object Puzzle2 : NavTarget()
+        data object Mosaic2 : NavTarget()
 
         @Parcelize
-        data object Puzzle3 : NavTarget()
+        data object Mosaic3 : NavTarget()
 
         @Parcelize
         data object StackedMessages : NavTarget()
@@ -99,18 +99,18 @@ class LiveMosaicAppNode(
 
     override fun resolve(navTarget: NavTarget, buildContext: BuildContext): Node =
         when (navTarget) {
-            is Puzzle1 -> Puzzle1Node(
-                puzzle = PUZZLE1,
+            is Mosaic1 -> MosaicNode(
+                config = MOSAIC1,
                 buildContext = buildContext
             )
 
-            is Puzzle2 -> Puzzle1Node(
-                puzzle = PUZZLE2,
+            is Mosaic2 -> MosaicNode(
+                config = MOSAIC2,
                 buildContext = buildContext
             )
 
-            is Puzzle3 -> Puzzle1Node(
-                puzzle = PUZZLE3,
+            is Mosaic3 -> MosaicNode(
+                config = MOSAIC3,
                 buildContext = buildContext
             )
 

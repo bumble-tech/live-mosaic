@@ -5,7 +5,7 @@ We are very happy to see you here!
 **Before starting please make sure to fill your details [here](https://forms.gle/6QxSXJ7SWPtWXrP99) to join the shuffle.**
 
 The Live Mosaic is a multiplatform application created by lovely Bumble developers using Appyx where we aim to
-finish a puzzle with content created by Droidcon attendees! Pick you photo or text content, add it to puzzle and 
+finish a mosaic with content created by Droidcon attendees! Pick you photo or text content, add it to the message wall and 
 let it shine on our screen! ✨✨
 
 

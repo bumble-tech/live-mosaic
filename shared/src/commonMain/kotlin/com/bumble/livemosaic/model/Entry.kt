@@ -4,17 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
 
 sealed class Entry {
-    abstract val puzzle: Puzzle
+    abstract val mosaic: MosaicConfig
     abstract val githubUserName: String
 
     data class Text(
-        override val puzzle: Puzzle,
+        override val mosaic: MosaicConfig,
         override val githubUserName: String,
         val message: String = fakeMessages.random()
     ) : Entry()
 
     data class Image(
-        override val puzzle: Puzzle,
+        override val mosaic: MosaicConfig,
         override val githubUserName: String,
         val path: String,
         val contentDescription: String? = null,
@@ -22,7 +22,7 @@ sealed class Entry {
     ) : Entry()
 
     data class ComposableContent(
-        override val puzzle: Puzzle,
+        override val mosaic: MosaicConfig,
         override val githubUserName: String,
         val content: @Composable () -> Unit
     ) : Entry()
