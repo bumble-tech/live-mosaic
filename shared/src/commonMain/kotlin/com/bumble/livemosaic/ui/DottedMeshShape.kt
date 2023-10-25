@@ -65,6 +65,13 @@ class DottedMeshShape(
                         y = lerpFloat(0f, height, v)
                     )
 
+                    /**
+                     * This is what's happening to the value:
+                     * https://graphtoy.com/?f1(x,t)=x&v1=false&f2(x,t)=abs(x-0.5)&v2=false&f3(x,t)=0.5%20-%20f2(x)&v3=false&f4(x,t)=2%20*%20f3(x)&v4=true&f5(x,t)=f4(x)-1&v5=true&f6(x,t)=f4(x)+1&v6=true&grid=1&coords=0,0,2.872704592429975
+                     *
+                     * Explanation:
+                     * - [Writing this explanation is one of the optional challenges. See CHALLENGES.md]
+                     */
                     val value = (progressDelayed
                             + (0.5f - abs(u - 0.5f))
                             + (0.5f - abs(v - 0.5f)))
