@@ -67,6 +67,7 @@ If you're adding an image to the entries:
 
 - The above content guidelines apply
 - Should not be larger than 500 KB
+- Should not be larger than 600 x 400px
 - Be sure to add it to `/shared/commonMain/resources/participant`
 - For the best looks, have it in landscape mode with 3:2 aspect ratio
 
