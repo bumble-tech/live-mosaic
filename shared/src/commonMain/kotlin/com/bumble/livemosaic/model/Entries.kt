@@ -128,7 +128,7 @@ val mosaic1Entries = entries
     .filter { it.mosaic == MOSAIC1 }
     .also {
         if (it.size > MOSAIC1.maxEntryCount)
-            error("This mosaic is already filled up. Add your entry to another one!")
+            error("Mosaic 1 is already filled up. Add your entry to another one!")
 
         if (it.map { it.githubUserName }.distinct().size < it.size) {
             error("One entry per mosaic is the limit, but you can try again in the next one!")
@@ -139,7 +139,7 @@ val mosaic2Entries = entries
     .filter { it.mosaic == MOSAIC2 }
     .also {
         if (it.size > MOSAIC2.maxEntryCount)
-            error("This mosaic is already filled up. Add your entry to another one!")
+            error("Mosaic 2 is already filled up. Add your entry to another one!")
 
         if (it.map { it.githubUserName }.distinct().size < it.size) {
             error("One entry per mosaic is the limit, but you can try again in the next one!")
@@ -150,7 +150,7 @@ val mosaic3Entries = entries
     .filter { it.mosaic == MOSAIC3 }
     .also {
         if (it.size > MOSAIC3.maxEntryCount)
-            error("This mosaic is already filled up. Add your entry to another one!")
+            error("Mosaic 3 is already filled up. Add your entry to another one!")
 
         if (it.map { it.githubUserName }.distinct().size < it.size) {
             error("One entry per mosaic is the limit, but you can try again in the next one!")
