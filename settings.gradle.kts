@@ -21,7 +21,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "puzzyx"
+rootProject.name = "live-mosaic"
 
 include(":androidApp")
 include(":desktopApp")

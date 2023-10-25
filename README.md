@@ -1,10 +1,10 @@
-## Welcome to Puzzyx Challenge!
+## Welcome to the Bumble Tech Live Mosaic Challenge!
 
 We are very happy to see you here! 
 
 **Before starting please make sure to fill your details [here](https://forms.gle/6QxSXJ7SWPtWXrP99) to join the shuffle.**
 
-Puzzyx is a multiplatform application created by lovely Bumble developers using Appyx where we aim to
+The Live Mosaic is a multiplatform application created by lovely Bumble developers using Appyx where we aim to
 finish a puzzle with content created by Droidcon attendees! Pick you photo or text content, add it to puzzle and 
 let it shine on our screen! ✨✨
 
@@ -12,20 +12,20 @@ let it shine on our screen! ✨✨
 **Here is what you need to do to create your own tile:**
 
 - Get familiar with [Entry](./shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entry.kt) class and its types
-- Pick an Entry type you would like to add
+- Pick an `Entry` type you would like to add
 - Shout out to Droidcon what you want to say
 - Or get your cool/funny photo and add it to [Resources](./shared/src/commonMain/resources/participant). Image requirements are:
-    - Should be in landscape mode with ~1.5 ratio
-    - Should not be larger than 500 KB
+  - Should be in landscape mode with ~1.5 ratio
+  - Should not be larger than 500 KB
 - Add your `Entry` instance to the list in [Entries.kt](./shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entries.kt)
-- Your tile is good to go! All you need to do is create your PR and ask Bumble team for review!
+- Your tile is good to go! All you need to do is create your PR and ask the Bumble team for review!
 
 **Please be mindful about created content, Bumble keeps the right of rejecting a PR. 
 Any remote images, hate speech, discrimination or explicit content is not allowed.*
 
 
 ## Project page
-[https://github.com/bumble-tech/puzzyx](https://github.com/bumble-tech/puzzyx)
+[https://github.com/bumble-tech/live-mosaic](https://github.com/bumble-tech/live-mosaic)
 
 ## If you want to learn more about Appyx
 

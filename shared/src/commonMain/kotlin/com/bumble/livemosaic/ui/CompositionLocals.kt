@@ -1,7 +1,7 @@
 package com.bumble.livemosaic.ui
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.compositionLocalOf
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import androidx.compose.runtime.mutableStateOf
 
-val LocalAutoPlayFlow = compositionLocalOf<StateFlow<Boolean>> { MutableStateFlow(true) }
+val LocalAutoPlayFlow = compositionLocalOf<State<Boolean>> { mutableStateOf(true) }
