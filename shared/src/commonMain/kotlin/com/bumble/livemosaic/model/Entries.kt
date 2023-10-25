@@ -129,7 +129,6 @@ val mosaic1Entries = entries
     .also {
         if (it.size > MOSAIC1.maxEntryCount)
             error("Mosaic 1 is already filled up. Add your entry to another one!")
-
         if (it.map { it.githubUserName }.distinct().size < it.size) {
             error("One entry per mosaic is the limit, but you can try again in the next one!")
         }
@@ -140,7 +139,8 @@ val mosaic2Entries = entries
     .also {
         if (it.size > MOSAIC2.maxEntryCount)
             error("Mosaic 2 is already filled up. Add your entry to another one!")
-
+        if (entries.filter { it.mosaic == MOSAIC1 }.size < MOSAIC1.maxEntryCount)
+            error("Mosaic 1 is not yet filled up. Add your entry to it!")
         if (it.map { it.githubUserName }.distinct().size < it.size) {
             error("One entry per mosaic is the limit, but you can try again in the next one!")
         }
@@ -151,8 +151,15 @@ val mosaic3Entries = entries
     .also {
         if (it.size > MOSAIC3.maxEntryCount)
             error("Mosaic 3 is already filled up. Add your entry to another one!")
-
+        if (entries.filter { it.mosaic == MOSAIC1 }.size < MOSAIC1.maxEntryCount)
+            error("Mosaic 1 is not yet filled up. Add your entry to it!")
+        if (entries.filter { it.mosaic == MOSAIC2 }.size < MOSAIC2.maxEntryCount)
+            error("Mosaic 2 is not yet filled up. Add your entry to it!")
         if (it.map { it.githubUserName }.distinct().size < it.size) {
             error("One entry per mosaic is the limit, but you can try again in the next one!")
         }
     }
+
+fun List<Entry>.hasMosaic2Entries() = any { it.mosaic == MOSAIC2 }
+
+fun List<Entry>.hasMosaic3Entries() = any { it.mosaic == MOSAIC3 }

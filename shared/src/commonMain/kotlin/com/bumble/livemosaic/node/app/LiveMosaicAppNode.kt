@@ -40,6 +40,8 @@ import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
 import com.bumble.livemosaic.model.entries
+import com.bumble.livemosaic.model.hasMosaic2Entries
+import com.bumble.livemosaic.model.hasMosaic3Entries
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.CallToAction
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic1
@@ -57,12 +59,12 @@ private val screens = listOfNotNull(
     Mosaic1,
     CallToAction,
     StarField,
-    Mosaic2.takeIf { entries.any { it.mosaic == MOSAIC2 } },
-    CallToAction.takeIf { entries.any { it.mosaic == MOSAIC2 } },
-    StackedMessages.takeIf { entries.any { it.mosaic == MOSAIC2 } },
-    Mosaic3.takeIf { entries.any { it.mosaic == MOSAIC3 } },
-    CallToAction.takeIf { entries.any { it.mosaic == MOSAIC3 } },
-    StarField.takeIf { entries.any { it.mosaic == MOSAIC3 } },
+    Mosaic2.takeIf { entries.hasMosaic2Entries() },
+    CallToAction.takeIf { entries.hasMosaic2Entries() },
+    StackedMessages.takeIf { entries.hasMosaic2Entries() },
+    Mosaic3.takeIf { entries.hasMosaic3Entries() },
+    CallToAction.takeIf { entries.hasMosaic3Entries() },
+    StarField.takeIf { entries.hasMosaic3Entries() },
 )
 
 class LiveMosaicAppNode(
