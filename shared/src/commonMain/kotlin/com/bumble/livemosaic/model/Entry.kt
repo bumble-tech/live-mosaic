@@ -10,7 +10,7 @@ sealed class Entry {
     data class Text(
         override val mosaic: MosaicConfig,
         override val githubUserName: String,
-        val message: String = fakeMessages.random()
+        val message: String
     ) : Entry()
 
     data class Image(

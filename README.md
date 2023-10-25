@@ -19,7 +19,7 @@ Every entry automatically adds a tile to the current image mosaic in progress.
 ## What can I win?
 
 - Participating earns you a ticket in our raffle to win one of five **£250 Amazon vouchers**.
-- Additionally, we have some optional challenges [links to a separate document] that can earn you one of six **£50 Amazon vouchers**. These are on a first come, first served basis, and a maximum of one per person.
+- Additionally, we have some optional [challenges](./CHALLENGES.md)  that can earn you one of six **£50 Amazon vouchers**. These are on a first come, first served basis, and a maximum of one per person.
 
 We’ll announce the winning raffle tickets at our booth and on @bumble_inc at 4pm on Friday, 27th October!
 
