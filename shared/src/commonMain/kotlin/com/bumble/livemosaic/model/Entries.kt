@@ -13,6 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
+import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
 import com.bumble.livemosaic.ui.md_indigo_500
 import com.bumble.livemosaic.ui.md_lime_500
 
@@ -126,6 +128,28 @@ val mosaic1Entries = entries
     .filter { it.mosaic == MOSAIC1 }
     .also {
         if (it.size > MOSAIC1.maxEntryCount)
+            error("This mosaic is already filled up. Add your entry to another one!")
+
+        if (it.map { it.githubUserName }.distinct().size < it.size) {
+            error("One entry per mosaic is the limit, but you can try again in the next one!")
+        }
+    }
+
+val mosaic2Entries = entries
+    .filter { it.mosaic == MOSAIC2 }
+    .also {
+        if (it.size > MOSAIC2.maxEntryCount)
+            error("This mosaic is already filled up. Add your entry to another one!")
+
+        if (it.map { it.githubUserName }.distinct().size < it.size) {
+            error("One entry per mosaic is the limit, but you can try again in the next one!")
+        }
+    }
+
+val mosaic3Entries = entries
+    .filter { it.mosaic == MOSAIC3 }
+    .also {
+        if (it.size > MOSAIC3.maxEntryCount)
             error("This mosaic is already filled up. Add your entry to another one!")
 
         if (it.map { it.githubUserName }.distinct().size < it.size) {

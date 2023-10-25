@@ -39,6 +39,7 @@ import com.bumble.livemosaic.composable.CallToActionScreen
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
+import com.bumble.livemosaic.model.entries
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.CallToAction
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic1
@@ -52,13 +53,16 @@ import com.bumble.livemosaic.node.starfield.StarFieldNode
 import com.bumble.livemosaic.ui.DottedMeshShape
 import com.bumble.livemosaic.ui.LocalAutoPlayFlow
 
-private val screens = listOf(
+private val screens = listOfNotNull(
     Mosaic1,
-    Mosaic2,
-    Mosaic3,
     CallToAction,
     StarField,
-    StackedMessages,
+    Mosaic2.takeIf { entries.any { it.mosaic == MOSAIC2 } },
+    CallToAction.takeIf { entries.any { it.mosaic == MOSAIC2 } },
+    StackedMessages.takeIf { entries.any { it.mosaic == MOSAIC2 } },
+    Mosaic3.takeIf { entries.any { it.mosaic == MOSAIC3 } },
+    CallToAction.takeIf { entries.any { it.mosaic == MOSAIC3 } },
+    StarField.takeIf { entries.any { it.mosaic == MOSAIC3 } },
 )
 
 class LiveMosaicAppNode(

@@ -40,6 +40,8 @@ import com.bumble.livemosaic.imageloader.EmbeddableResourceImage
 import com.bumble.livemosaic.model.MosaicConfig
 import com.bumble.livemosaic.model.MosaicPiece
 import com.bumble.livemosaic.model.mosaic1Entries
+import com.bumble.livemosaic.model.mosaic2Entries
+import com.bumble.livemosaic.model.mosaic3Entries
 import com.bumble.livemosaic.ui.LocalAutoPlayFlow
 import com.bumble.livemosaic.ui.appyx_dark
 import com.bumble.livemosaic.ui.colors
@@ -58,7 +60,13 @@ class MosaicNode(
         gridCols = config.columns,
         pieces = IntRange(0, config.rows * config.columns - 1)
             .shuffled(Random(123))
-            .take(mosaic1Entries.size)
+            .take(
+                when (config) {
+                    MosaicConfig.MOSAIC1 -> mosaic1Entries
+                    MosaicConfig.MOSAIC2 -> mosaic2Entries
+                    MosaicConfig.MOSAIC3 -> mosaic3Entries
+                }.size
+            )
             .mapIndexed { sequentialIdx, shuffledIdx ->
                 MosaicPiece(
                     i = shuffledIdx % config.columns,
