@@ -26,20 +26,20 @@ We’ll announce the winning raffle tickets at our booth and on @bumble_inc at 4
 
 ## How can I participate?
 
-Get familiar with `Entry` class and its types:
+Get familiar with [`Entry`](https://github.com/bumble-tech/live-mosaic/blob/main/shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entry.kt) class and its types:
 
 - `Text`: A simple message
 - `Image`: A photo
 - `CustomComposable`: get creative!
 
-- Create and add your `Entry` instance to the list in `Entries.kt`!
+- Create and add your `Entry` instance to the list in [`Entries.kt`](https://github.com/bumble-tech/live-mosaic/blob/main/shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entries.kt)!
 - Create a pull request and the Bumble Inc team will review it!
 - Show us your pull request at the Bumble Inc. booth on your device, and once we merge it, we’ll hand you your raffle ticket.
 
 
 ## I don’t have a laptop with me, how can I participate?
 
-Creating a text entry is simple enough that you could easily do it from mobile! See [GitHub Mobile](https://github.com/mobile)
+Creating a text entry is simple enough that you could easily do it from mobile! See [GitHub Mobile](https://github.com/mobile).
 
 Alternatively, we’re happy to post your message or photo for you at the booth, provided you can show proof that your GitHub account belongs to you.
 
