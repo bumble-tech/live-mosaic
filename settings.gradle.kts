@@ -21,7 +21,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "live-mosaic"
+rootProject.name = "livemosaic"
 
 include(":androidApp")
 include(":desktopApp")
