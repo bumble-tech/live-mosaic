@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     js(IR) {
-        moduleName = "puzzyx-web"
+        moduleName = "live-mosaic-web"
         browser()
         binaries.executable()
     }

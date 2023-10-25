@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.bumble.appyx.puzzyx.android"
+    namespace = "com.bumble.appyx.live-mosaic.android"
     compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
-        applicationId = "com.bumble.appyx.puzzyx.android"
+        applicationId = "com.bumble.appyx.live-mosaic.android"
         minSdk = 30
         targetSdk = 33
         versionCode = 1

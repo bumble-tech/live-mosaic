@@ -16,9 +16,6 @@ import com.bumble.livemosaic.node.app.LiveMosaicAppNode
 import com.bumble.livemosaic.ui.LiveMosaicTheme
 import com.bumble.livemosaic.ui.appyx_dark
 
-@ExperimentalUnitApi
-@ExperimentalAnimationApi
-@ExperimentalComposeUiApi
 class MainActivity : NodeActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
