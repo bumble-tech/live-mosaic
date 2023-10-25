@@ -7,9 +7,9 @@ enum class MosaicConfig(
     val rows: Int
 ) {
 
-    MOSAIC1("1_front", "1_back",12, 7),
-    MOSAIC2("2_front", "2_back", 12, 7),
-    MOSAIC3("3_front", "3_back",12, 7);
+    MOSAIC1("bumble/mosaic/1_front", "bumble/mosaic/1_back",12, 7),
+    MOSAIC2("bumble/mosaic/2_front", "bumble/mosaic/2_back", 12, 7),
+    MOSAIC3("bumble/mosaic/3_front", "bumble/mosaic/3_back",12, 7);
 
 
     val maxEntryCount: Int = columns * rows
