@@ -172,7 +172,7 @@ class MessagesNode(
     }
 
     companion object {
-        const val ENTRY_WIDTH = 240f
+        const val ENTRY_WIDTH = 340f
         const val ENTRY_ASPECT_RATIO = 1.5f
         const val ENTRY_PADDING = 8f
 
