@@ -31,6 +31,10 @@ sealed class Entry {
     data class ComposableContent(
         override val mosaic: MosaicConfig,
         override val githubUserName: String,
+        /**
+         * Please create your custom composable in a new file in:
+         * /shared/src/commonMain/kotlin/com/bumble/livemosaic/participant
+         */
         val content: @Composable () -> Unit
     ) : Entry()
 }
