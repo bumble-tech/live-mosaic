@@ -38,7 +38,7 @@ private val DarkColors = darkColorScheme(
 )
 
 @Composable
-fun PuzzyxTheme(
+fun LiveMosaicTheme(
   content: @Composable() () -> Unit
 ) {
   MaterialTheme(

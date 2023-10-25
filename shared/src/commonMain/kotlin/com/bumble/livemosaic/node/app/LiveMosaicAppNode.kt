@@ -40,13 +40,13 @@ import com.bumble.livemosaic.composable.CallToActionScreen
 import com.bumble.livemosaic.model.Puzzle.PUZZLE1
 import com.bumble.livemosaic.model.Puzzle.PUZZLE2
 import com.bumble.livemosaic.model.Puzzle.PUZZLE3
-import com.bumble.livemosaic.node.app.PuzzyxAppNode.NavTarget
-import com.bumble.livemosaic.node.app.PuzzyxAppNode.NavTarget.CallToAction
-import com.bumble.livemosaic.node.app.PuzzyxAppNode.NavTarget.Puzzle1
-import com.bumble.livemosaic.node.app.PuzzyxAppNode.NavTarget.Puzzle2
-import com.bumble.livemosaic.node.app.PuzzyxAppNode.NavTarget.Puzzle3
-import com.bumble.livemosaic.node.app.PuzzyxAppNode.NavTarget.StackedMessages
-import com.bumble.livemosaic.node.app.PuzzyxAppNode.NavTarget.StarField
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.CallToAction
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle1
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle2
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Puzzle3
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StackedMessages
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StarField
 import com.bumble.livemosaic.node.messages.StackedMessagesNode
 import com.bumble.livemosaic.node.puzzle1.Puzzle1Node
 import com.bumble.livemosaic.node.starfield.StarFieldNode
@@ -64,7 +64,7 @@ private val screens = listOf(
     StackedMessages,
 )
 
-class PuzzyxAppNode(
+class LiveMosaicAppNode(
     buildContext: BuildContext,
     private val backStack: BackStack<NavTarget> = BackStack(
         model = BackStackModel(

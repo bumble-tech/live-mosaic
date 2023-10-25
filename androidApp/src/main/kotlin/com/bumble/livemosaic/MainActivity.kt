@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import com.bumble.appyx.navigation.integration.NodeActivity
 import com.bumble.appyx.navigation.integration.NodeHost
 import com.bumble.appyx.navigation.platform.AndroidLifecycle
-import com.bumble.livemosaic.node.app.PuzzyxAppNode
-import com.bumble.livemosaic.ui.PuzzyxTheme
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode
+import com.bumble.livemosaic.ui.LiveMosaicTheme
 import com.bumble.livemosaic.ui.appyx_dark
 
 @ExperimentalUnitApi
@@ -23,7 +23,7 @@ class MainActivity : NodeActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PuzzyxTheme {
+            LiveMosaicTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = appyx_dark
@@ -32,7 +32,7 @@ class MainActivity : NodeActivity() {
                         lifecycle = AndroidLifecycle(LocalLifecycleOwner.current.lifecycle),
                         integrationPoint = appyxV2IntegrationPoint,
                     ) {
-                        PuzzyxAppNode(
+                        LiveMosaicAppNode(
                             buildContext = it,
                         )
                     }
