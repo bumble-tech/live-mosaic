@@ -1,5 +1,4 @@
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -14,9 +13,9 @@ import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.bumble.appyx.navigation.integration.DesktopNodeHost
-import com.bumble.puzzyx.node.app.PuzzyxAppNode
-import com.bumble.puzzyx.ui.PuzzyxTheme
-import com.bumble.puzzyx.ui.appyx_dark
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode
+import com.bumble.livemosaic.ui.LiveMosaicTheme
+import com.bumble.livemosaic.ui.appyx_dark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -38,7 +37,7 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         onKeyEvent = { onKeyEvent(it, events, eventScope) },
     ) {
-        PuzzyxTheme {
+        LiveMosaicTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = appyx_dark
@@ -49,7 +48,7 @@ fun main() = application {
                         if (it is Events.OnBackPressed) Unit else null
                     }
                 ) { buildContext ->
-                    PuzzyxAppNode(
+                    LiveMosaicAppNode(
                         buildContext = buildContext,
                     )
                 }

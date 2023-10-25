@@ -8,7 +8,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="DataExtractionRules">
         <activity
-            android:name="com.bumble.puzzyx.MainActivity"
+            android:name="com.bumble.livemosaic.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
