@@ -3,7 +3,7 @@
 Brought to you by the Android team at Bumble Inc., Live Mosaic is a Compose Multiplatform project featuring a collaborative message board and dynamic image mosaic.
 
 
-## Powered by <img src="https://user-images.githubusercontent.com/238198/177164121-3aa4d19d-7714-4f2e-af12-7d3335b43f9c.png" width="75" /> Appyx
+## Powered by <img src="https://user-images.githubusercontent.com/238198/177164121-3aa4d19d-7714-4f2e-af12-7d3335b43f9c.png" width="20" /> Appyx
 
 If you like this project, please consider starring the Appyx repo, giving us a shout on social media, or both–we’ll appreciate it! We’re more than happy to chat about our projects if you come to our booth.
 
@@ -36,19 +36,13 @@ Get familiar with `Entry` class and its types:
 - Create a pull request and the Bumble Inc team will review it!
 - Show us your pull request at the Bumble Inc. booth on your device, and once we merge it, we’ll hand you your raffle ticket.
 
+
 ## I don’t have a laptop with me, how can I participate?
 
 Creating a text entry is simple enough that you could easily do it from mobile! See [GitHub Mobile](https://github.com/mobile)
 
 Alternatively, we’re happy to post your message or photo for you at the booth, provided you can show proof that your GitHub account belongs to you.
 
-## :computer: How to launch on desktop
-
-- Open Edit configurations
-- Click + in the top left corner, choose Gradle
-- Type live-mosaic:desktopApp in the Gradle project field
-- Type run in the input above it
-- Close the window, now you can launch it from where you usually pick the android app
 
 ## What should I post?
 
@@ -73,8 +67,23 @@ If you're adding an image to the entries:
 
 - The above content guidelines apply
 - Should not be larger than 500 KB
+- Should not be larger than 600 x 400px
 - Be sure to add it to `/shared/commonMain/resources/participant`
 - For the best looks, have it in landscape mode with 3:2 aspect ratio
+
+
+## :computer: How can I launch the project on desktop?
+
+<img width="500" src="https://github.com/bumble-tech/live-mosaic/assets/238198/52118435-c11e-4f75-8641-775a287b05c6">
+
+- Clone the project and open it in Android Studio
+- Open `Edit configurations`
+- Click + in the top left corner, choose `Gradle`
+- Type `live-mosaic:desktopApp` in the Gradle project field
+- Type `run` in the input above it
+- Close the window, now you can launch it from where you usually pick the android app
+
+**Tip**: After launching the app, look for a faint :pause_button: in the top left corner. It turns on/off some manual controls to play with! 
 
 
 ## Conditions of entry
@@ -88,7 +97,7 @@ If you're adding an image to the entries:
 All entries will be reviewed by content moderators appointed by Bumble Inc. We reserve the right to refuse a pull request if we feel that the content is inappropriate in any way, or isn’t promoting Kind Connections.
 
 Examples of content that we would refuse may include but are not limited to:
- 
+
 - Harsh, provocative language or cursing;
 - Political views;
 - Jokes that are at the expense of anyone;
