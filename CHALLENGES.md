@@ -7,7 +7,7 @@ skills, foster innovation, and offer attractive prizes. Go ahead, participate, a
 
 ## When creating a PR
 
-Please mention in the title: "Optional challenge – ID", where ID is `C01`, `C02` etc. as you see it below. 
+Please mention in the title: "Optional challenge – ID", where ID is `J01`, `J02` etc. as you see it below. 
 
 ## Jetpack Compose challenges
 
