@@ -42,6 +42,13 @@ Creating a text entry is simple enough that you could easily do it from mobile! 
 
 Alternatively, we’re happy to post your message or photo for you at the booth, provided you can show proof that your GitHub account belongs to you.
 
+## :computer: How to launch on desktop
+
+- Open Edit configurations
+- Click + in the top left corner, choose Gradle
+- Type live-mosaic:desktopApp in the Gradle project field
+- Type run in the input above it
+- Close the window, now you can launch it from where you usually pick the android app
 
 ## What should I post?
 
