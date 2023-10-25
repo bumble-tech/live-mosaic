@@ -11,7 +11,7 @@ fun CallToActionScreen(
     modifier: Modifier = Modifier,
 ) {
     EmbeddableResourceImage(
-        path = "mosaic/bumble_droidcon.jpg",
+        path = "bumble/mosaic/bumble_droidcon.jpg",
         contentScale = ContentScale.Fit,
         modifier = modifier
             .fillMaxSize()
