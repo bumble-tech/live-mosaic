@@ -25,6 +25,10 @@ resources = "0.22.3"
 serialization-json = "1.5.0"
 ktor = "2.3.4"
 uuid = "9.0.0"
+androidxtestext = "1.1.5"
+espresso-core = "3.5.1"
+uiautomator = "2.2.0"
+benchmark-macro-junit4 = "1.2.0-beta01"
 
 [libraries]
 androidx-activity-compose = "androidx.activity:activity-compose:1.7.2"
@@ -91,6 +95,10 @@ detekt-compose = "io.nlopez.compose.rules:detekt:0.3.0"
 toolargetool = "com.gu.android:toolargetool:0.3.0"
 
 symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxtestext" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
+benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmark-macro-junit4" }
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
