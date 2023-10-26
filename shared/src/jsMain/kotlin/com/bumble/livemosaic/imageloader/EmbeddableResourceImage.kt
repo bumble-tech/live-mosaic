@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 
-private const val EMBED_URL = "https://github.com/bumble-tech/live-mosaic/blob/deploy-branch/distribution/"
+private const val EMBED_URL = "live-mosaic/"
 
 @Composable
 actual fun EmbeddableResourceImage(
