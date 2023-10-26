@@ -172,6 +172,16 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "petra-cendelinova",
+        message = "Having a great time at my first Droidcon London!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "ayusch",
+        message = "Blimey! Great to be in Droidcon London"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "LethalMaus",
         message = "Nice to see you all here at Droidcon!"
     ),
