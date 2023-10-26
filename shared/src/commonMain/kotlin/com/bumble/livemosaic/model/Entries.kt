@@ -107,6 +107,11 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "jamesdpli",
+        message = "Hello Droidcon 2023 :)"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "vladcipariu91",
         message = "Another great year for Droidcon London! Can't wait to see you all there!"
     ),
@@ -151,6 +156,11 @@ val entries = listOf(
     ),
     Entry.Image(
         mosaic = MOSAIC1,
+        githubUserName = "esmagoksal",
+        path = "esma_manel.png"
+    ),
+    Entry.Image(
+        mosaic = MOSAIC1,
         githubUserName = "aashay-gaikwad",
         path = "aashay-photo.png",
         contentDescription = "Bumble team"
@@ -169,6 +179,32 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "osaamakhalil",
         message = "Enjoy Android life"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "petra-cendelinova",
+        message = "Having a great time at my first Droidcon London!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "ayusch",
+        message = "Blimey! Great to be in Droidcon London"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "LethalMaus",
+        message = "Nice to see you all here at Droidcon!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "Zhelyazko",
+        message = "Have fun everyone at Droidcon London!"
+    ),
+    Entry.Image(
+        mosaic = MOSAIC1,
+        githubUserName = "di-maroo",
+        path = "watching_you.jpeg",
+        contentDescription = "Bumble team"
     ),
     Entry.ComposableContent(
         mosaic = MOSAIC1,

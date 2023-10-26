@@ -30,14 +30,14 @@ jobs:
 
       - name: Move Output to Directory
         run: |
-          mkdir distribution
-          mv webApp/build/dist/js/productionExecutable/* distribution/
+          mkdir docs
+          mv webApp/build/dist/js/productionExecutable/* docs/
 
       # Commit and push the directory to a specified branch (e.g., "output-branch")
       - name: Commit and Push to Branch
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add distribution/
+          git add docs/
           git commit -m "Add output from build"
           git push -f origin HEAD:deploy-branch
