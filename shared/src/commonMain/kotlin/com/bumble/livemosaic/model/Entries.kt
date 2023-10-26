@@ -37,6 +37,11 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "mapm14",
+        message = "Welcome back to London, folks! Excited to be here for another year"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "astamato",
         message = "Hey yall! Who's at DC LON??? :D Hoping to meet ye here!"
     ),
