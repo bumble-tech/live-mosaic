@@ -110,6 +110,11 @@ val entries = listOf(
         githubUserName = "vladcipariu91",
         message = "Another great year for Droidcon London! Can't wait to see you all there!"
     ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "neobrahma",
+        message = "Bokit is the new burger"
+    ),
     Entry.ComposableContent(
         mosaic = MOSAIC1,
         githubUserName = "adriantache",
