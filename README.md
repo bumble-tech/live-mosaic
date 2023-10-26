@@ -3,7 +3,7 @@
 Brought to you by the Android team at Bumble Inc., Live Mosaic is a Compose Multiplatform project featuring a collaborative message board and dynamic image mosaic.
 
 
-## Powered by <img src="https://user-images.githubusercontent.com/238198/177164121-3aa4d19d-7714-4f2e-af12-7d3335b43f9c.png" width="75" /> Appyx
+## Powered by <img src="https://user-images.githubusercontent.com/238198/177164121-3aa4d19d-7714-4f2e-af12-7d3335b43f9c.png" width="20" /> Appyx
 
 If you like this project, please consider starring the Appyx repo, giving us a shout on social media, or both–we’ll appreciate it! We’re more than happy to chat about our projects if you come to our booth.
 
@@ -26,19 +26,22 @@ We’ll announce the winning raffle tickets at our booth and on @bumble_inc at 4
 
 ## How can I participate?
 
-Get familiar with `Entry` class and its types:
+Get familiar with [`Entry`](https://github.com/bumble-tech/live-mosaic/blob/main/shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entry.kt) class and its types:
 
 - `Text`: A simple message
 - `Image`: A photo
 - `CustomComposable`: get creative!
 
-- Create and add your `Entry` instance to the list in `Entries.kt`!
+Create your `Entry`:
+
+- Add it to the list in [`Entries.kt`](https://github.com/bumble-tech/live-mosaic/blob/main/shared/src/commonMain/kotlin/com/bumble/livemosaic/model/Entries.kt)!
 - Create a pull request and the Bumble Inc team will review it!
 - Show us your pull request at the Bumble Inc. booth on your device, and once we merge it, we’ll hand you your raffle ticket.
 
+
 ## I don’t have a laptop with me, how can I participate?
 
-Creating a text entry is simple enough that you could easily do it from mobile! See [GitHub Mobile](https://github.com/mobile)
+Creating a text entry is simple enough that you could easily do it from mobile! See [GitHub Mobile](https://github.com/mobile).
 
 Alternatively, we’re happy to post your message or photo for you at the booth, provided you can show proof that your GitHub account belongs to you.
 
@@ -66,8 +69,23 @@ If you're adding an image to the entries:
 
 - The above content guidelines apply
 - Should not be larger than 500 KB
+- Should not be larger than 600 x 400px
 - Be sure to add it to `/shared/commonMain/resources/participant`
 - For the best looks, have it in landscape mode with 3:2 aspect ratio
+
+
+## :computer: How can I launch the project on desktop?
+
+<img width="500" src="https://imgur.com/KP9yZWd.png">
+
+- Clone the project and open it in Android Studio
+- Open `Edit configurations`
+- Click + in the top left corner, choose `Gradle`
+- Type `live-mosaic:desktopApp` in the Gradle project field
+- Type `run` in the input above it
+- Close the window, now you can launch it from where you usually pick the android app
+
+**Tip**: After launching the app, look for a faint :pause_button: in the top left corner. It turns on/off some manual controls to play with!
 
 
 ## Conditions of entry
@@ -81,7 +99,7 @@ If you're adding an image to the entries:
 All entries will be reviewed by content moderators appointed by Bumble Inc. We reserve the right to refuse a pull request if we feel that the content is inappropriate in any way, or isn’t promoting Kind Connections.
 
 Examples of content that we would refuse may include but are not limited to:
- 
+
 - Harsh, provocative language or cursing;
 - Political views;
 - Jokes that are at the expense of anyone;
@@ -91,11 +109,21 @@ Examples of content that we would refuse may include but are not limited to:
 ## License
 
 <pre>
-Copyright 2023 Bumble
-This software is licensed under the Apache License, Version 2.0 (the "License"); you may not use this software except in compliance with the License. You may obtain a copy of the License at
-      http://www.apache.org/licenses/LICENSE-2.0
+Copyright 2023 Bumble.
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Files saved within folders entitled `/shared/commonMain/resources/bumble` are not subject to the Apache License, Version 2.0 and permission is not granted for the use of any files within these folders.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Files saved within folders entitled `/shared/commonMain/resources/bumble`
+are not subject to the Apache License, Version 2.0 and permission
+is not granted for the use of any files within these folders.
 </pre>

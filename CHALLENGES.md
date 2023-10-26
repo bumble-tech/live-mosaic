@@ -5,9 +5,13 @@
 The following are a set of exciting challenges for you to tackle. They’re designed to test your
 skills, foster innovation, and offer attractive prizes. Go ahead, participate, and win!
 
+## When creating a PR
+
+Please mention in the title: "Optional challenge – ID", where ID is `J01`, `J02` etc. as you see it below. 
+
 ## Jetpack Compose challenges
 
-1. **C01 – Migrate** [`composed`](https://developer.android.com/reference/kotlin/androidx/compose/ui/package-summary#\(androidx.compose.ui.Modifier\).composed\(kotlin.Function1,kotlin.Function1\))
+1. **J01 – Migrate** [`composed`](https://developer.android.com/reference/kotlin/androidx/compose/ui/package-summary#\(androidx.compose.ui.Modifier\).composed\(kotlin.Function1,kotlin.Function1\))
  **modifiers to** [`Modifier.Node`](https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.Node)
 
    * *Description*: [The Jetpack Compose team is migrating](https://youtu.be/BjGX2RftXsU?feature=shared\&t=920) 
@@ -15,11 +19,23 @@ skills, foster innovation, and offer attractive prizes. Go ahead, participate, a
      `composed` Modifiers in the project, and convert them to `Modifier.Node`.
    * *Example in the Compose codebase*: [PR of the Modifier.background migration](https://android-review.googlesource.com/c/platform/frameworks/support/+/2440999).
 
-2. **C02 – Transition between nodes using other shapes**
+2. **J02 – Transition between nodes using other shapes**
 
-   * *Description*: Take a look at how the current transition effect has been implemented in 
-     `DottedMeshShape`. This class utilises circles, but it would be nice to allow also other shapes: 
+   * *Description*: Take a look at the "bubbly" transition between the main screens.
+     You can find the clip shape in `DottedMeshShape`.
+     This class utilises circles, but it would be nice to allow also other shapes: 
      for instance hexagons. Extend the class to support at least circles and hexagons.
+
+## Code, math, graphics
+
+1. **C01 – Explain how the clipped shape transition works**
+
+    * *Description*: Take a look at the "bubbly" transition between the main screens.
+      You can find the clip shape in `DottedMeshShape`. See the part with a link to **graphtoy.com**
+      (check it out to give you a hint). 
+      Provide a code-level comment explanation why this formula results in the visual effect we 
+      see on the screen. Strive to create a clear, easy-to-understand, high quality explanation
+      so that anyone with a minimal understanding of the topic could follow. 
 
 ## Performance challenges
 

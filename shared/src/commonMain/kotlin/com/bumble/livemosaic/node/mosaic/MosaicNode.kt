@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
@@ -44,7 +43,6 @@ import com.bumble.livemosaic.model.mosaic2Entries
 import com.bumble.livemosaic.model.mosaic3Entries
 import com.bumble.livemosaic.ui.LocalAutoPlayFlow
 import com.bumble.livemosaic.ui.appyx_dark
-import com.bumble.livemosaic.ui.colors
 import kotlin.random.Random
 
 private val animationSpec = spring<Float>(
@@ -84,8 +82,6 @@ class MosaicNode(
 
     override fun resolve(mosaicPiece: MosaicPiece, buildContext: BuildContext): Node =
         node(buildContext) { modifier ->
-            val colorIdx = rememberSaveable(mosaicPiece) { Random.nextInt(colors.size) }
-
             Box(
                 modifier = modifier
                     .fillMaxWidth(1f / config.columns)

@@ -133,7 +133,7 @@ class LiveMosaicAppNode(
             )
 
             is CallToAction -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                AutoPlayScript(initialDelayMs = 7500) { nextScreen() }
                 CallToActionScreen(modifier)
             }
 
