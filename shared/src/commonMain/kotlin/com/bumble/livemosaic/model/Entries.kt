@@ -213,6 +213,11 @@ val entries = listOf(
             ClockWidget(Modifier.background(Color.DarkGray).fillMaxSize())
         }
     ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "cortinico",
+        message = "OSS is Awesome (⌐■_■)"
+    ),
 )
 
 val mosaic1Entries = entries
