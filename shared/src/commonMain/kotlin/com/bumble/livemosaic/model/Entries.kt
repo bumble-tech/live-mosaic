@@ -3,6 +3,7 @@ package com.bumble.livemosaic.model
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
+import com.bumble.livemosaic.participant.SteweMetalCustomComposable
 
 val entries = listOf(
     Entry.Text(
@@ -29,7 +30,7 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "manuelvicnt",
         message = "Don't miss the UI layer talk on Friday at 10:15am!!!! See you at Lovelace ;)"
-    ),    
+    ),
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "Cassnyo",
@@ -69,6 +70,11 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "pedrorg18",
         message = "Hi there, happy to be here and attend interesting talks!"
+    ),
+    Entry.ComposableContent(
+        mosaic = MOSAIC1,
+        githubUserName = "stewemetal",
+        content = { SteweMetalCustomComposable() }
     ),
 )
 
