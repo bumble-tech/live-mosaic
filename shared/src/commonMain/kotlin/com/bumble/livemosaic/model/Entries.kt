@@ -102,11 +102,6 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
-        githubUserName = "JorgeDLS",
-        message = "I develop, Kotlin guides me. Knock knock!"
-    ),
-    Entry.Text(
-        mosaic = MOSAIC1,
         githubUserName = "VadymPinchuk",
         message = "System limitations boosts creativity."
     ),
@@ -204,6 +199,11 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "LethalMaus",
         message = "Nice to see you all here at Droidcon!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "marin-marsic",
+        message = "Roses are red, Bumble is yellow, if you're reading this, you're a nice fellow!"
     ),
     Entry.Text(
         mosaic = MOSAIC1,
