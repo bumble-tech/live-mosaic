@@ -1,5 +1,25 @@
 package com.bumble.livemosaic.model
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
@@ -89,6 +109,35 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "vladcipariu91",
         message = "Another great year for Droidcon London! Can't wait to see you all there!"
+    ),
+    Entry.ComposableContent(
+        mosaic = MOSAIC1,
+        githubUserName = "adriantache",
+        content = {
+            val infiniteTransition = rememberInfiniteTransition()
+            val color by infiniteTransition.animateColor(
+                initialValue = Color.Red,
+                targetValue = Color(0xff800000),
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1000, easing = LinearEasing),
+                    repeatMode = RepeatMode.Reverse
+                )
+            )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+                    .background(color, RoundedCornerShape(16.dp))
+            ) {
+                Text(
+                    "Great vibe here at droidcon London!",
+                    fontSize = 30.sp,
+                    modifier = Modifier.align(Alignment.Center),
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
     ),
     Entry.Text(
         mosaic = MOSAIC1,
