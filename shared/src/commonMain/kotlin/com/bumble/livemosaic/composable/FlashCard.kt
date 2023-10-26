@@ -44,7 +44,7 @@ fun FlashCard(
             modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {
-                    rotationY = 180f
+                    scaleX = -1f
                 }
         ) {
             back(modifier)
