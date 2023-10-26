@@ -115,6 +115,11 @@ val entries = listOf(
         githubUserName = "vladcipariu91",
         message = "Another great year for Droidcon London! Can't wait to see you all there!"
     ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "neobrahma",
+        message = "Bokit is the new burger"
+    ),
     Entry.ComposableContent(
         mosaic = MOSAIC1,
         githubUserName = "adriantache",
@@ -206,6 +211,11 @@ val entries = listOf(
         path = "watching_you.jpeg",
         contentDescription = "Bumble team"
     ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "edward1432",
+        message = "Best wishes from all LBG Android Devs!"
+    ),
     Entry.ComposableContent(
         mosaic = MOSAIC1,
         githubUserName = "zsmb13",
@@ -217,6 +227,11 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "cortinico",
         message = "OSS is Awesome (⌐■_■)"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "marekpdev",
+        message = "Great to talk to so many interesting people at Droidcon!"
     ),
 )
 
