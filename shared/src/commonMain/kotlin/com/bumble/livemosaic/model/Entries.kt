@@ -23,6 +23,7 @@ import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
 import com.bumble.livemosaic.participant.ClockWidget
+import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
 
 val entries = listOf(
     Entry.Text(
@@ -217,6 +218,11 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "marin-marsic",
+        message = "Roses are red, Bumble is yellow, if you're reading this, you're a nice fellow!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "Zhelyazko",
         message = "Have fun everyone at Droidcon London!"
     ),
@@ -270,6 +276,12 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "berovikaki",
+        message = "So happy to be here!"
+    ),
+
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "aallam",
         message = "Hello from Paris 🥖"
     ),
@@ -278,6 +290,16 @@ val entries = listOf(
         githubUserName = "jeremyleenz",
         path = "jeremy.jpg",
         contentDescription = "Having a great time at Droidcon London!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "hln-h",
+        message = "Droidcon London lets go! 🤙🤙"
+    ),
+    Entry.ComposableContent(
+        mosaic = MOSAIC1,
+        githubUserName = "stewemetal",
+        content = { DroidconLondonHalloweenSpecial() }
     ),
 )
 
