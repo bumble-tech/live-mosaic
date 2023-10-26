@@ -3,7 +3,16 @@
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>LongMethod:MessagesNode.kt$MessagesNode$@Composable override fun View(modifier: Modifier)</ID>
+    <ID>MagicNumber:Clock.kt$10</ID>
+    <ID>MagicNumber:Clock.kt$1000</ID>
+    <ID>MagicNumber:Clock.kt$12f</ID>
+    <ID>MagicNumber:Clock.kt$5</ID>
+    <ID>MagicNumber:Clock.kt$8f</ID>
+    <ID>MagicNumber:Clock.kt$9</ID>
     <ID>MagicNumber:DottedMeshShape.kt$DottedMeshShape$0.5f</ID>
+    <ID>MagicNumber:Entries.kt$0xffa86807</ID>
+    <ID>MagicNumber:Entries.kt$0xffffcb37</ID>
+    <ID>MagicNumber:Entries.kt$2000</ID>
     <ID>MagicNumber:EntryCard.kt$1.5f</ID>
     <ID>MagicNumber:EntryCard.kt$10000</ID>
     <ID>MagicNumber:FlashCard.kt$0.15f</ID>
@@ -44,8 +53,11 @@
     <ID>MagicNumber:StarFieldMessageBoard.kt$StarField.Companion$0.60</ID>
     <ID>MagicNumber:StarFieldMessageBoard.kt$StarField.Companion$0.66</ID>
     <ID>MagicNumber:StarFieldMessageBoard.kt$StarField.Companion$0.97</ID>
+    <ID>MatchingDeclarationName:Clock.kt$Time</ID>
+    <ID>MaxLineLength:Entries.kt$message = "Practical ADB to enhance your life talk in Hamilton on Friday at 13:25 ... You wont regret it... Or maybe you will, I dunno..."</ID>
     <ID>MaxLineLength:LinesOfMessagesVisualisation.kt$LinesOfMessagesVisualisation$value</ID>
     <ID>ModifierMissing:FlashCard.kt$FlashCard</ID>
+    <ID>NewLineAtEndOfFile:Clock.kt$com.bumble.livemosaic.participant.Clock.kt</ID>
     <ID>SwallowedException:ResourceImage.kt$e: Throwable</ID>
     <ID>TooGenericExceptionCaught:ResourceImage.kt$e: Throwable</ID>
     <ID>UnstableCollections:AutoPlayScript.kt$List&lt;Pair&lt;() -&gt; Unit, Long&gt;&gt;</ID>
