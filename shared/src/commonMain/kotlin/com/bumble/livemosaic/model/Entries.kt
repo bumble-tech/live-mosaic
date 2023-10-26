@@ -226,7 +226,7 @@ val entries = listOf(
         path = "watching_you.jpeg",
         contentDescription = "Bumble team"
     ),
-    Entry.Text(
+    Entry.Image(
         mosaic = MOSAIC1,
         githubUserName = "mezentsev",
         path = "mezentsev.jpg"
@@ -271,7 +271,8 @@ val entries = listOf(
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "aallam",
-        message = "Hello from Paris 🥖"
+        path = "jeremy.jpg",
+        contentDescription = "Hello from Paris 🥖"
     ),
     Entry.Image(
         mosaic = MOSAIC1,
