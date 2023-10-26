@@ -77,6 +77,11 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "VadymPinchuk",
+        message = "System limitations boosts creativity."
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "vladcipariu91",
         message = "Another great year for Droidcon London! Can't wait to see you all there!"
     ),
