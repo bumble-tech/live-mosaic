@@ -87,7 +87,7 @@ class LinesOfMessagesVisualisation(
             val mappedHalfEntryHeight =
                 effectiveEntrySize.height / (transitionBounds.heightDp - effectiveEntrySize.height)
             val horizontalBias = mapValueRange(
-                value = transitionBounds.widthDp.value / 2f - halfEffectiveEntrySize.width.value * ((elements.size / 2f).nextUp()
+                value = transitionBounds.widthDp.value / 2f - halfEffectiveEntrySize.width.value * ((elements.size / 2.0).nextUp()
                     .roundToInt()) + index * halfEffectiveEntrySize.width.value,
                 fromRangeMin = 0f,
                 fromRangeMax = transitionBounds.widthDp.value - effectiveEntrySize.width.value,
