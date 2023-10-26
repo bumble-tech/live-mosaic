@@ -15,7 +15,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -23,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
+import com.bumble.livemosaic.model.custom.ClockWidget
 
 val entries = listOf(
     Entry.Text(
@@ -169,6 +169,13 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "osaamakhalil",
         message = "Enjoy Android life"
+    ),
+    Entry.ComposableContent(
+        mosaic = MOSAIC1,
+        githubUserName = "zsmb13",
+        content = {
+            ClockWidget(Modifier.fillMaxSize().background(Color.DarkGray))
+        }
     ),
 )
 
