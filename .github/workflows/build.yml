@@ -19,3 +19,5 @@ jobs:
       - uses: gradle/gradle-build-action@v2
       - name: Build
         run: ./gradlew :desktopApp:packageReleaseStripArchitecture
+      - name: Check detekt
+        run: ./gradlew detekt

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
@@ -40,4 +41,11 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.compose.ui.tooling)
     implementation(libs.appyx.navigation)
+}
+
+detekt {
+    source.setFrom("src/main/kotlin")
+}
+dependencies {
+    detektPlugins(libs.detekt.compose.rules)
 }
