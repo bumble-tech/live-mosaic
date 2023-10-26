@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 kotlin {
@@ -45,4 +46,13 @@ tasks.named("jsBrowserProductionExecutableDistributeResources") {
 
 tasks.named("compileKotlinJs") {
     dependsOn("copyResources")
+}
+
+detekt {
+    source.setFrom("src/jsMain/kotlin")
+    config.setFrom("../Detekt.yml")
+    buildUponDefaultConfig = true
+}
+dependencies {
+    detektPlugins(libs.detekt.compose.rules)
 }

@@ -87,7 +87,8 @@ plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 plugin-android = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 
-detekt-compose = "io.nlopez.compose.rules:detekt:0.3.0"
+detekt-compose-rules = "io.nlopez.compose.rules:detekt:0.3.0"
+
 toolargetool = "com.gu.android:toolargetool:0.3.0"
 
 symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }

@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 kotlin {
@@ -57,3 +58,11 @@ tasks.register<Copy>("packageReleaseStripArchitecture") {
     dependsOn(tasks.named("packageReleaseUberJarForCurrentOS"))
 }
 
+detekt {
+    source.setFrom("src")
+    config.setFrom("../Detekt.yml")
+    buildUponDefaultConfig = true
+}
+dependencies {
+    detektPlugins(libs.detekt.compose.rules)
+}

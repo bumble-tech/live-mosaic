@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>LongMethod:MessagesNode.kt$MessagesNode$@Composable override fun View(modifier: Modifier)</ID>
+    <ID>MagicNumber:Clock.kt$10</ID>
+    <ID>MagicNumber:Clock.kt$1000</ID>
+    <ID>MagicNumber:Clock.kt$12f</ID>
+    <ID>MagicNumber:Clock.kt$5</ID>
+    <ID>MagicNumber:Clock.kt$8f</ID>
+    <ID>MagicNumber:Clock.kt$9</ID>
+    <ID>MagicNumber:DottedMeshShape.kt$DottedMeshShape$0.5f</ID>
+    <ID>MagicNumber:Entries.kt$0xffa86807</ID>
+    <ID>MagicNumber:Entries.kt$0xffffcb37</ID>
+    <ID>MagicNumber:Entries.kt$2000</ID>
+    <ID>MagicNumber:EntryCard.kt$1.5f</ID>
+    <ID>MagicNumber:EntryCard.kt$10000</ID>
+    <ID>MagicNumber:FlashCard.kt$0.15f</ID>
+    <ID>MagicNumber:FlashCard.kt$180.0</ID>
+    <ID>MagicNumber:FlashCard.kt$270f</ID>
+    <ID>MagicNumber:FlashCard.kt$360f</ID>
+    <ID>MagicNumber:FlashCard.kt$90f</ID>
+    <ID>MagicNumber:LinesOfMessagesVisualisation.kt$LinesOfMessagesVisualisation$0.8f</ID>
+    <ID>MagicNumber:LinesOfMessagesVisualisation.kt$LinesOfMessagesVisualisation$1.2f</ID>
+    <ID>MagicNumber:LinesOfMessagesVisualisation.kt$LinesOfMessagesVisualisation$90f</ID>
+    <ID>MagicNumber:LiveMosaicAppNode.kt$14</ID>
+    <ID>MagicNumber:LiveMosaicAppNode.kt$25</ID>
+    <ID>MagicNumber:LiveMosaicAppNode.kt$LiveMosaicAppNode$0.035f</ID>
+    <ID>MagicNumber:MessagesNode.kt$MessagesNode$0.3f</ID>
+    <ID>MagicNumber:MessagesNode.kt$MessagesNode$0.5f</ID>
+    <ID>MagicNumber:MessagesNode.kt$MessagesNode$1.5f</ID>
+    <ID>MagicNumber:MosaicConfig.kt$MosaicConfig.MOSAIC1$12</ID>
+    <ID>MagicNumber:MosaicConfig.kt$MosaicConfig.MOSAIC1$7</ID>
+    <ID>MagicNumber:MosaicConfig.kt$MosaicConfig.MOSAIC2$12</ID>
+    <ID>MagicNumber:MosaicConfig.kt$MosaicConfig.MOSAIC2$7</ID>
+    <ID>MagicNumber:MosaicConfig.kt$MosaicConfig.MOSAIC3$12</ID>
+    <ID>MagicNumber:MosaicConfig.kt$MosaicConfig.MOSAIC3$7</ID>
+    <ID>MagicNumber:MosaicNode.kt$MosaicNode$10000</ID>
+    <ID>MagicNumber:MosaicNode.kt$MosaicNode$123</ID>
+    <ID>MagicNumber:MosaicNode.kt$MosaicNode$500</ID>
+    <ID>MagicNumber:MosaicNode.kt$MosaicNode$8000</ID>
+    <ID>MagicNumber:MosaicNode.kt$MosaicNode$9000</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$0.5f</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$180f</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$3</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$30</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$360f</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$4</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$5</ID>
+    <ID>MagicNumber:MosaicVisualisation.kt$MosaicVisualisation$9</ID>
+    <ID>MagicNumber:StarFieldMessageBoard.kt$0.5</ID>
+    <ID>MagicNumber:StarFieldMessageBoard.kt$Star$0.5</ID>
+    <ID>MagicNumber:StarFieldMessageBoard.kt$StarField.Companion$0.60</ID>
+    <ID>MagicNumber:StarFieldMessageBoard.kt$StarField.Companion$0.66</ID>
+    <ID>MagicNumber:StarFieldMessageBoard.kt$StarField.Companion$0.97</ID>
+    <ID>MatchingDeclarationName:Clock.kt$Time</ID>
+    <ID>MaxLineLength:Entries.kt$message = "Practical ADB to enhance your life talk in Hamilton on Friday at 13:25 ... You wont regret it... Or maybe you will, I dunno..."</ID>
+    <ID>MaxLineLength:LinesOfMessagesVisualisation.kt$LinesOfMessagesVisualisation$value</ID>
+    <ID>ModifierMissing:FlashCard.kt$FlashCard</ID>
+    <ID>NewLineAtEndOfFile:Clock.kt$com.bumble.livemosaic.participant.Clock.kt</ID>
+    <ID>SwallowedException:ResourceImage.kt$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:ResourceImage.kt$e: Throwable</ID>
+    <ID>UnstableCollections:AutoPlayScript.kt$List&lt;Pair&lt;() -&gt; Unit, Long&gt;&gt;</ID>
+    <ID>UnusedPrivateProperty:AutoPlayScript.kt$i</ID>
+    <ID>UnusedPrivateProperty:DottedMeshShape.kt$DottedMeshShape$val clampRadius = sqrt(halfMeshWidth * halfMeshWidth + halfMeshHeight * halfMeshHeight)</ID>
+  </CurrentIssues>
+</SmellBaseline>
