@@ -116,10 +116,10 @@ val entries = listOf(
         content = {
             val infiniteTransition = rememberInfiniteTransition()
             val color by infiniteTransition.animateColor(
-                initialValue = Color.Red,
-                targetValue = Color(0xff800000),
+                initialValue = Color(0xffffcb37),
+                targetValue = Color(0xffa86807),
                 animationSpec = infiniteRepeatable(
-                    animation = tween(1000, easing = LinearEasing),
+                    animation = tween(2000, easing = LinearEasing),
                     repeatMode = RepeatMode.Reverse
                 )
             )
@@ -159,6 +159,21 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "vassilisimon",
         message = "First time at dcldn, it is amazing here."
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "jorcollmar",
+        message = "For the people sound enjoying the sun!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "osaamakhalil",
+        message = "Enjoy Android life"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "LethalMaus",
+        message = "Nice to see you all here at Droidcon!"
     ),
 )
 
