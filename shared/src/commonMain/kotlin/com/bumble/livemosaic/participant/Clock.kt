@@ -1,9 +1,12 @@
 package com.bumble.livemosaic.participant
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateSizeAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -30,6 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -127,25 +132,29 @@ fun NumberColumn(
             .clip(RoundedCornerShape(percent = 25))
     ) {
         for (num in range) {
-            Number(num == current, num, Modifier.size(size))
+            Number(num == current, num, size)
         }
     }
 }
 
 @Composable
-fun Number(active: Boolean, value: Int, modifier: Modifier = Modifier) {
+fun Number(active: Boolean, value: Int, size: Dp, modifier: Modifier = Modifier) {
     val backgroundColor by animateColorAsState(
         if (active) appyx_yellow1 else appyx_yellow2,
     )
+    val textSize by animateFloatAsState(
+        if (active) 12f else 8f,
+    )
 
     Box(
-        modifier = modifier.background(backgroundColor),
+        modifier = modifier.background(backgroundColor).size(size),
         contentAlignment = Alignment.Center,
     ) {
         Text(
             text = value.toString(),
-            fontSize = 10.sp * scaleFactor(),
+            fontSize = textSize.sp * scaleFactor(),
             color = appyx_dark,
+            fontWeight = if (active) FontWeight.Bold else FontWeight.Normal,
         )
     }
 }
