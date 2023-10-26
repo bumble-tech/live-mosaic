@@ -30,7 +30,7 @@ jobs:
 
       - name: Move Output to Directory
         run: |
-          mkdir distribution
+          mkdir docs
           mv webApp/build/dist/js/productionExecutable/* docs/
 
       # Commit and push the directory to a specified branch (e.g., "output-branch")
