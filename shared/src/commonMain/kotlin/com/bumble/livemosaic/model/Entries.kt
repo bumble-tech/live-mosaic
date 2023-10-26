@@ -102,6 +102,11 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "JorgeDLS",
+        message = "Yo programo, Manu me guía. Knock knock!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "VadymPinchuk",
         message = "System limitations boosts creativity."
     ),
