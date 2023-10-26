@@ -90,6 +90,11 @@ val entries = listOf(
         githubUserName = "mike-n-jordan",
         path = "mike_avatar.png"
     ),
+    Entry.Image(
+        mosaic = MOSAIC1,
+        githubUserName = "esmagoksal",
+        path = "esma_manel.png"
+    ),
 )
 
 val mosaic1Entries = entries
