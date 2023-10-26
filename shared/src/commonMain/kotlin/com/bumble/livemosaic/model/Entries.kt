@@ -276,7 +276,8 @@ val entries = listOf(
     Entry.Image(
         mosaic = MOSAIC1,
         githubUserName = "jeremyleenz",
-        message = "Enjoying at Droidcon London!"
+        path = "jeremy.jpg",
+        contentDescription = "Having a great time at Droidcon London!"
     ),
 )
 
