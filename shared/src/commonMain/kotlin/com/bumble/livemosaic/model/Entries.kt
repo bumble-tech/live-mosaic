@@ -29,6 +29,61 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "manuelvicnt",
         message = "Don't miss the UI layer talk on Friday at 10:15am!!!! See you at Lovelace ;)"
+    ),    
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "Cassnyo",
+        message = "It's awesome to be here for the first time! :D"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "soniammarshall",
+        message = "Hello DroidCon London, from Berlin :)"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "mapm14",
+        message = "Welcome back to London, folks! Excited to be here for another year"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "astamato",
+        message = "Hey yall! Who's at DC LON??? :D Hoping to meet ye here!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "emepox",
+        message = "This is my first time in the London Droidcon! I'm very happy to be here!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "jlmd",
+        message = "Hi mom, I'm on TV!!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "kardelio",
+        message = "Practical ADB to enhance your life talk in Hamilton on Friday at 13:25 ... You wont regret it... Or maybe you will, I dunno..."
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "pedrorg18",
+        message = "Hi there, happy to be here and attend interesting talks!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "juanmazake",
+        message = "You never lose. You either win or you learn."
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "VadymPinchuk",
+        message = "System limitations boosts creativity."
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "vladcipariu91",
+        message = "Another great year for Droidcon London! Can't wait to see you all there!"
     ),
 )
 
