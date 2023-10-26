@@ -46,9 +46,9 @@ Please mention in the title: "Optional challenge – ID", where ID is `J01`, `J0
      in the project and [add tests](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview#create-macrobenchmark)
      to the project that check its startup time.
 
-2. **P02 – Add baseline profiles to Puzzyx**
+2. **P02 – Add baseline profiles to Live Mosaic**
 
-   * *Description*: We want to improve the code execution of Puzzyx by shipping baselines profiles 
+   * *Description*: We want to improve the code execution of Live Mosaic by shipping baselines profiles 
      when the app is run. [Create baseline profiles](https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile)
      for the app and [benchmark](https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile#benchmark-baseline-profile) 
      the performance improvements.
