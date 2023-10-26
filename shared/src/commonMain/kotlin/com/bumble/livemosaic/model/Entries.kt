@@ -33,7 +33,7 @@ val entries = listOf(
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "jlmd",
-        message = "Hi mom, I'm on TV!!
+        message = "Hi mom, I'm on TV!!"
     ),
 )
 
