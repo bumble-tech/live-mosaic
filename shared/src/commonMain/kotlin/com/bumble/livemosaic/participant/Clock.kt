@@ -1,4 +1,4 @@
-package com.bumble.livemosaic.model.custom
+package com.bumble.livemosaic.participant
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearOutSlowInEasing

@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
-import com.bumble.livemosaic.model.custom.ClockWidget
+import com.bumble.livemosaic.participant.ClockWidget
 
 val entries = listOf(
     Entry.Text(
@@ -49,7 +49,7 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "manuelvicnt",
         message = "Don't miss the UI layer talk on Friday at 10:15am!!!! See you at Lovelace ;)"
-    ),    
+    ),
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "Cassnyo",
@@ -174,7 +174,7 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "zsmb13",
         content = {
-            ClockWidget(Modifier.fillMaxSize().background(Color.DarkGray))
+            ClockWidget(Modifier.background(Color.DarkGray).fillMaxSize())
         }
     ),
 )
