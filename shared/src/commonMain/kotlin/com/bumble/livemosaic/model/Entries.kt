@@ -70,10 +70,23 @@ val entries = listOf(
         githubUserName = "pedrorg18",
         message = "Hi there, happy to be here and attend interesting talks!"
     ),
-    Entry.Text(
+    Entry.ComposableContent(
         mosaic = MOSAIC1,
-        githubUserName = "juanmazake",
-        message = "You never lose. You either win or you learn."
+        githubUserName = "adriantache",
+        content = {
+            val infiniteTransition = rememberInfiniteTransition()
+            val color by infiniteTransition.animateColor(
+                initialValue = Color.Red,
+                targetValue = Color(0xff800000),
+                animationSpec = infiniteRepeatable(
+                animation = tween(1000, easing = LinearEasing),
+                repeatMode = RepeatMode.Reverse
+        )
+    )
+
+        Box(modifier = Modifier.fillMaxSize(). background (color){
+            Text("Great vibe here at droidcon London!")
+        }}
     ),
 )
 
