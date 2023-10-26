@@ -151,6 +151,11 @@ val entries = listOf(
     ),
     Entry.Image(
         mosaic = MOSAIC1,
+        githubUserName = "esmagoksal",
+        path = "esma_manel.png"
+    ),
+    Entry.Image(
+        mosaic = MOSAIC1,
         githubUserName = "aashay-gaikwad",
         path = "aashay-photo.png",
         contentDescription = "Bumble team"
