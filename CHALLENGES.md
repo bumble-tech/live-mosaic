@@ -55,7 +55,7 @@ Please mention in the title: "Optional challenge – ID", where ID is `J01`, `J0
 
 ## Build & CI challenges
 
-1. **B01 – Add Detekt and Compose rules**
+1. ~~**B01 – Add Detekt and Compose rules**~~
 
    * *Description*: Integrate [Detekt](https://detekt.dev) and [Compose Rules](https://mrmans0n.github.io/compose-rules/)
      into the project, enhancing source code quality. Your challenge involves embedding Detekt for

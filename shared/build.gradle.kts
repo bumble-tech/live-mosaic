@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 kotlin {
@@ -65,4 +66,13 @@ dependencies {
     add("kspAndroid", libs.appyx.mutable.ui.processor)
     add("kspDesktop", libs.appyx.mutable.ui.processor)
     add("kspJs", libs.appyx.mutable.ui.processor)
+}
+
+detekt {
+    source.setFrom("src")
+    config.setFrom("../Detekt.yml")
+    buildUponDefaultConfig = true
+}
+dependencies {
+    detektPlugins(libs.detekt.compose.rules)
 }
