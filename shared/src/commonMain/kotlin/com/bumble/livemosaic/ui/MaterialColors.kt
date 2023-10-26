@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package com.bumble.livemosaic.ui
 
 import androidx.compose.ui.graphics.Color

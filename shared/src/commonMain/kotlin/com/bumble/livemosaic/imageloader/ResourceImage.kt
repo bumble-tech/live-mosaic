@@ -19,8 +19,8 @@ import org.jetbrains.compose.resources.resource
 @Composable
 internal fun ResourceImage(
     path: String,
-    fallbackUrl: String = path,
     modifier: Modifier = Modifier,
+    fallbackUrl: String = path,
     contentDescription: String? = null,
     contentScale: ContentScale = ContentScale.Fit
 ) {
