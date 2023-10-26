@@ -36,6 +36,7 @@ kotlin {
                 api(libs.appyx.components.backstack)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation(libs.kotlinx.datetime)
             }
         }
         val commonTest by getting {
