@@ -3,7 +3,7 @@ name: WebDeployment
 on:
   push:
     branches:
-      - setup_deploy_action
+      - main
 
 env:
   CI: true
