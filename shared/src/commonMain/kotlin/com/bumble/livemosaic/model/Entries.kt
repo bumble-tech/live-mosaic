@@ -23,6 +23,7 @@ import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
 import com.bumble.livemosaic.participant.ClockWidget
+import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
 
 val entries = listOf(
     Entry.Text(
@@ -278,7 +279,11 @@ val entries = listOf(
         githubUserName = "aallam",
         message = "Hello from Paris 🥖"
     ),
-
+    Entry.ComposableContent(
+        mosaic = MOSAIC1,
+        githubUserName = "stewemetal",
+        content = { DroidconLondonHalloweenSpecial() }
+    ),
 )
 
 val mosaic1Entries = entries
