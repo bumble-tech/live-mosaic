@@ -1,0 +1,7 @@
+Compose:
+  CompositionLocalAllowlist:
+    active: true
+    allowedCompositionLocals: LocalAutoPlayFlow
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']

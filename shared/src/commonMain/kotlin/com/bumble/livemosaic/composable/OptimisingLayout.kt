@@ -14,8 +14,8 @@ import kotlin.math.roundToInt
 
 @Composable
 internal fun OptimisingLayout(
-    modifier: Modifier = Modifier,
     optimalWidth: Dp,
+    modifier: Modifier = Modifier,
     paddingFraction: Float = 0.12f,
     contentAlignment: Alignment = Alignment.Center,
     content: @Composable @UiComposable () -> Unit

@@ -105,6 +105,11 @@ Examples of content that we would refuse may include but are not limited to:
 - Jokes that are at the expense of anyone;
 - Images that we deem inappropriate.
 
+## Terms and conditions
+
+- [Droidcon London Competition Terms.pdf](https://github.com/bumble-tech/live-mosaic/blob/main/Droidcon%20London%20Competition%20Terms.pdf)
+- [Droidcon London Giveaway Terms.pdf](https://github.com/bumble-tech/live-mosaic/blob/main/Droidcon%20London%20Giveaway%20Terms.pdf)
+
 
 ## License
 

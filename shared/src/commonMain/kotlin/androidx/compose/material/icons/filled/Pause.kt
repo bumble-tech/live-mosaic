@@ -27,6 +27,7 @@ public val Icons.Filled.Pause: ImageVector
             return _pause!!
         }
         _pause = materialIcon(name = "Filled.Pause") {
+            @Suppress("MagicNumber")
             materialPath {
                 moveTo(6.0f, 19.0f)
                 horizontalLineToRelative(4.0f)

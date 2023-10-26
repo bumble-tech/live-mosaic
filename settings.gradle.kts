@@ -8,6 +8,7 @@ pluginManagement {
     plugins {
         kotlin("multiplatform")
         id("org.jetbrains.compose")
+        id("com.android.test")
     }
 }
 
@@ -27,3 +28,4 @@ include(":androidApp")
 include(":desktopApp")
 include(":webApp")
 include(":shared")
+include(":benchmark")

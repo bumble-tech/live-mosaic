@@ -27,6 +27,7 @@ public val Icons.Filled.SkipNext: ImageVector
             return _skipNext!!
         }
         _skipNext = materialIcon(name = "Filled.SkipNext") {
+            @Suppress("MagicNumber")
             materialPath {
                 moveTo(6.0f, 18.0f)
                 lineToRelative(8.5f, -6.0f)

@@ -39,23 +39,23 @@ Please mention in the title: "Optional challenge – ID", where ID is `J01`, `J0
 
 ## Performance challenges
 
-1. **P01 – Measure the performance of the app**
+1. ~~**P01 – Measure the performance of the app**~~
 
    * *Description*: We want a way to inspect and monitor the performance of Puzzyx. 
      [Setup macrobenchmark](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview#project-setup) 
      in the project and [add tests](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview#create-macrobenchmark)
      to the project that check its startup time.
 
-2. **P02 – Add baseline profiles to Puzzyx**
+2. **P02 – Add baseline profiles to Live Mosaic**
 
-   * *Description*: We want to improve the code execution of Puzzyx by shipping baselines profiles 
+   * *Description*: We want to improve the code execution of Live Mosaic by shipping baselines profiles 
      when the app is run. [Create baseline profiles](https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile)
      for the app and [benchmark](https://developer.android.com/topic/performance/baselineprofiles/create-baselineprofile#benchmark-baseline-profile) 
      the performance improvements.
 
 ## Build & CI challenges
 
-1. **B01 – Add Detekt and Compose rules**
+1. ~~**B01 – Add Detekt and Compose rules**~~
 
    * *Description*: Integrate [Detekt](https://detekt.dev) and [Compose Rules](https://mrmans0n.github.io/compose-rules/)
      into the project, enhancing source code quality. Your challenge involves embedding Detekt for

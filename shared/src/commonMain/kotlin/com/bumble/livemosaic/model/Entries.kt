@@ -23,6 +23,7 @@ import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
 import com.bumble.livemosaic.participant.ClockWidget
+import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
 
 val entries = listOf(
     Entry.Text(
@@ -75,6 +76,11 @@ val entries = listOf(
         githubUserName = "emepox",
         message = "This is my first time in the London Droidcon! I'm very happy to be here!"
     ),
+        Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "freedomchuks",
+        message = "Freedom was here! mama i made it"
+    ),
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "jlmd",
@@ -102,6 +108,11 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "JorgeDLS",
+        message = "I develop, Kotlin guides me. Knock knock!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "VadymPinchuk",
         message = "System limitations boosts creativity."
     ),
@@ -119,6 +130,11 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "neobrahma",
         message = "Bokit is the new burger"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "Phelenor",
+        message = "Greetings from Sofascore!"
     ),
     Entry.ComposableContent(
         mosaic = MOSAIC1,
@@ -202,6 +218,11 @@ val entries = listOf(
     ),
     Entry.Text(
         mosaic = MOSAIC1,
+        githubUserName = "marin-marsic",
+        message = "Roses are red, Bumble is yellow, if you're reading this, you're a nice fellow!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
         githubUserName = "Zhelyazko",
         message = "Have fun everyone at Droidcon London!"
     ),
@@ -247,6 +268,38 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "victor-wallapop",
         message = "Why so serious?"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "vladislavfitz",
+        message = "Vive Android"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "berovikaki",
+        message = "So happy to be here!"
+    ),
+
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "aallam",
+        message = "Hello from Paris 🥖"
+    ),
+    Entry.Image(
+        mosaic = MOSAIC1,
+        githubUserName = "jeremyleenz",
+        path = "jeremy.jpg",
+        contentDescription = "Having a great time at Droidcon London!"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "hln-h",
+        message = "Droidcon London lets go! 🤙🤙"
+    ),
+    Entry.ComposableContent(
+        mosaic = MOSAIC1,
+        githubUserName = "stewemetal",
+        content = { DroidconLondonHalloweenSpecial() }
     ),
 )
 
