@@ -75,11 +75,16 @@ val entries = listOf(
         githubUserName = "juanmazake",
         message = "You never lose. You either win or you learn."
     ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "vladcipariu91",
+        message = "Another great year for Droidcon London! Can't wait to see you all there!"
+    ),
     Entry.Image(
         mosaic = MOSAIC1,
         githubUserName = "mike-n-jordan",
         path = "mike_avatar.png"
-    )
+    ),
 )
 
 val mosaic1Entries = entries
