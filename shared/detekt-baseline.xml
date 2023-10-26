@@ -2,7 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>CompositionLocalAllowlist:CompositionLocals.kt$LocalAutoPlayFlow</ID>
     <ID>FunctionNaming:AutoPlayScript.kt$@Composable @NonRestartableComposable fun AutoPlayScript( steps: List&lt;Pair&lt;() -&gt; Unit, Long&gt;&gt; = emptyList(), initialDelayMs: Long = 1, retryDelayMs: Long = 3000, repeatSteps: Int = 1, onFinish: () -&gt; Unit = {} )</ID>
     <ID>FunctionNaming:CallToActionScreen.kt$@Composable fun CallToActionScreen( modifier: Modifier = Modifier, )</ID>
     <ID>FunctionNaming:EmbeddableResourceImage.kt$@Composable actual fun EmbeddableResourceImage( path: String, modifier: Modifier, contentDescription: String?, contentScale: ContentScale )</ID>

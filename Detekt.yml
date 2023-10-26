@@ -1,0 +1,4 @@
+Compose:
+  CompositionLocalAllowlist:
+    active: true
+    allowedCompositionLocals: LocalAutoPlayFlow

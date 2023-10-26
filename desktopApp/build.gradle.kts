@@ -60,6 +60,8 @@ tasks.register<Copy>("packageReleaseStripArchitecture") {
 
 detekt {
     source.setFrom("src")
+    config.setFrom("../Detekt.yml")
+    buildUponDefaultConfig = true
 }
 dependencies {
     detektPlugins(libs.detekt.compose.rules)

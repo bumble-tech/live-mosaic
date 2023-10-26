@@ -50,6 +50,8 @@ tasks.named("compileKotlinJs") {
 
 detekt {
     source.setFrom("src/jsMain/kotlin")
+    config.setFrom("../Detekt.yml")
+    buildUponDefaultConfig = true
 }
 dependencies {
     detektPlugins(libs.detekt.compose.rules)

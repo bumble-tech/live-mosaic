@@ -45,6 +45,8 @@ dependencies {
 
 detekt {
     source.setFrom("src/main/kotlin")
+    config.setFrom("../Detekt.yml")
+    buildUponDefaultConfig = true
 }
 dependencies {
     detektPlugins(libs.detekt.compose.rules)
