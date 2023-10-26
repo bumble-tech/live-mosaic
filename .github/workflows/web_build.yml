@@ -1,0 +1,43 @@
+name: WebDeployment
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CI: true
+
+jobs:
+  WebDeployment:
+    name: WebDeployment
+    runs-on: macos-13
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Build with Gradle
+        run: ./gradlew :webApp:jsBrowserProductionWebpack
+
+      - name: Move Output to Directory
+        run: |
+          mkdir docs
+          mv webApp/build/dist/js/productionExecutable/* docs/
+
+      # Commit and push the directory to a specified branch (e.g., "output-branch")
+      - name: Commit and Push to Branch
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add docs/
+          git commit -m "Add output from build"
+          git push -f origin HEAD:deploy-branch

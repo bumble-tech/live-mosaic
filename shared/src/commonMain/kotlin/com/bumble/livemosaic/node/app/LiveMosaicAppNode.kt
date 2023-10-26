@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.layout.ContentScale
 import com.bumble.appyx.components.backstack.BackStack
 import com.bumble.appyx.components.backstack.BackStackModel
 import com.bumble.appyx.components.backstack.operation.replace
@@ -36,6 +37,7 @@ import com.bumble.appyx.utils.multiplatform.Parcelize
 import com.bumble.livemosaic.appyx.component.backstackclipper.BackStackClipper
 import com.bumble.livemosaic.composable.AutoPlayScript
 import com.bumble.livemosaic.composable.CallToActionScreen
+import com.bumble.livemosaic.imageloader.EmbeddableResourceImage
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
@@ -44,11 +46,13 @@ import com.bumble.livemosaic.model.hasMosaic2Entries
 import com.bumble.livemosaic.model.hasMosaic3Entries
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.CallToAction
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.ManuelTalk
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic1
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic2
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.Mosaic3
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StackedMessages
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.StarField
+import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.ZsoltTalk
 import com.bumble.livemosaic.node.messages.StackedMessagesNode
 import com.bumble.livemosaic.node.mosaic.MosaicNode
 import com.bumble.livemosaic.node.starfield.StarFieldNode
@@ -58,7 +62,9 @@ import com.bumble.livemosaic.ui.LocalAutoPlayFlow
 private val screens = listOfNotNull(
     Mosaic1,
     CallToAction,
+    ManuelTalk,
     StarField,
+    ZsoltTalk,
     Mosaic2.takeIf { entries.hasMosaic2Entries() },
     CallToAction.takeIf { entries.hasMosaic2Entries() },
     StackedMessages.takeIf { entries.hasMosaic2Entries() },
@@ -100,6 +106,12 @@ class LiveMosaicAppNode(
 
         @Parcelize
         data object StarField : NavTarget()
+
+        @Parcelize
+        data object ZsoltTalk : NavTarget()
+
+        @Parcelize
+        data object ManuelTalk : NavTarget()
     }
 
 
@@ -121,13 +133,31 @@ class LiveMosaicAppNode(
             )
 
             is CallToAction -> node(buildContext) { modifier ->
-                AutoPlayScript(initialDelayMs = 5000) { nextScreen() }
+                AutoPlayScript(initialDelayMs = 7500) { nextScreen() }
                 CallToActionScreen(modifier)
             }
 
             is StarField -> StarFieldNode(buildContext)
 
             is StackedMessages -> StackedMessagesNode(buildContext)
+
+            is ZsoltTalk -> node(buildContext) {
+                AutoPlayScript(initialDelayMs = 10000) { nextScreen() }
+                EmbeddableResourceImage(
+                    path = "bumble/zsolt_talk.png",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
+            is ManuelTalk -> node(buildContext) {
+                AutoPlayScript(initialDelayMs = 10000) { nextScreen() }
+                EmbeddableResourceImage(
+                    path = "bumble/manuel_talk.png",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
 
     override fun onChildFinished(child: Node) {
