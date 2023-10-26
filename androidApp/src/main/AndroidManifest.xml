@@ -7,13 +7,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="DataExtractionRules">
+        <profileable android:shell="true" />
+
         <activity
             android:name="com.bumble.livemosaic.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-</manifest> 
+
+</manifest>
