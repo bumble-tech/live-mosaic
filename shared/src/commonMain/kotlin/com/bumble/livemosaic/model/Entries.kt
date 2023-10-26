@@ -18,7 +18,7 @@ val entries = listOf(
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "manuel-martos",
-        message = "Happy to be here for another year, eager to attend the talks and meet with many folks! #dcnlnd23"
+        message = "Happy to be here for another year, eager to attend the talks and meet with many folks! #dclnd23"
     ),
 )
 
