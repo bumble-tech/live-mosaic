@@ -39,7 +39,7 @@ Please mention in the title: "Optional challenge – ID", where ID is `J01`, `J0
 
 ## Performance challenges
 
-1. **P01 – Measure the performance of the app**
+1. ~~**P01 – Measure the performance of the app**~~
 
    * *Description*: We want a way to inspect and monitor the performance of Puzzyx. 
      [Setup macrobenchmark](https://developer.android.com/topic/performance/benchmarking/macrobenchmark-overview#project-setup) 
