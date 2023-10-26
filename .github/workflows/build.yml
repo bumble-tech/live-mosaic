@@ -15,6 +15,14 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - uses: gradle/wrapper-validation-action@v1
       - uses: gradle/gradle-build-action@v2
       - name: Build

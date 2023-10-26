@@ -22,6 +22,15 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
