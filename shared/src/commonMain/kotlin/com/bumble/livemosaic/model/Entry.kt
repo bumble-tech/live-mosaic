@@ -25,7 +25,7 @@ sealed class Entry {
          */
         val path: String,
         val contentDescription: String? = null,
-        val contentScale: ContentScale = ContentScale.Fit
+        val contentScale: ContentScale = ContentScale.Crop
     ) : Entry()
 
     data class ComposableContent(
