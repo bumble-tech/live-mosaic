@@ -76,7 +76,7 @@ val entries = listOf(
         message = "You never lose. You either win or you learn."
     ),
     Entry.Text(
-        mosaic = MOSAIC2,
+        mosaic = MOSAIC1,
         githubUserName = "kamikatze2008",
         message = "Welcome to #droidconLondon. What's your favorite talk so far?"
     ),
