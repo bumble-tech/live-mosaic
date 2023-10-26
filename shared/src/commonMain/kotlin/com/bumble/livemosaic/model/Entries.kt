@@ -271,8 +271,7 @@ val entries = listOf(
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "aallam",
-        path = "jeremy.jpg",
-        contentDescription = "Hello from Paris 🥖"
+        message = "Hello from Paris 🥖"
     ),
     Entry.Image(
         mosaic = MOSAIC1,
