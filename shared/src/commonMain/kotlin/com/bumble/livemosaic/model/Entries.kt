@@ -18,7 +18,32 @@ val entries = listOf(
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "manuel-martos",
-        message = "Happy to be here for another year, eager to attend the talks and meet with many folks! #dcnlnd23"
+        message = "Happy to be here for another year, eager to attend the talks and meet with many folks! #dclnd23"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "sergioborne",
+        message = "Last year Berlin, this year London. Where to next year?? #dcldn23"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "manuelvicnt",
+        message = "Don't miss the UI layer talk on Friday at 10:15am!!!! See you at Lovelace ;)"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "soniammarshall",
+        message = "Hello DroidCon London, from Berlin :)"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "mapm14",
+        message = "Welcome back to London, folks! Excited to be here for another year"
+    ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "astamato",
+        message = "Hey yall! Who's at DC LON??? :D Hoping to meet ye here!"
     ),
 )
 
