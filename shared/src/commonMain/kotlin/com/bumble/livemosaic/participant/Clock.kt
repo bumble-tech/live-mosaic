@@ -52,6 +52,7 @@ data class Time(val hours: Int, val minutes: Int, val seconds: Int)
 
 @Composable
 fun ClockWidget(modifier: Modifier = Modifier) {
+    prepareTimeZones()
     fun currentTime(): Time {
         val cal = Clock.System.now()
         val dateTime: LocalDateTime = cal.toLocalDateTime(TimeZone.of("Europe/London"))

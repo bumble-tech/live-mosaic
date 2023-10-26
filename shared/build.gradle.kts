@@ -44,6 +44,11 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+        val jsMain by getting {
+            dependencies {
+                implementation(npm("@js-joda/timezone", "2.3.0"))
+            }
+        }
     }
 }
 
