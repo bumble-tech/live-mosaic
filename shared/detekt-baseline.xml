@@ -2,29 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>FunctionNaming:AutoPlayScript.kt$@Composable @NonRestartableComposable fun AutoPlayScript( steps: List&lt;Pair&lt;() -&gt; Unit, Long&gt;&gt; = emptyList(), initialDelayMs: Long = 1, retryDelayMs: Long = 3000, repeatSteps: Int = 1, onFinish: () -&gt; Unit = {} )</ID>
-    <ID>FunctionNaming:CallToActionScreen.kt$@Composable fun CallToActionScreen( modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:EmbeddableResourceImage.kt$@Composable actual fun EmbeddableResourceImage( path: String, modifier: Modifier, contentDescription: String?, contentScale: ContentScale )</ID>
-    <ID>FunctionNaming:EmdeddableResourceImage.kt$@Composable actual fun EmbeddableResourceImage( path: String, modifier: Modifier, contentDescription: String?, contentScale: ContentScale )</ID>
-    <ID>FunctionNaming:EmdeddableResourceImage.kt$@Composable expect fun EmbeddableResourceImage( path: String, modifier: Modifier = Modifier, contentDescription: String? = null, contentScale: ContentScale = ContentScale.Fit, )</ID>
-    <ID>FunctionNaming:EntryCard.kt$@Composable fun EntryCard( entry: Entry, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:EntryCard.kt$@Composable fun EntryCardSmall( entry: Entry.Text, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:EntryCard.kt$@Composable fun GitHubHeader( size: Dp, entry: Entry, modifier: Modifier = Modifier )</ID>
-    <ID>FunctionNaming:EntryCard.kt$@Composable fun TextEntry( paddingTop: Dp, entry: Entry.Text, modifier: Modifier = Modifier )</ID>
-    <ID>FunctionNaming:FlashCard.kt$@Composable fun FlashCard( front: @Composable (modifier: Modifier) -&gt; Unit, back: @Composable (modifier: Modifier) -&gt; Unit, flash: Color = Color.Unspecified )</ID>
-    <ID>FunctionNaming:LiveMosaicAppNode.kt$LiveMosaicAppNode$@Composable private fun AutoPlayToggle(isAutoPlayOn: Boolean, toggleAutoPlay: () -&gt; Unit)</ID>
-    <ID>FunctionNaming:LiveMosaicAppNode.kt$LiveMosaicAppNode$@Composable private fun CurrentScreen()</ID>
-    <ID>FunctionNaming:LiveMosaicAppNode.kt$LiveMosaicAppNode$@Composable private fun NextButton()</ID>
-    <ID>FunctionNaming:MosaicNode.kt$MosaicNode$@OptIn(ExperimentalLayoutApi::class) @Composable private fun Controls( modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:OptimisingLayout.kt$@Composable internal fun OptimisingLayout( optimalWidth: Dp, modifier: Modifier = Modifier, paddingFraction: Float = 0.12f, contentAlignment: Alignment = Alignment.Center, content: @Composable @UiComposable () -&gt; Unit )</ID>
-    <ID>FunctionNaming:OptimisingLayout.kt$@Composable private fun ScaledLayout( modifier: Modifier = Modifier, scale: Float = 1f, content: @Composable @UiComposable () -&gt; Unit )</ID>
-    <ID>FunctionNaming:ResourceImage.kt$@OptIn(ExperimentalResourceApi::class) @Composable internal fun ResourceImage( path: String, modifier: Modifier = Modifier, fallbackUrl: String = path, contentDescription: String? = null, contentScale: ContentScale = ContentScale.Fit )</ID>
-    <ID>FunctionNaming:StarFieldMessageBoard.kt$@Composable fun StarFieldMessageBoard( entries: ImmutableList&lt;Entry&gt;, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:StarFieldMessageBoard.kt$@Composable private fun EntryStarContent( entry: Entry, sizeDp: Dp, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:StarFieldMessageBoard.kt$@Composable private fun RegularStarContent( color: Color, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:StarFieldMessageBoard.kt$@Composable private fun StarContent( type: StarType, sizeDp: Dp, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:StarFieldMessageBoard.kt$@Composable private fun StarFieldContent( starField: StarField, modifier: Modifier = Modifier, )</ID>
-    <ID>FunctionNaming:Theme.kt$@Composable fun LiveMosaicTheme( content: @Composable() () -&gt; Unit )</ID>
     <ID>LongMethod:MessagesNode.kt$MessagesNode$@Composable override fun View(modifier: Modifier)</ID>
     <ID>MagicNumber:DottedMeshShape.kt$DottedMeshShape$0.5f</ID>
     <ID>MagicNumber:EntryCard.kt$1.5f</ID>
