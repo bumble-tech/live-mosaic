@@ -1,4 +1,3 @@
 package com.bumble.livemosaic.participant
 
-actual fun prepareTimeZones() {
-}
+actual fun prepareTimeZones() = Unit
