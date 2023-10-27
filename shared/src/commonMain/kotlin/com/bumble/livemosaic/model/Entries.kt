@@ -301,6 +301,11 @@ val entries = listOf(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
     ),
+    Entry.ComposableContent(
+        mosaic = MOSAIC1,
+        githubUserName = "wisors",
+        content = { MagicButton() }
+    ),
 )
 
 val mosaic1Entries = entries
