@@ -146,6 +146,10 @@ Entry.Text(
         githubUserName = "yoni.tietz",
         message = "Hello world! Have a great day!"
     ),
+    Entry.Text(
+        githubUserName = "pmurph0",
+        message = "Hello Droidcon! :)"
+    ),
     Entry.ComposableContent(
         githubUserName = "adriantache",
         content = {
