@@ -24,6 +24,7 @@ import com.bumble.livemosaic.participant.ClockWidget
 import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
 import com.bumble.livemosaic.participant.composablesheep.BasicSheepColor
 import com.bumble.livemosaic.participant.composablesheep.LoadingBasicSheep
+import com.bumble.livemosaic.participant.MagicButton
 
 val entries = listOf(
     Entry.Text(
@@ -77,7 +78,6 @@ val entries = listOf(
         githubUserName = "emepox",
         message = "This is my first time in the London Droidcon! I'm very happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "freedomchuks",
         message = "Freedom was here! mama i made it"
@@ -295,7 +295,6 @@ val entries = listOf(
         githubUserName = "berovikaki",
         message = "So happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "aallam",
         message = "Hello from Paris 🥖"
@@ -321,7 +320,14 @@ val entries = listOf(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
     ),
-
+    Entry.ComposableContent(
+        githubUserName = "wisors",
+        content = { MagicButton() }
+    ),
+    Entry.Image(
+        githubUserName = "Kaaveh",
+        path = "kaaveh.jpg",
+    ),
     Entry.Text(
         githubUserName = "Karambar",
         message = "Having amazing time at DroidCon London! 🎉🤙"
@@ -347,6 +353,27 @@ val entries = listOf(
         message = "Hola! from droidon in london"
     ),
 
+    Entry.Text(
+        githubUserName = "arj154",
+        message = "Happy Friday"
+    ),
+
+    Entry.Text(
+        githubUserName = "oheyadam",
+        message = "Zsolt made me do it"
+    ),
+    Entry.Text(
+        githubUserName = "VladislavAlfredov",
+        message = "Woot! Hi at DroidCon!"
+    ),
+    Entry.Text(
+        githubUserName = "gaelmarhic",
+        message = "Make the first move!"
+    ),
+    Entry.Text(
+        githubUserName = "JuliaSotola",
+        message = "Make the world a better place!"
+    ),
     Entry.ComposableContent(
         githubUserName = "nicole-terc",
         content = {
@@ -357,6 +384,6 @@ val entries = listOf(
                 modifier = Modifier.fillMaxSize().background(backgroundColor),
             )
         }
-    )
+    ),
 )
 
