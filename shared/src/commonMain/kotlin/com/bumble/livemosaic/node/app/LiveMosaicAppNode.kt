@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.bumble.livemosaic.node.app
 
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -73,7 +74,7 @@ private val screens = listOfNotNull(
 )
 
 private fun getRandomVisualization() =
-    if (Random(123L).nextBoolean()) StackedMessages else StarField
+    if (Random(123).nextBoolean()) StackedMessages else StarField
 
 class LiveMosaicAppNode(
     buildContext: BuildContext,
