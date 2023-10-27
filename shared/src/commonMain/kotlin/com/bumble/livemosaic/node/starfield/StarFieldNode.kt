@@ -23,7 +23,7 @@ class StarFieldNode(
     @Composable
     override fun View(modifier: Modifier) {
         var entriesForStarField by remember { mutableStateOf(immutableListOf<Entry>()) }
-        AutoPlayScript(initialDelayMs = 20000) { finish() }
+        AutoPlayScript(initialDelayMs = 30000) { finish() }
         LaunchedEffect(Unit) {
             entriesForStarField = entries.getFeaturedEntries(
                 entriesCount = 20,

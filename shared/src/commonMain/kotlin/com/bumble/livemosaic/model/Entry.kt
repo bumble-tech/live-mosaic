@@ -4,17 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.layout.ContentScale
 
 sealed class Entry {
-    abstract val mosaic: MosaicConfig
     abstract val githubUserName: String
 
     data class Text(
-        override val mosaic: MosaicConfig,
         override val githubUserName: String,
         val message: String
     ) : Entry()
 
     data class Image(
-        override val mosaic: MosaicConfig,
         override val githubUserName: String,
         /**
          * - Should not be larger than 500 KB
@@ -29,7 +26,6 @@ sealed class Entry {
     ) : Entry()
 
     data class ComposableContent(
-        override val mosaic: MosaicConfig,
         override val githubUserName: String,
         /**
          * Please create your custom composable in a new file in:
