@@ -75,7 +75,6 @@ Entry.Text(
         githubUserName = "emepox",
         message = "This is my first time in the London Droidcon! I'm very happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "freedomchuks",
         message = "Freedom was here! mama i made it"
@@ -146,6 +145,10 @@ Entry.Text(
     Entry.Text(
         githubUserName = "yoni.tietz",
         message = "Hello world! Have a great day!"
+    ),
+    Entry.Text(
+        githubUserName = "pmurph0",
+        message = "Hello Droidcon! :)"
     ),
     Entry.ComposableContent(
         githubUserName = "adriantache",
@@ -289,10 +292,14 @@ Entry.Text(
         githubUserName = "berovikaki",
         message = "So happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "aallam",
         message = "Hello from Paris 🥖"
+    ),
+
+    Entry.Text(
+        githubUserName = "Ecatombe",
+        message = "Free Rick Sanchez!!!"
     ),
 
     Entry.Image(
@@ -313,6 +320,10 @@ Entry.Text(
     Entry.ComposableContent(
         githubUserName = "wisors",
         content = { MagicButton() }
+    ,    
+    Entry.Image(
+        githubUserName = "Kaaveh",
+        path = "kaaveh.jpg",
     ),
     Entry.Text(
         githubUserName = "Karambar",
@@ -327,6 +338,16 @@ Entry.Text(
     Entry.Text(
         githubUserName = "gabrielrodriguez2746",
         message = "Bumble give me the voucher! 🤙🤙"
+    ),
+
+    Entry.Text(
+        githubUserName = "AnnaMedvedieva",
+        message = "Hello from Droidcon 2023!"
+    ),
+
+    Entry.Text(
+        githubUserName = "rhnoriega",
+        message = "Hola! from droidon in london"
     ),
 )
 
