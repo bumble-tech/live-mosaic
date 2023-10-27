@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.bumble.livemosaic.participant
 
 import androidx.compose.animation.animateColorAsState
