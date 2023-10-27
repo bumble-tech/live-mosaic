@@ -301,6 +301,11 @@ val entries = listOf(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
     ),
+    Entry.Text(
+        mosaic = MOSAIC1,
+        githubUserName = "katekatjuchka",
+        message = "It is an amazing conference, kudos to the organisers, Happy Friday!"
+    ),
 )
 
 val mosaic1Entries = entries
