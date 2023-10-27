@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.bumble.livemosaic.node.app
 
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -41,9 +42,6 @@ import com.bumble.livemosaic.imageloader.EmbeddableResourceImage
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC1
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC2
 import com.bumble.livemosaic.model.MosaicConfig.MOSAIC3
-import com.bumble.livemosaic.model.entries
-import com.bumble.livemosaic.model.hasMosaic2Entries
-import com.bumble.livemosaic.model.hasMosaic3Entries
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.CallToAction
 import com.bumble.livemosaic.node.app.LiveMosaicAppNode.NavTarget.ManuelTalk
@@ -58,20 +56,26 @@ import com.bumble.livemosaic.node.mosaic.MosaicNode
 import com.bumble.livemosaic.node.starfield.StarFieldNode
 import com.bumble.livemosaic.ui.DottedMeshShape
 import com.bumble.livemosaic.ui.LocalAutoPlayFlow
+import kotlin.random.Random
 
-private val screens = listOfNotNull(
-    Mosaic1,
-    CallToAction,
-    ManuelTalk,
-    StarField,
-    ZsoltTalk,
-    Mosaic2.takeIf { entries.hasMosaic2Entries() },
-    CallToAction.takeIf { entries.hasMosaic2Entries() },
-    StackedMessages.takeIf { entries.hasMosaic2Entries() },
-    Mosaic3.takeIf { entries.hasMosaic3Entries() },
-    CallToAction.takeIf { entries.hasMosaic3Entries() },
-    StarField.takeIf { entries.hasMosaic3Entries() },
-)
+private val screens = buildList {
+    val random = Random(123)
+    add(Mosaic1)
+    add(CallToAction)
+    add(random.getRandomVisualization())
+    add(ZsoltTalk)
+    add(Mosaic2)
+    add(CallToAction)
+    add(random.getRandomVisualization())
+    add(ZsoltTalk)
+    add(Mosaic3)
+    add(CallToAction)
+    add(random.getRandomVisualization())
+    add(ZsoltTalk)
+}
+
+private fun Random.getRandomVisualization() =
+    if (nextBoolean()) StackedMessages else StarField
 
 class LiveMosaicAppNode(
     buildContext: BuildContext,
