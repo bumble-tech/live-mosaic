@@ -294,6 +294,11 @@ Entry.Text(
         message = "Hello from Paris 🥖"
     ),
 
+    Entry.Text(
+        githubUserName = "Ecatombe",
+        message = "Free Rick Sanchez!!!"
+    ),
+
     Entry.Image(
         githubUserName = "jeremyleenz",
         path = "jeremy.jpg",
