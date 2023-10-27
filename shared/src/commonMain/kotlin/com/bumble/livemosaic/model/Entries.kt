@@ -134,17 +134,18 @@ Entry.Text(
         githubUserName = "Phelenor",
         message = "Greetings from Sofascore!"
     ),
-
     Entry.Text(
         githubUserName = "AnujVashisht",
         message = "This is the most popular entry, coming straight from phone 😅"
     ),
-
     Entry.Text(
         githubUserName = "alsafer",
         message = "Hello Droidcon London! Another great conference meeting great people!"
     ),
-
+    Entry.Text(
+        githubUserName = "yoni.tietz",
+        message = "Hello world! Have a great day!"
+    ),
     Entry.ComposableContent(
         githubUserName = "adriantache",
         content = {
