@@ -384,6 +384,11 @@ val entries = listOf(
         message = "I am that italian guy"
     ),
     Entry.Text(
+        githubUserName = "bibinjacob",
+        message = "Having amazing time at DroidCon...."
+    ),
+
+    Entry.Text(
         githubUserName = "vyguera",
         message = "3, 2, 1: Code!"
     ),
