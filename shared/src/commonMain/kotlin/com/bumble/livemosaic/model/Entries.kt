@@ -153,6 +153,10 @@ val entries = listOf(
         githubUserName = "pmurph0",
         message = "Hello Droidcon! :)"
     ),
+    Entry.Text(
+        githubUserName = "eldoDroid8",
+        message = "Happy droidDay!!!!"
+    ),
     Entry.ComposableContent(
         githubUserName = "adriantache",
         content = {
