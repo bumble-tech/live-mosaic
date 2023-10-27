@@ -8,6 +8,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,13 +22,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.participant.ClockWidget
 import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
+import com.bumble.livemosaic.participant.composablesheep.BasicSheepColor
+import com.bumble.livemosaic.participant.composablesheep.LoadingBasicSheep
 
 val entries = listOf(
     Entry.Text(
         githubUserName = "zsoltk",
         message = "Hello Droidcon!"
     ),
-Entry.Text(
+    Entry.Text(
         githubUserName = "renclav",
         message = "Hello Droidcon!"
     ),
@@ -323,12 +326,12 @@ Entry.Text(
         githubUserName = "Karambar",
         message = "Having amazing time at DroidCon London! 🎉🤙"
     ),
-  
+
     Entry.Text(
         githubUserName = "katekatjuchka",
         message = "It is an amazing conference, kudos to the organisers, Happy Friday!"
     ),
-    
+
     Entry.Text(
         githubUserName = "gabrielrodriguez2746",
         message = "Bumble give me the voucher! 🤙🤙"
@@ -343,5 +346,17 @@ Entry.Text(
         githubUserName = "rhnoriega",
         message = "Hola! from droidon in london"
     ),
+
+    Entry.ComposableContent(
+        githubUserName = "nicole-terc",
+        content = {
+            val fluffColor = BasicSheepColor.random()
+            val backgroundColor = BasicSheepColor.random(fluffColor)
+            LoadingBasicSheep(
+                fluffColor = fluffColor,
+                modifier = Modifier.fillMaxSize().background(backgroundColor),
+            )
+        }
+    )
 )
 
