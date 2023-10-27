@@ -366,6 +366,11 @@ Entry.Text(
     Entry.Text(
         githubUserName = "oheyadam",
         message = "Zsolt made me do it"
-    )
+    ),
+
+    Entry.Text(
+        githubUserName = "ericdecanini",
+        message = "Mike is a legend (he didn't make me say this)"
+    ),
 )
 
