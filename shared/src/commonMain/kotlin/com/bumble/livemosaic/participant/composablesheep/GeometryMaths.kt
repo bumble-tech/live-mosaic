@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.bumble.livemosaic.participant.composablesheep
 
 import androidx.compose.ui.geometry.Offset

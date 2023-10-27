@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.bumble.livemosaic.participant.composablesheep
 
 import androidx.compose.animation.core.FastOutSlowInEasing
