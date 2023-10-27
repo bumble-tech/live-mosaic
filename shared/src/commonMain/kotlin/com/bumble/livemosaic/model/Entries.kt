@@ -137,6 +137,11 @@ val entries = listOf(
         message = "This is the most popular entry, coming straight from phone 😅"
     ),
 
+    Entry.Text(
+        githubUserName = "alsafer",
+        message = "Hello Droidcon London! Another great conference meeting great people!"
+    ),
+
     Entry.ComposableContent(
         githubUserName = "adriantache",
         content = {
@@ -295,7 +300,7 @@ val entries = listOf(
         githubUserName = "hln-h",
         message = "Droidcon London lets go! 🤙🤙"
     ),
-    
+
     Entry.ComposableContent(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
