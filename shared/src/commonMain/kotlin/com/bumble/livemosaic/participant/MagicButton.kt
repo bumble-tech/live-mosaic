@@ -14,8 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.window.SingleWindowApplication
 import kotlin.random.Random
 
 @Composable
@@ -43,20 +41,21 @@ fun MagicButton() {
         }
     }
 
+    val uriHandler = LocalUriHandler.current
     Box(
         modifier = Modifier
             .background(animatedBgColor)
             .clickable {
                 // Redirect to the website
-                java.awt.Desktop.getDesktop().browse(java.net.URI("https://bumble-tech.github.io/appyx/"))
+                uriHandler.openUri("https://bumble-tech.github.io/appyx/")
             }
-            .padding(16.dp),
+            .padding(top = 40.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = "Click me!",
             color = animatedTextColor,
-            fontSize = 18.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.alpha(1f)
