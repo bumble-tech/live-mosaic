@@ -305,5 +305,10 @@ val entries = listOf(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
     ),
+    
+    Entry.Text(
+        githubUserName = "gabrielrodriguez2746",
+        message = "Bumble give me the voucher! 🤙🤙"
+    ),
 )
 
