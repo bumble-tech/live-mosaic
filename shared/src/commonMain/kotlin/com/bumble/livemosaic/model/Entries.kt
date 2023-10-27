@@ -324,5 +324,9 @@ Entry.Text(
         githubUserName = "gabrielrodriguez2746",
         message = "Bumble give me the voucher! 🤙🤙"
     ),
+        Entry.Text(
+        githubUserName = "AnnaMedvedieva",
+        message = "Hello from Droidcon 2023!"
+    ),
 )
 
