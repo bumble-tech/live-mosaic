@@ -151,7 +151,7 @@ val entries = listOf(
         message = "Hello Droidcon! :)"
     ),
     Entry.Text(
-        githubUserName = "eldo.droid8",
+        githubUserName = "eldoDroid8",
         message = "Happy droidDay!!!!"
     ),
     Entry.ComposableContent(
