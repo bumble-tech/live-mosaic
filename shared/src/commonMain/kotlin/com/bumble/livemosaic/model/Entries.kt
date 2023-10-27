@@ -8,6 +8,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.participant.ClockWidget
 import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
+import com.bumble.livemosaic.participant.composablesheep.BasicSheepColor
+import com.bumble.livemosaic.participant.composablesheep.LoadingBasicSheep
 import com.bumble.livemosaic.participant.MagicButton
 
 val entries = listOf(
@@ -377,6 +380,17 @@ val entries = listOf(
     Entry.Text(
         githubUserName = "JuliaSotola",
         message = "Make the world a better place!"
+    ),
+    Entry.ComposableContent(
+        githubUserName = "nicole-terc",
+        content = {
+            val fluffColor = BasicSheepColor.random()
+            val backgroundColor = BasicSheepColor.random(fluffColor)
+            LoadingBasicSheep(
+                fluffColor = fluffColor,
+                modifier = Modifier.fillMaxSize().background(backgroundColor),
+            )
+        }
     ),
     Entry.Text(
         githubUserName = "battagliandrea",
