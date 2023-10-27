@@ -74,7 +74,6 @@ Entry.Text(
         githubUserName = "emepox",
         message = "This is my first time in the London Droidcon! I'm very happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "freedomchuks",
         message = "Freedom was here! mama i made it"
@@ -292,7 +291,6 @@ Entry.Text(
         githubUserName = "berovikaki",
         message = "So happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "aallam",
         message = "Hello from Paris 🥖"
@@ -318,7 +316,10 @@ Entry.Text(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
     ),
-
+    Entry.Image(
+        githubUserName = "Kaaveh",
+        path = "kaaveh.jpg",
+    ),
     Entry.Text(
         githubUserName = "Karambar",
         message = "Having amazing time at DroidCon London! 🎉🤙"
