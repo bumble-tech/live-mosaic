@@ -360,6 +360,10 @@ val entries = listOf(
         message = "Zsolt made me do it"
     ),
     Entry.Text(
+        githubUserName = "ericdecanini",
+        message = "Mike is a legend (he didn't make me say this)"
+    ),
+    Entry.Text(
         githubUserName = "VladislavAlfredov",
         message = "Woot! Hi at DroidCon!"
     ),
