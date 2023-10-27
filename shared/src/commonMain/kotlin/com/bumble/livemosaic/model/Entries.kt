@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.participant.ClockWidget
 import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
+import com.bumble.livemosaic.participant.MagicButton
 
 val entries = listOf(
     Entry.Text(
