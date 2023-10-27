@@ -375,5 +375,9 @@ val entries = listOf(
         githubUserName = "JuliaSotola",
         message = "Make the world a better place!"
     ),
+    Entry.Text(
+        githubUserName = "KCL-SAK",
+        message = "Vernoica, Helen, Faisa and Rosie are amazing!"
+    ),
 )
 
