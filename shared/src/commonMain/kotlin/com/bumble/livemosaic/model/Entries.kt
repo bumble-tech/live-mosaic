@@ -353,6 +353,11 @@ Entry.Text(
     Entry.Text(
         githubUserName = "arj154",
         message = "Happy Friday"
+    ),
+
+    Entry.Text(
+        githubUserName = "oheyadam",
+        message = "Zsolt made me do it"
     )
 )
 
