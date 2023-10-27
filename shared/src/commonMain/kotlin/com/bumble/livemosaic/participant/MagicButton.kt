@@ -58,7 +58,7 @@ fun MagicButton(modifier: Modifier = Modifier) {
     }
     val uriHandler = LocalUriHandler.current
     Column(
-        modifier = Modifier.fillMaxSize().background(Color.White),
+        modifier = modifier.fillMaxSize().background(Color.White),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
