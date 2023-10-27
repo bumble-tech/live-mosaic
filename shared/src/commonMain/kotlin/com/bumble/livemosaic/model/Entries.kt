@@ -363,6 +363,10 @@ val entries = listOf(
         message = "Zsolt made me do it"
     ),
     Entry.Text(
+        githubUserName = "ericdecanini",
+        message = "Mike is a legend (he didn't make me say this)"
+    ),
+    Entry.Text(
         githubUserName = "VladislavAlfredov",
         message = "Woot! Hi at DroidCon!"
     ),
@@ -384,6 +388,18 @@ val entries = listOf(
                 modifier = Modifier.fillMaxSize().background(backgroundColor),
             )
         }
+    ),
+    Entry.Text(
+        githubUserName = "battagliandrea",
+        message = "Houston we have a problem"
+    ),
+    Entry.Text(
+        githubUserName = "MovementSpeed",
+        message = "I am that italian guy"
+    ),
+    Entry.Text(
+        githubUserName = "vyguera",
+        message = "3, 2, 1: Code!"
     ),
 )
 
