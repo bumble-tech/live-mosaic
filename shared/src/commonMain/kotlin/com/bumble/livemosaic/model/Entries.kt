@@ -8,6 +8,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.participant.ClockWidget
 import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
+import com.bumble.livemosaic.participant.composablesheep.BasicSheepColor
+import com.bumble.livemosaic.participant.composablesheep.LoadingBasicSheep
 import com.bumble.livemosaic.participant.MagicButton
 
 val entries = listOf(
@@ -329,7 +332,10 @@ val entries = listOf(
         githubUserName = "Karambar",
         message = "Having amazing time at DroidCon London! 🎉🤙"
     ),
-
+    Entry.Text(
+        githubUserName = "mghisham",
+        message = "Hello Bumble! excited to collect my amazon voucher:)"
+    ),
     Entry.Text(
         githubUserName = "katekatjuchka",
         message = "It is an amazing conference, kudos to the organisers, Happy Friday!"
@@ -360,6 +366,10 @@ val entries = listOf(
         message = "Zsolt made me do it"
     ),
     Entry.Text(
+        githubUserName = "ericdecanini",
+        message = "Mike is a legend (he didn't make me say this)"
+    ),
+    Entry.Text(
         githubUserName = "VladislavAlfredov",
         message = "Woot! Hi at DroidCon!"
     ),
@@ -370,6 +380,34 @@ val entries = listOf(
     Entry.Text(
         githubUserName = "JuliaSotola",
         message = "Make the world a better place!"
+    ),
+    Entry.ComposableContent(
+        githubUserName = "nicole-terc",
+        content = {
+            val fluffColor = BasicSheepColor.random()
+            val backgroundColor = BasicSheepColor.random(fluffColor)
+            LoadingBasicSheep(
+                fluffColor = fluffColor,
+                modifier = Modifier.fillMaxSize().background(backgroundColor),
+            )
+        }
+    ),
+    Entry.Text(
+        githubUserName = "battagliandrea",
+        message = "Houston we have a problem"
+    ),
+    Entry.Text(
+        githubUserName = "MovementSpeed",
+        message = "I am that italian guy"
+    ),
+    Entry.Text(
+        githubUserName = "bibinjacob",
+        message = "Having amazing time at DroidCon...."
+    ),
+
+    Entry.Text(
+        githubUserName = "vyguera",
+        message = "3, 2, 1: Code!"
     ),
 )
 
