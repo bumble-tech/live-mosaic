@@ -358,10 +358,11 @@ Entry.Text(
     Entry.Text(
         githubUserName = "oheyadam",
         message = "Zsolt made me do it"
-    )
+    ),
+    
     Entry.Text(
         githubUserName = "VladislavAlfredov",
         message = "Woot! Hi at DroidCon!"
-    )
+    ),
 )
 
