@@ -320,7 +320,7 @@ Entry.Text(
     Entry.ComposableContent(
         githubUserName = "wisors",
         content = { MagicButton() }
-    ,    
+    ),
     Entry.Image(
         githubUserName = "Kaaveh",
         path = "kaaveh.jpg",
