@@ -58,23 +58,24 @@ import com.bumble.livemosaic.ui.DottedMeshShape
 import com.bumble.livemosaic.ui.LocalAutoPlayFlow
 import kotlin.random.Random
 
-private val screens = listOfNotNull(
-    Mosaic1,
-    CallToAction,
-    getRandomVisualization(),
-    ZsoltTalk,
-    Mosaic2,
-    CallToAction,
-    getRandomVisualization(),
-    ZsoltTalk,
-    Mosaic3,
-    CallToAction,
-    getRandomVisualization(),
-    ZsoltTalk,
-)
+private val screens = buildList {
+    val random = Random(123)
+    add(Mosaic1)
+    add(CallToAction)
+    add(random.getRandomVisualization())
+    add(ZsoltTalk)
+    add(Mosaic2)
+    add(CallToAction)
+    add(random.getRandomVisualization())
+    add(ZsoltTalk)
+    add(Mosaic3)
+    add(CallToAction)
+    add(random.getRandomVisualization())
+    add(ZsoltTalk)
+}
 
-private fun getRandomVisualization() =
-    if (Random(123).nextBoolean()) StackedMessages else StarField
+private fun Random.getRandomVisualization() =
+    if (nextBoolean()) StackedMessages else StarField
 
 class LiveMosaicAppNode(
     buildContext: BuildContext,

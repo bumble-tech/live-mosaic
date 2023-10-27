@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumble.livemosaic.participant.ClockWidget
 import com.bumble.livemosaic.participant.DroidconLondonHalloweenSpecial
+import com.bumble.livemosaic.participant.MagicButton
 
 val entries = listOf(
     Entry.Text(
@@ -74,7 +75,6 @@ Entry.Text(
         githubUserName = "emepox",
         message = "This is my first time in the London Droidcon! I'm very happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "freedomchuks",
         message = "Freedom was here! mama i made it"
@@ -145,6 +145,18 @@ Entry.Text(
     Entry.Text(
         githubUserName = "yoni.tietz",
         message = "Hello world! Have a great day!"
+    ),
+    Entry.Text(
+        githubUserName = "pmurph0",
+        message = "Hello Droidcon! :)"
+    ),
+    Entry.Text(
+        githubUserName = "gaelmarhic",
+        message = "Make the first move!"
+    ),
+    Entry.Text(
+        githubUserName = "JuliaSotola",
+        message = "Make the world a better place!"
     ),
     Entry.ComposableContent(
         githubUserName = "adriantache",
@@ -288,10 +300,14 @@ Entry.Text(
         githubUserName = "berovikaki",
         message = "So happy to be here!"
     ),
-
     Entry.Text(
         githubUserName = "aallam",
         message = "Hello from Paris 🥖"
+    ),
+
+    Entry.Text(
+        githubUserName = "Ecatombe",
+        message = "Free Rick Sanchez!!!"
     ),
 
     Entry.Image(
@@ -309,7 +325,14 @@ Entry.Text(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
     ),
-
+    Entry.ComposableContent(
+        githubUserName = "wisors",
+        content = { MagicButton() }
+    ),
+    Entry.Image(
+        githubUserName = "Kaaveh",
+        path = "kaaveh.jpg",
+    ),
     Entry.Text(
         githubUserName = "Karambar",
         message = "Having amazing time at DroidCon London! 🎉🤙"
@@ -324,5 +347,25 @@ Entry.Text(
         githubUserName = "gabrielrodriguez2746",
         message = "Bumble give me the voucher! 🤙🤙"
     ),
+
+    Entry.Text(
+        githubUserName = "AnnaMedvedieva",
+        message = "Hello from Droidcon 2023!"
+    ),
+
+    Entry.Text(
+        githubUserName = "rhnoriega",
+        message = "Hola! from droidon in london"
+    ),
+    
+    Entry.Text(
+        githubUserName = "arj154",
+        message = "Happy Friday"
+    ),
+
+    Entry.Text(
+        githubUserName = "oheyadam",
+        message = "Zsolt made me do it"
+    )
 )
 
