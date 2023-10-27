@@ -1,0 +1,120 @@
+/*
+ * @copyright (c) 2016, Philipp Thürwächter & Pattrick Hüper
+ * @copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
+ * @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+ */
+
+/*
+ * @copyright (c) 2016, Philipp Thürwächter & Pattrick Hüper
+ * @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+ */
+
+/*
+ * @copyright (c) 2016, Philipp Thürwächter, Pattrick Hüper
+ * @copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
+ * @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+ */
+
+/*
+ * @copyright (c) 2016-present, Philipp Thürwächter, Pattrick Hüper
+ * @copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
+ * @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+ */
+
+/*
+ * @copyright (c) 2016-present, Philipp Thürwächter, Pattrick Hüper
+ * @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+ */
+
+/*! ../data/packed/latest.json */
+
+/*! ./MomentZoneRules */
+
+/*! ./MomentZoneRulesProvider */
+
+/*! ./auto-plug */
+
+/*! ./plug */
+
+/*! ./system-default-zone */
+
+/*! ./tzdbData */
+
+/*! ./unpack */
+
+/*! @js-joda/core */
+
+/*! exports provided: MomentZoneRules */
+
+/*! exports provided: MomentZoneRulesProvider */
+
+/*! exports provided: default */
+
+/*! exports provided: unpack */
+
+/*! exports provided: version, zones, links, default */
+
+/*! no exports provided */
+
+/*! no static exports found */
+
+/*!*********************!*\
+  !*** ./src/plug.js ***!
+  \*********************/
+
+/*!***********************!*\
+  !*** ./src/unpack.js ***!
+  \***********************/
+
+/*!*************************!*\
+  !*** ./src/tzdbData.js ***!
+  \*************************/
+
+/*!**************************!*\
+  !*** ./src/auto-plug.js ***!
+  \**************************/
+
+/*!********************************!*\
+  !*** ./src/MomentZoneRules.js ***!
+  \********************************/
+
+/*!*********************************!*\
+  !*** ./data/packed/latest.json ***!
+  \*********************************/
+
+/*!*********************************!*\
+  !*** ./src/js-joda-timezone.js ***!
+  \*********************************/
+
+/*!************************************!*\
+  !*** ./src/system-default-zone.js ***!
+  \************************************/
+
+/*!****************************************!*\
+  !*** ./src/MomentZoneRulesProvider.js ***!
+  \****************************************/
+
+/*!***************************************************************************************************************!*\
+  !*** external {"amd":"@js-joda/core","commonjs":"@js-joda/core","commonjs2":"@js-joda/core","root":"JSJoda"} ***!
+  \***************************************************************************************************************/
+
+/**
+ * @copyright (c) 2016, Philipp Thürwächter & Pattrick Hüper
+ * @copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
+ * @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+ */
+
+/**
+ * @copyright (c) 2016, Philipp Thürwächter & Pattrick Hüper
+ * @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+ */
+
+//! @copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
+
+//! @copyright (c) 2015-present, Philipp Thürwächter, Pattrick Hüper & js-joda contributors
+
+//! @license BSD-3-Clause (see LICENSE in the root directory of this source tree)
+
+//! @version @js-joda/core - 3.2.0
+
+//! @version @js-joda/timezone-2.3.0-2020a
