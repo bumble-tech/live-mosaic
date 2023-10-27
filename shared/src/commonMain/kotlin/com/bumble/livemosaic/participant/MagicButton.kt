@@ -32,7 +32,7 @@ import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 @Composable
-fun MagicButton() {
+fun MagicButton(modifier: Modifier = Modifier) {
     // Generate random colors
     fun randomColor(): Color = Color(
         red = Random.nextInt(256),
