@@ -40,7 +40,10 @@ private const val TEXT_COLOR_SECONDARY = 0xFFF36F21
 private const val BACKGROUND_GRADIENT_OFFSET = 0.4f
 
 @Composable
-fun DroidconLondonHalloweenSpecial() {
+
+fun DroidconLondonHalloweenSpecial(
+    modifier: Modifier = Modifier,
+) {
 
     val infiniteTransition = rememberInfiniteTransition()
 
@@ -55,7 +58,7 @@ fun DroidconLondonHalloweenSpecial() {
         )
     )
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
@@ -93,6 +96,7 @@ fun DroidconLondonHalloweenSpecial() {
     }
 }
 
+@Suppress("MagicNumber")
 fun Modifier.rotatingGradientFill(rotation: Float, brush: Brush) =
     graphicsLayer(alpha = 0.99f)
         .drawWithCache {
