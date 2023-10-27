@@ -28,7 +28,7 @@ val entries = listOf(
         githubUserName = "zsoltk",
         message = "Hello Droidcon!"
     ),
-Entry.Text(
+    Entry.Text(
         githubUserName = "renclav",
         message = "Hello Droidcon!"
     ),
@@ -149,14 +149,6 @@ Entry.Text(
     Entry.Text(
         githubUserName = "pmurph0",
         message = "Hello Droidcon! :)"
-    ),
-    Entry.Text(
-        githubUserName = "gaelmarhic",
-        message = "Make the first move!"
-    ),
-    Entry.Text(
-        githubUserName = "JuliaSotola",
-        message = "Make the world a better place!"
     ),
     Entry.ComposableContent(
         githubUserName = "adriantache",
@@ -337,12 +329,12 @@ Entry.Text(
         githubUserName = "Karambar",
         message = "Having amazing time at DroidCon London! 🎉🤙"
     ),
-  
+
     Entry.Text(
         githubUserName = "katekatjuchka",
         message = "It is an amazing conference, kudos to the organisers, Happy Friday!"
     ),
-    
+
     Entry.Text(
         githubUserName = "gabrielrodriguez2746",
         message = "Bumble give me the voucher! 🤙🤙"
@@ -357,7 +349,7 @@ Entry.Text(
         githubUserName = "rhnoriega",
         message = "Hola! from droidon in london"
     ),
-    
+
     Entry.Text(
         githubUserName = "arj154",
         message = "Happy Friday"
@@ -366,6 +358,14 @@ Entry.Text(
     Entry.Text(
         githubUserName = "oheyadam",
         message = "Zsolt made me do it"
-    )
+    ),
+    Entry.Text(
+        githubUserName = "gaelmarhic",
+        message = "Make the first move!"
+    ),
+    Entry.Text(
+        githubUserName = "JuliaSotola",
+        message = "Make the world a better place!"
+    ),
 )
 
