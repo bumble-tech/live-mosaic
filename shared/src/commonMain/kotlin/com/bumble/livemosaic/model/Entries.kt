@@ -76,7 +76,7 @@ val entries = listOf(
         githubUserName = "emepox",
         message = "This is my first time in the London Droidcon! I'm very happy to be here!"
     ),
-        Entry.Text(
+    Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "freedomchuks",
         message = "Freedom was here! mama i made it"
@@ -279,7 +279,6 @@ val entries = listOf(
         githubUserName = "berovikaki",
         message = "So happy to be here!"
     ),
-
     Entry.Text(
         mosaic = MOSAIC1,
         githubUserName = "aallam",
@@ -300,6 +299,11 @@ val entries = listOf(
         mosaic = MOSAIC1,
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
+    ),
+    Entry.Image(
+        mosaic = MOSAIC1,
+        githubUserName = "Kaaveh",
+        path = "kaaveh.jpg",
     ),
 )
 
