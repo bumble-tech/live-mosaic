@@ -305,6 +305,11 @@ val entries = listOf(
         githubUserName = "stewemetal",
         content = { DroidconLondonHalloweenSpecial() }
     ),
+  
+    Entry.Text(
+        githubUserName = "katekatjuchka",
+        message = "It is an amazing conference, kudos to the organisers, Happy Friday!"
+    ),
     
     Entry.Text(
         githubUserName = "gabrielrodriguez2746",
