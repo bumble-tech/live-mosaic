@@ -396,6 +396,10 @@ val entries = listOf(
         }
     ),
     Entry.Text(
+        githubUserName = "KCL-SAK",
+        message = "Vernoica, Helen, Faisa and Rosie are amazing!"
+    ),
+    Entry.Text(
         githubUserName = "battagliandrea",
         message = "Houston we have a problem"
     ),
