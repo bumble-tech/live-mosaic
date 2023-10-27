@@ -344,5 +344,10 @@ Entry.Text(
         githubUserName = "rhnoriega",
         message = "Hola! from droidon in london"
     ),
+    
+    Entry.Text(
+        githubUserName = "arj154",
+        message = "Happy Friday"
+    )
 )
 
