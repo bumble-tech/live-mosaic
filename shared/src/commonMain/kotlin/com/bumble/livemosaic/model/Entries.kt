@@ -27,7 +27,10 @@ val entries = listOf(
         githubUserName = "zsoltk",
         message = "Hello Droidcon!"
     ),
-
+Entry.Text(
+        githubUserName = "renclav",
+        message = "Hello Droidcon!"
+    ),
     Entry.Text(
         githubUserName = "KovalevAndrey",
         message = "Looking forward to all the talks, meeting new people and beer at the afterparty!"
